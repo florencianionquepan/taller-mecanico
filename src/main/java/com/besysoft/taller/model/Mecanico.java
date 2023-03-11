@@ -31,4 +31,7 @@ public class Mecanico implements Serializable {
 
     private boolean activo;
     private String especialidad;
+
+    @OneToMany(mappedBy = "mecanico", cascade = CascadeType.MERGE)
+    private ManoObra manoObra;
 }
