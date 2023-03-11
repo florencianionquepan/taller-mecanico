@@ -27,5 +27,6 @@ public class OrdenTrabajo implements Serializable{
     private Recepcionista recepcionista;
     @OneToOne(cascade = CascadeType.MERGE)
     private Administrativo administrativo;
+    @OneToOne(cascade = CascadeType.MERGE)
     private Vehiculo vehiculo;
 }
