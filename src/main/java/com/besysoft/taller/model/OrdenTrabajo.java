@@ -1,12 +1,21 @@
 package com.besysoft.taller.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
+import java.util.List;
 
 @Entity
+@Table(name="ordenesTrabajo")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrdenTrabajo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
