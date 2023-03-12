@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="mecanicos")
@@ -33,5 +34,5 @@ public class Mecanico implements Serializable {
     private String especialidad;
 
     @OneToMany(mappedBy = "mecanico", cascade = CascadeType.MERGE)
-    private ManoObra manoObra;
+    private List<ManoObra> listaManoObra;
 }
