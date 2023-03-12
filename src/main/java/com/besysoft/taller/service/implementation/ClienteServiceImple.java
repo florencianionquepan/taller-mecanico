@@ -40,9 +40,11 @@ public class ClienteServiceImple implements IClienteService {
     }
 
     @Override
-    public Cliente recibeCliente(Cliente cliente) {
-        //con dto viene un auto pero la entidad tiene una lista
-        Vehiculo veNuevo= cliente.getListaVehiculos().get(0);
+    public Cliente recibeCliente(String email, String patente) {
+        Cliente cliente=new Cliente();
+        cliente.setCorreoElectronico(email);
+        Vehiculo veNuevo=new Vehiculo();
+        veNuevo.setPatente(patente);
         if(!this.vehiService.existeVehiculo(veNuevo)){
             if(!this.existeCliente(cliente.getCorreoElectronico())){
                 throw new RuntimeException(
