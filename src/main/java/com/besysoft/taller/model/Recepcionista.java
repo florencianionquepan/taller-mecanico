@@ -11,10 +11,6 @@ import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue(value="Recep")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Recepcionista extends Empleado implements Serializable {
 
 }
