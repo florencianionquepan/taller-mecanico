@@ -25,7 +25,11 @@ public class ClienteServiceImple implements IClienteService {
     @Override
     public Cliente altaCliente(Cliente cliente) {
         if(this.existeCliente(cliente.getCorreoElectronico())){
-            return null;
+            throw new NonExistingException(
+                    String.format("El cliente con email %s ya se encuentra registrado ",
+                            cliente.getCorreoElectronico()
+                    )
+            );
         }
         return this.repo.save(cliente);
     }
