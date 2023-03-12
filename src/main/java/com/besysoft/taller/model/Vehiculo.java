@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="vehiculos")
@@ -25,6 +26,6 @@ public class Vehiculo implements Serializable {
     private String marca;
     private String modelo;
 
-    @ManyToOne
-    private Cliente cliente;
+    @ManyToMany(mappedBy = "listaVehiculos", cascade = {CascadeType.MERGE})
+    private List<Cliente> listaClientes;
 }
