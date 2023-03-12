@@ -49,23 +49,23 @@ public class ClienteServiceImple implements IClienteService {
         if(!this.vehiService.existeVehiculo(veNuevo)){
             if(!this.existeCliente(cliente.getCorreoElectronico())){
                 throw new NonExistingException(
-                        String.format("Vehiculo con patente %s no existe" +
-                                veNuevo.getPatente() +
-                                "El cliente con email %s no se encuentra registrado," +
+                        String.format("El vehiculo con patente %s no existe." +
+                                        "El cliente con email %s no se encuentra registrado.",
+                                veNuevo.getPatente() ,
                                 cliente.getCorreoElectronico())
                 );
             }else{
                 throw new NonExistingException(
-                        String.format("El vehiculo con patente %s no existe," +
+                        String.format("El vehiculo con patente %s no existe ",
                                 veNuevo.getPatente())
                 );
             }
         }
         if(!this.existeCliente(cliente.getCorreoElectronico())){
             throw new NonExistingException(
-                    String.format("El cliente con email %s no se encuentra registrado," +
-                            cliente.getCorreoElectronico() +
-                            "Debe crearlo y volver a intentarlo")
+                    String.format("El cliente con email %s no se encuentra registrado ",
+                            cliente.getCorreoElectronico()
+                    )
             );
         }
         //si existe cliente y vehiculo, vincularlos:
