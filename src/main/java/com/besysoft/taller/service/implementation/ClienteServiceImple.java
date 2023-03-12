@@ -33,4 +33,9 @@ public class ClienteServiceImple implements IClienteService {
         }
         return existe;
     }
+
+    @Override
+    public Cliente modiCliente(Cliente cliente) {
+        return null;
+    }
 }
