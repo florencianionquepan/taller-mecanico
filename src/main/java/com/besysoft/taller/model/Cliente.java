@@ -22,12 +22,8 @@ public class Cliente implements Serializable {
     private String apellido;
     @Column(length = 15)
     private String celular;
-    private String localidad;
-    private String codigoPostal;
-    private String calle;
-    private String numero;
-    private String departamento;
-    private String piso;
+    @Embedded
+    private Direccion direccion;
 
     @Column(length = 15)
     private String telefonoLinea;
