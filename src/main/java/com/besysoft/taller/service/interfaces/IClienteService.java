@@ -6,6 +6,5 @@ public interface IClienteService {
 
     Cliente altaCliente(Cliente cliente);
     boolean existeCliente(Cliente cliente);
-
-    Cliente modiCliente(Cliente cliente);
+    Cliente recibeCliente(Cliente cliente);
 }
