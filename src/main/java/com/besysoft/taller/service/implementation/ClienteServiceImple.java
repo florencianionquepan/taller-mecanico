@@ -72,5 +72,10 @@ public class ClienteServiceImple implements IClienteService {
         return this.repo.save(clienteAct);
     }
 
+    private Cliente addVehiculoCliente(Cliente clienteDatos, Vehiculo vehiNuevo){
+        List<Vehiculo> vehiculos=clienteDatos.getListaVehiculos();
+        vehiculos.add(vehiNuevo);
+        clienteDatos.setListaVehiculos(vehiculos);
+        return clienteDatos;
     }
 }
