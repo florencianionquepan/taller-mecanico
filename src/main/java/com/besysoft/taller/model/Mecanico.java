@@ -15,16 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Mecanico implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombres;
-    private String apellido;
-    @Column(length = 15)
-    private String celular;
-    @Embedded
-    private Direccion direccion;
+public class Mecanico extends Persona implements Serializable {
     private boolean activo;
     private String especialidad;
 
