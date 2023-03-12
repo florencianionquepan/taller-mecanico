@@ -1,5 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.ClienteRepository;
@@ -47,22 +48,21 @@ public class ClienteServiceImple implements IClienteService {
         veNuevo.setPatente(patente);
         if(!this.vehiService.existeVehiculo(veNuevo)){
             if(!this.existeCliente(cliente.getCorreoElectronico())){
-                throw new RuntimeException(
-                        String.format("El vehiculo con patente %s no existe," +
-                                veNuevo.getPatente(),
-                                "Y el cliente con email %s no se encuentra registrado," +
-                                cliente.getCorreoElectronico() +
-                                "Debe crear ambos y volver a intentarlo")
+                throw new NonExistingException(
+                        String.format("Vehiculo con patente %s no existe" +
+                                veNuevo.getPatente() +
+                                "El cliente con email %s no se encuentra registrado," +
+                                cliente.getCorreoElectronico())
                 );
             }else{
-                throw new RuntimeException(
+                throw new NonExistingException(
                         String.format("El vehiculo con patente %s no existe," +
-                                "por favor cree uno nuevo y vuelva a intentarlo", veNuevo.getPatente())
+                                veNuevo.getPatente())
                 );
             }
         }
         if(!this.existeCliente(cliente.getCorreoElectronico())){
-            throw new RuntimeException(
+            throw new NonExistingException(
                     String.format("El cliente con email %s no se encuentra registrado," +
                             cliente.getCorreoElectronico() +
                             "Debe crearlo y volver a intentarlo")
