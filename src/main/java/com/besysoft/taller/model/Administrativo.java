@@ -12,10 +12,6 @@ import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue("Admin")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Administrativo extends Empleado implements Serializable {
 
 }
