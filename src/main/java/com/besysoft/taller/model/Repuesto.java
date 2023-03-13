@@ -1,12 +1,14 @@
 package com.besysoft.taller.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -23,5 +25,9 @@ public class Repuesto implements Serializable {
     private String modelo;
     private String repuesto;
     @Column(nullable = false)
-    private double valor;
+    @Digits(integer = 17,fraction = 2)
+    private BigDecimal valor;
+
+    @OneToMany(mappedBy = "repuesto",cascade = CascadeType.MERGE)
+    private List<DetalleOrdenTrabajo> listaOrdenesTrabajos;
 }
