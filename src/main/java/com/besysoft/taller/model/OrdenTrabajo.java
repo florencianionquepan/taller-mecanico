@@ -1,13 +1,15 @@
 package com.besysoft.taller.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -24,18 +26,27 @@ public class OrdenTrabajo implements Serializable{
     private String nivelCombustible;
     private Long kilometraje;
     private String detalleFalla;
-    private LocalDate fechaIngreso;
-    private LocalDate fechaPago;
-    private String formaPago;
-    private int cantidadCuotas;
-    private String tipoTarjeta;
-    private double importeTotal;
-    private LocalDate fechaFinReparacion;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    private Timestamp fechaIngreso;
+
+    private Timestamp fechaPago;
+    private String formaPago;
+    private Integer cantidadCuotas;
+    private String tipoTarjeta;
+
+    @Digits(integer=17,fraction = 2)
+    private BigDecimal importeTotal;
+
+    private Timestamp fechaFinReparacion;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Recepcionista recepcionista;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Administrativo administrativo;
-    @OneToOne(cascade = CascadeType.MERGE)
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Vehiculo vehiculo;
+
+    @OneToMany(mappedBy = "ordenTrabajo",cascade = CascadeType.MERGE)
+    private List<DetalleOrdenTrabajo> listaDetalleOrdenes;
 }
