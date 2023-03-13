@@ -3,6 +3,7 @@ package com.besysoft.taller.dto;
 import com.besysoft.taller.model.Vehiculo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Embedded;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -23,6 +24,7 @@ public class ClienteDTO {
     private String tel;
     @NotEmpty
     @NotNull
+    @Email
     private String email;
 
     @JsonIgnoreProperties(value="clientes")
