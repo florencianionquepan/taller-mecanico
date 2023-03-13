@@ -1,11 +1,13 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
+import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.VehiculoRepository;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,5 +39,17 @@ public class VehiculoServiceImple implements IVehiculoService {
             existe=true;
         }
         return existe;
+    }
+
+    @Override
+    public Vehiculo buscarPorPatente(String pat){
+        return this.repo.buscarPorPatente(pat).get();
+    }
+    
+    @Override
+    public void addClienteVehiculo(Vehiculo vehiculo, Cliente cliente){
+        List<Cliente> clientes=vehiculo.getListaClientes();
+        clientes.add(cliente);
+        vehiculo.setListaClientes(clientes);
     }
 }
