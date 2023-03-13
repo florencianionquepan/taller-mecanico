@@ -21,7 +21,7 @@ public class Vehiculo implements Serializable {
     private Long id;
     @Column(nullable = false,unique = true)
     private String patente;
-    private int anio;
+    private Integer anio;
     private String color;
     private String marca;
     private String modelo;
