@@ -1,5 +1,6 @@
 package com.besysoft.taller.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +28,6 @@ public class Vehiculo implements Serializable {
     private String modelo;
 
     @ManyToMany(mappedBy = "listaVehiculos",cascade = {CascadeType.MERGE})
+    @JsonIgnoreProperties(value="listaVehiculos")
     private List<Cliente> listaClientes;
 }
