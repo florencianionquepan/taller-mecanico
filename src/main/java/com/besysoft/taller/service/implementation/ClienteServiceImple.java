@@ -55,32 +55,39 @@ public class ClienteServiceImple implements IClienteService {
                 throw new NonExistingException(
                         String.format("El vehiculo con patente %s no existe." +
                                         "El cliente con email %s no se encuentra registrado.",
-                                veNuevo.getPatente() ,
-                                cliente.getCorreoElectronico())
+                                patente , email)
                 );
             }else{
                 throw new NonExistingException(
                         String.format("El vehiculo con patente %s no existe ",
-                                veNuevo.getPatente())
+                                patente)
                 );
             }
         }
         if(!this.existeCliente(cliente.getCorreoElectronico())){
             throw new NonExistingException(
                     String.format("El cliente con email %s no se encuentra registrado ",
-                            cliente.getCorreoElectronico()
-                    )
+                            email)
             );
         }
         //si existe cliente y vehiculo, vincularlos:
-        Cliente clienteDatos=this.repo.buscarPorEmail(cliente.getCorreoElectronico()).get();
-        Cliente clienteAct=this.addVehiculoCliente(clienteDatos,veNuevo);
+        Cliente clienteDatos=this.repo.buscarPorEmail(email).get();
+        Vehiculo veDatos=this.vehiService.buscarPorPatente(patente);
+        if(clienteDatos.getListaVehiculos().contains(veDatos)){
+            throw new NonExistingException(
+                    String.format("El cliente con email %s ya posee el vehiculo %s vinculado ",
+                            email, patente
+                    )
+            );
+        }
+        Cliente clienteAct=this.addVehiculoCliente(clienteDatos,veDatos);
+        //this.vehiService.addClienteVehiculo(veDatos,clienteAct);
         return this.repo.save(clienteAct);
     }
 
-    private Cliente addVehiculoCliente(Cliente clienteDatos, Vehiculo vehiNuevo){
+    private Cliente addVehiculoCliente(Cliente clienteDatos, Vehiculo veDatos){
         List<Vehiculo> vehiculos=clienteDatos.getListaVehiculos();
-        vehiculos.add(vehiNuevo);
+        vehiculos.add(veDatos);
         clienteDatos.setListaVehiculos(vehiculos);
         return clienteDatos;
     }
