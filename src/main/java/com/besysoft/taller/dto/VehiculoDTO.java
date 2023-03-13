@@ -26,7 +26,4 @@ public class VehiculoDTO {
     private String marca;
     private String modelo;
 
-    @JsonIgnoreProperties(value="vehiculos")
-    private List<ClienteDTO> clientes;
-
 }
