@@ -23,7 +23,7 @@ public class Mecanico implements Serializable {
     @Embedded
     private Persona persona;
 
-    private boolean activo;
+    private Character activo;
     private String especialidad;
 
     @OneToMany(mappedBy = "mecanico", cascade = CascadeType.MERGE)
