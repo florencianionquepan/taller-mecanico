@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@MappedSuperclass
+@Embeddable
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Persona {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Persona {
+
     @Column(length = 100, nullable = false)
     private String nombres;
     @Column(length = 80, nullable = false)
