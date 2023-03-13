@@ -12,7 +12,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cliente extends Persona implements Serializable{
+public class Cliente implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private Persona persona;
 
     @Column(length = 15)
     private String telefonoLinea;
