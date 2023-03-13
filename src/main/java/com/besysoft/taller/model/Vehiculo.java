@@ -26,4 +26,6 @@ public class Vehiculo implements Serializable {
     private String marca;
     private String modelo;
 
+    @ManyToMany(mappedBy = "listaVehiculos",cascade = {CascadeType.MERGE})
+    private List<Cliente> listaClientes;
 }

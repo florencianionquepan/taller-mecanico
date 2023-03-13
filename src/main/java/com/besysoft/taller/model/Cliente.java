@@ -26,7 +26,7 @@ public class Cliente implements Serializable{
     @Column(nullable = false,unique = true)
     private String correoElectronico;
 
-    @OneToMany(cascade = {CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name="cliente_vehiculo",
             joinColumns = @JoinColumn(name="cliente_id"),
