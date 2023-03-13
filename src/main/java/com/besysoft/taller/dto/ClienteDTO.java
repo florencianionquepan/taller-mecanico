@@ -1,6 +1,5 @@
 package com.besysoft.taller.dto;
 
-import com.besysoft.taller.model.Vehiculo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.Email;
