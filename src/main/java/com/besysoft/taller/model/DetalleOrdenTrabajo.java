@@ -1,12 +1,14 @@
 package com.besysoft.taller.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="detalleOrdenesTrabajo")
@@ -18,11 +20,12 @@ public class DetalleOrdenTrabajo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int cantidad;
-    private double valorTotal;
+    private Integer cantidad;
+    @Digits(integer = 17, fraction = 2)
+    private BigDecimal valorTotal;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private OrdenTrabajo ordenTrabajo;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Repuesto repuesto;
 }
