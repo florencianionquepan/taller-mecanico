@@ -1,5 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.VehiculoRepository;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
@@ -19,7 +20,11 @@ public class VehiculoServiceImple implements IVehiculoService {
     @Override
     public Vehiculo altaVehiculo(Vehiculo vehiculo) {
         if(this.existeVehiculo(vehiculo)){
-            return null;
+            throw new NonExistingException(
+                    String.format("El vehiculo con patente %s ya existe ",
+                            vehiculo.getPatente()
+                    )
+            );
         }
         return this.repo.save(vehiculo);
     }
