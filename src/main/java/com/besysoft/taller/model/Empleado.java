@@ -12,6 +12,16 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name="empleados")
 @DiscriminatorColumn(name="tipo_empleado")
-public abstract class Empleado extends Persona implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public abstract class Empleado implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Embedded
+    private Persona persona;
 
 }
