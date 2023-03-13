@@ -1,15 +1,14 @@
 package com.besysoft.taller.controller;
 
+import com.besysoft.taller.dto.ClienteDTO;
 import com.besysoft.taller.dto.ClienteRecibidoDTO;
 import com.besysoft.taller.dto.mapper.IClienteMapper;
 import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.service.interfaces.IClienteService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,5 +37,13 @@ public class ClienteController {
     public ResponseEntity<?> recibirVehiculoCliente(@RequestParam String email, String patente){
         Cliente ent=this.service.recibeCliente(email, patente);
         return this.successResponse(ent);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> altaCliente(@RequestBody @Valid ClienteDTO dto){
+        Cliente entity=this.mapper.mapToEntity(dto);
+        Cliente nuevo=this.service.altaCliente(entity);
+        ClienteDTO resp=this.mapper.mapToDto(nuevo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 }
