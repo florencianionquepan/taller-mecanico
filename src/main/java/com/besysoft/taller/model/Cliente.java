@@ -1,5 +1,6 @@
 package com.besysoft.taller.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Cliente implements Serializable{
             joinColumns = @JoinColumn(name="cliente_id"),
             inverseJoinColumns = @JoinColumn (name="vehiculo_id")
     )
+    @JsonIgnoreProperties(value="listaClientes")
     private List<Vehiculo> listaVehiculos;
 
 }
