@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 public class ClienteMapper implements IClienteMapper{
 
     private final IPersonaMapper persoMap;
+    private final IVehiculoMapper vehiMap;
 
-    public ClienteMapper(IPersonaMapper persoMap) {
+    public ClienteMapper(IPersonaMapper persoMap, IVehiculoMapper vehiMap) {
         this.persoMap = persoMap;
+        this.vehiMap = vehiMap;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class ClienteMapper implements IClienteMapper{
         entidad.setPersona(this.persoMap.mapToEntity(dto.getPersonaDTO()));
         entidad.setTelefonoLinea(dto.getTel());
         entidad.setCorreoElectronico(dto.getEmail());
-        dto.getVehiculos();
+        entidad.setListaVehiculos(this.vehiMap.mapListToEntities(dto.getVehiculos()));
         return entidad;
     }
 
@@ -34,7 +36,7 @@ public class ClienteMapper implements IClienteMapper{
         dto.setPersonaDTO(this.persoMap.mapToDto(entidad.getPersona()));
         dto.setTel(entidad.getTelefonoLinea());
         dto.setEmail(entidad.getCorreoElectronico());
-        //dto.setVehiculos(...)
+        dto.setVehiculos(this.vehiMap.mapListToDtos(entidad.getListaVehiculos()));
         return dto;
     }
 
