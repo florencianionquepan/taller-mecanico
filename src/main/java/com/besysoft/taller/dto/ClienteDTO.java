@@ -1,6 +1,7 @@
 package com.besysoft.taller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embedded;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ public class ClienteDTO {
     private Long id;
 
     @Embedded
+    @JsonProperty("datosPersonales")
     private PersonaDTO personaDTO;
 
     private String tel;
