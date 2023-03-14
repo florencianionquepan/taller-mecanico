@@ -2,10 +2,8 @@ package com.besysoft.taller.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,6 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Vehiculo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
