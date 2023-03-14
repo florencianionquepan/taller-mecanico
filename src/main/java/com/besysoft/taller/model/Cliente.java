@@ -36,4 +36,13 @@ public class Cliente implements Serializable{
     @JsonIgnoreProperties(value="listaClientes")
     private List<Vehiculo> listaVehiculos;
 
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", persona=" + persona +
+                ", telefonoLinea='" + telefonoLinea + '\'' +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                '}';
+    }
 }
