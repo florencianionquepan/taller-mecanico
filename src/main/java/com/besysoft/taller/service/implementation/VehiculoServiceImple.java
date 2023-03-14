@@ -50,7 +50,6 @@ public class VehiculoServiceImple implements IVehiculoService {
                     )
             );
         }
-        logger.info("vehiculo" + oVehi);
         return oVehi.get();
     }
     
