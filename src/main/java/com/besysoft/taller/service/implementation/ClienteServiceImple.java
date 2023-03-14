@@ -81,7 +81,7 @@ public class ClienteServiceImple implements IClienteService {
             );
         }
         Cliente clienteAct=this.addVehiculoCliente(clienteDatos,veDatos);
-        //this.vehiService.addClienteVehiculo(veDatos,clienteAct);
+        this.vehiService.addClienteVehiculo(veDatos,clienteAct);
         return this.repo.save(clienteAct);
     }
 
