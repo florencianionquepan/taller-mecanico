@@ -33,17 +33,21 @@ public class VehiculoServiceImple implements IVehiculoService {
 
     @Override
     public boolean existeVehiculo(Vehiculo vehiculo) {
-        boolean existe=false;
-        Optional<Vehiculo> oVehi=this.repo.buscarPorPatente(vehiculo.getPatente());
-        if(oVehi.isPresent()){
-            existe=true;
-        }
-        return existe;
+        Vehiculo ve=this.buscarPorPatente(vehiculo.getPatente());
+        return true;
     }
 
     @Override
     public Vehiculo buscarPorPatente(String pat){
-        return this.repo.buscarPorPatente(pat).get();
+        Optional<Vehiculo> oVehi=this.repo.buscarPorPatente(pat);
+        if(oVehi.isEmpty()){
+            throw new NonExistingException(
+                    String.format("El vehiculo con patente %s no existe ",
+                            pat
+                    )
+            );
+        }
+        return oVehi.get();
     }
     
     @Override
