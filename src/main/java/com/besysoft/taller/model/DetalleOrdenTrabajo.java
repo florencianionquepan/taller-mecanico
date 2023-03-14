@@ -1,7 +1,7 @@
 package com.besysoft.taller.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

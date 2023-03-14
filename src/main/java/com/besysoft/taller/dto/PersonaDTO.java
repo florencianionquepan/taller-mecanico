@@ -1,9 +1,9 @@
 package com.besysoft.taller.dto;
 
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.*;
 
 @Getter

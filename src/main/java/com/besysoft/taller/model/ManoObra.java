@@ -1,6 +1,6 @@
 package com.besysoft.taller.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Time;

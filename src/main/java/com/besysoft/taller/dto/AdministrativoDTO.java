@@ -1,7 +1,7 @@
 package com.besysoft.taller.dto;
 import com.besysoft.taller.model.Persona;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Embedded;
+import javax.persistence.Embedded;
 import lombok.*;
 
 @Getter

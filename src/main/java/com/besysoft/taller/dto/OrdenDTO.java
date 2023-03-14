@@ -3,7 +3,7 @@ package com.besysoft.taller.dto;
 import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.Recepcionista;
 import com.besysoft.taller.model.Vehiculo;
-import jakarta.validation.constraints.Digits;
+import javax.validation.constraints.Digits;
 import lombok.*;
 
 import java.math.BigDecimal;

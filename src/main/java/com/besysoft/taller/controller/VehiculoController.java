@@ -4,7 +4,7 @@ import com.besysoft.taller.dto.VehiculoDTO;
 import com.besysoft.taller.dto.mapper.IVehiculoMapper;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

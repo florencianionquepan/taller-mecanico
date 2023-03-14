@@ -4,7 +4,7 @@ import com.besysoft.taller.dto.ClienteDTO;
 import com.besysoft.taller.dto.mapper.IClienteMapper;
 import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.service.interfaces.IClienteService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
