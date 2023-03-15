@@ -25,4 +25,14 @@ public class RecepcionServiceImple implements IRecepcionService {
     public List<Recepcionista> verTodas() {
         return (List<Recepcionista>) this.repo.findAll();
     }
+
+    @Override
+    public boolean existeRecepcionista(Recepcionista recep){
+        return this.repo.existsById(recep.getId());
+    }
+
+    @Override
+    public boolean esCorrecta(Recepcionista recep){
+        return recep.equals(this.repo.findById(recep.getId()).get());
+    }
 }
