@@ -35,7 +35,7 @@ public class OrdenTrabajoDTO {
     private Date fechaFinReparacion;
 
     //esto cuando lo creo lo necesito
-    private Recepcionista recepcionista;
+    private RecepcionistaDTO recepcionista;
 
     //se solicitara cuando se haga la factura
     private AdministrativoDTO administrativo;
