@@ -2,6 +2,7 @@ package com.besysoft.taller.controller;
 
 import com.besysoft.taller.dto.OrdenTrabajoDTO;
 import com.besysoft.taller.dto.mapper.IOrdenTrabajoMapper;
+import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,8 @@ public class OrdenTrabajoController {
 
     @PostMapping
     public ResponseEntity<?> altaOrden(@RequestBody OrdenTrabajoDTO orden){
-        Long datetime = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(datetime);
-        System.out.println("Current Time Stamp: "+timestamp);
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToEntity(orden));
+        OrdenTrabajo nueva=this.service.altaOrden(this.mapper.mapToEntity(orden));
+        OrdenTrabajoDTO nuevaResp=this.mapper.mapToDto(nueva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaResp);
     }
 }
