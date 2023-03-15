@@ -30,7 +30,7 @@ public class OrdenTrabajoDTO {
     private String tipoTarjeta;
 
     private BigDecimal importeTotal;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinReparacion;
 
