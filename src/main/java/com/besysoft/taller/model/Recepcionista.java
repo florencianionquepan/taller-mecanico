@@ -9,4 +9,13 @@ import java.io.Serializable;
 @DiscriminatorValue(value="Recep")
 public class Recepcionista extends Empleado implements Serializable {
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
