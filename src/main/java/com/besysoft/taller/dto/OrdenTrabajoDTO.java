@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -35,11 +37,16 @@ public class OrdenTrabajoDTO {
     private Date fechaFinReparacion;
 
     //esto cuando lo creo lo necesito
+    @NotNull
+    @NotEmpty
     private RecepcionistaDTO recepcionista;
 
     //se solicitara cuando se haga la factura
     private AdministrativoDTO administrativo;
 
-    ///voy a tener un get buscarPorPatente en controller de vehiculo
+    ///voy a tener un get buscarPorPatente en controller de vehiculo en el lado del front
+    //si o si debe ser de un vehiculo
+    @NotNull
+    @NotEmpty
     private VehiculoDTO vehiculo;
 }
