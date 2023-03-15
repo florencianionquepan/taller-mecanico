@@ -22,10 +22,6 @@ public class OrdenServiceImple implements IOrdenService {
 
     @Override
     public OrdenTrabajo altaOrden(OrdenTrabajo orden) {
-        orden.setEstado("CREADA");
-        Long datetime = System.currentTimeMillis();
-        Timestamp fechaIn = new Timestamp(datetime);
-        orden.setFechaIngreso(fechaIn);
         if(!this.recepService.existeRecepcionista(orden.getRecepcionista())){
             throw new NonExistingException(
                     String.format("La recepcionista %s no existe",
@@ -33,6 +29,10 @@ public class OrdenServiceImple implements IOrdenService {
                     )
             );
         }
+        orden.setEstado("CREADA");
+        Long datetime = System.currentTimeMillis();
+        Timestamp fechaIn = new Timestamp(datetime);
+        orden.setFechaIngreso(fechaIn);
         //la asignacion del mecanico se realiza seleccionando de un get y creando la mano de obra con ese mecanico
         //y esta orden
         return this.repo.save(orden);
