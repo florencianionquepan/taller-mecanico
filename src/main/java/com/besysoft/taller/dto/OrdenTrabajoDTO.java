@@ -3,18 +3,14 @@ package com.besysoft.taller.dto;
 import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.Recepcionista;
 import com.besysoft.taller.model.Vehiculo;
-import javax.validation.constraints.Digits;
 import lombok.*;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class OrdenDTO {
+public class OrdenTrabajoDTO {
 
     private Long id;
     private String nivelCombustible;
@@ -30,8 +26,8 @@ public class OrdenDTO {
     private Recepcionista recepcionista;
 
     //se solicitara cuando se haga la factura
-    private Administrativo administrativo;
+    private AdministrativoDTO administrativo;
 
     ///voy a tener un get buscarPorPatente en controller de vehiculo
-    private Vehiculo vehiculo;
+    private VehiculoDTO vehiculo;
 }
