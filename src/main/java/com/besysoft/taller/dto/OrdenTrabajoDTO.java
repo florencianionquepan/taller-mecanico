@@ -1,9 +1,12 @@
 package com.besysoft.taller.dto;
 
-import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.Recepcionista;
-import com.besysoft.taller.model.Vehiculo;
 import lombok.*;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,11 +19,20 @@ public class OrdenTrabajoDTO {
     private String nivelCombustible;
     private Long kilometraje;
     private String falla;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaIngreso;
 
     //estaran nulos al momento de crearse
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaPago;
     private String formaPago;
     private Integer cantidadCuotas;
     private String tipoTarjeta;
+
+    private BigDecimal importeTotal;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaFinReparacion;
 
     //esto cuando lo creo lo necesito
     private Recepcionista recepcionista;
