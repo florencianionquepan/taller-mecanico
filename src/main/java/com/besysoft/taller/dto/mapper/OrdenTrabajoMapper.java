@@ -7,11 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
 
-    private final IAdminMapper AdminMap;
+    private final IRecepMapper recepMapper;
+    private final IAdminMapper adminMap;
     private final IVehiculoMapper vehiMap;
 
-    public OrdenTrabajoMapper(IAdminMapper adminMap, IVehiculoMapper vehiMap) {
-        AdminMap = adminMap;
+    public OrdenTrabajoMapper(IAdminMapper adminMap, IRecepMapper recepMapper, IVehiculoMapper vehiMap) {
+        this.recepMapper = recepMapper;
+        this.adminMap = adminMap;
         this.vehiMap = vehiMap;
     }
 
@@ -29,12 +31,15 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
         dto.setTipoTarjeta(entidad.getTipoTarjeta());
         dto.setImporteTotal(entidad.getImporteTotal());
         dto.setFechaFinReparacion(entidad.getFechaFinReparacion());
-        //falta recepDTO
-        dto.setRecepcionista(entidad.getRecepcionista());
-        if(entidad.getAdministrativo()!=null){
-            dto.setAdministrativo(this.AdminMap.mapToDto(entidad.getAdministrativo()));
+        if(entidad.getRecepcionista()!=null){
+            dto.setRecepcionista(this.recepMapper.mapToDto(entidad.getRecepcionista()));
         }
-        dto.setVehiculo(this.vehiMap.mapToDto(entidad.getVehiculo()));
+        if(entidad.getAdministrativo()!=null){
+            dto.setAdministrativo(this.adminMap.mapToDto(entidad.getAdministrativo()));
+        }
+        if(entidad.getVehiculo()!=null){
+            dto.setVehiculo(this.vehiMap.mapToDto(entidad.getVehiculo()));
+        }
         return dto;
     }
 
@@ -52,11 +57,15 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
         enti.setTipoTarjeta(dto.getTipoTarjeta());
         enti.setImporteTotal(dto.getImporteTotal());
         enti.setFechaFinReparacion(dto.getFechaFinReparacion());
-        enti.setRecepcionista(dto.getRecepcionista());
-        if(dto.getAdministrativo()!=null){
-            enti.setAdministrativo(this.AdminMap.mapToEntity(dto.getAdministrativo()));
+        if(dto.getRecepcionista()!=null){
+            enti.setRecepcionista(this.recepMapper.mapToEntity(dto.getRecepcionista()));
         }
-        enti.setVehiculo(this.vehiMap.mapToEntity(dto.getVehiculo()));
+        if(dto.getAdministrativo()!=null){
+            enti.setAdministrativo(this.adminMap.mapToEntity(dto.getAdministrativo()));
+        }
+        if(dto.getVehiculo()!=null){
+            enti.setVehiculo(this.vehiMap.mapToEntity(dto.getVehiculo()));
+        }
         return enti;
     }
 }
