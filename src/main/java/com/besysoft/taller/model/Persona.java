@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import lombok.*;
 
+import java.util.Objects;
+
 @Embeddable
 @Getter
 @Setter
@@ -25,4 +27,17 @@ public class Persona {
     private String numero;
     private String departamento;
     private String piso;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persona)) return false;
+        Persona persona = (Persona) o;
+        return Objects.equals(getNombres(), persona.getNombres()) && Objects.equals(getApellido(), persona.getApellido()) && Objects.equals(getCelular(), persona.getCelular()) && Objects.equals(getLocalidad(), persona.getLocalidad()) && Objects.equals(getCodigoPostal(), persona.getCodigoPostal()) && Objects.equals(getCalle(), persona.getCalle()) && Objects.equals(getNumero(), persona.getNumero()) && Objects.equals(getDepartamento(), persona.getDepartamento()) && Objects.equals(getPiso(), persona.getPiso());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNombres(), getApellido(), getCelular(), getLocalidad(), getCodigoPostal(), getCalle(), getNumero(), getDepartamento(), getPiso());
+    }
 }
