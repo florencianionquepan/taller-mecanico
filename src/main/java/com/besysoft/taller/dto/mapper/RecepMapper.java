@@ -12,8 +12,8 @@ public class RecepMapper implements IRecepMapper{
 
     private final IPersonaMapper persoMapper;
 
-    public RecepMapper(IPersonaMapper mapper) {
-        this.persoMapper = mapper;
+    public RecepMapper(IPersonaMapper persoMapper) {
+        this.persoMapper = persoMapper;
     }
 
     @Override
