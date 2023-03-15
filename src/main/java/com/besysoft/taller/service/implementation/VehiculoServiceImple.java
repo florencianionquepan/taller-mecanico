@@ -24,7 +24,8 @@ public class VehiculoServiceImple implements IVehiculoService {
 
     @Override
     public Vehiculo altaVehiculo(Vehiculo vehiculo) {
-        if(this.existeVehiculo(vehiculo)){
+        Optional<Vehiculo> oVehi=this.repo.buscarPorPatente(vehiculo.getPatente());
+        if(oVehi.isPresent()){
             throw new NonExistingException(
                     String.format("El vehiculo con patente %s ya existe ",
                             vehiculo.getPatente()
