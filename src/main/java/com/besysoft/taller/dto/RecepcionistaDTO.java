@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.Embedded;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -12,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @ToString
 public class RecepcionistaDTO {
+    @NotNull
     private Long id;
 
     @Embedded
