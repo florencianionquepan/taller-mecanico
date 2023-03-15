@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -40,6 +41,7 @@ public class OrdenTrabajoDTO {
 
     //esto cuando lo creo lo necesito
     @NotNull
+    @Valid
     private RecepcionistaDTO recepcionista;
 
     //se solicitara cuando se haga la factura
