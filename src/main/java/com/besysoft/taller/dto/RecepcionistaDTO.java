@@ -19,5 +19,6 @@ public class RecepcionistaDTO {
 
     @Embedded
     @JsonProperty("datosPersonales")
+    @Valid
     private PersonaDTO personaDTO;
 }
