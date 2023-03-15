@@ -6,10 +6,11 @@ import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.service.interfaces.IAdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/administrativos")
@@ -17,6 +18,7 @@ public class AdminController {
 
     private final IAdminService service;
     private final IAdminMapper mapper;
+    public Map<String,Object> mensajeBody= new HashMap<>();
 
     public AdminController(IAdminService service, IAdminMapper mapper) {
         this.service = service;
@@ -27,5 +29,13 @@ public class AdminController {
     public ResponseEntity<?> altaAdmin(@RequestBody AdministrativoDTO dto){
         Administrativo nuevo=this.service.altaAdmin(this.mapper.mapToEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToDto(nuevo));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> verAdmin(){
+        List<AdministrativoDTO> adminis=this.mapper.mapToListDto(this.service.verAdmin());
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",adminis);
+        return ResponseEntity.ok(mensajeBody);
     }
 }
