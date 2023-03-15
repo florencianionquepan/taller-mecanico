@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<?> altaAdmin(@RequestBody AdministrativoDTO dto){
+    public ResponseEntity<?> altaAdmin(@RequestBody @Valid AdministrativoDTO dto){
         Administrativo nuevo=this.service.altaAdmin(this.mapper.mapToEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToDto(nuevo));
     }
