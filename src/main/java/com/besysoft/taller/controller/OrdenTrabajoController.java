@@ -9,12 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ordenes")
@@ -29,10 +29,20 @@ public class OrdenTrabajoController {
         this.mapper = mapper;
     }
 
+    public Map<String,Object> mensajeBody= new HashMap<>();
+
     @PostMapping
     public ResponseEntity<?> altaOrden(@RequestBody @Valid OrdenTrabajoDTO orden){
         OrdenTrabajo nueva=this.service.altaOrden(this.mapper.mapToEntity(orden));
         OrdenTrabajoDTO nuevaResp=this.mapper.mapToDto(nueva);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaResp);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> verTodas(){
+        List<OrdenTrabajoDTO> ordenes=this.mapper.mapListToDto(this.service.verTodas());
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",ordenes);
+        return ResponseEntity.ok(mensajeBody);
     }
 }
