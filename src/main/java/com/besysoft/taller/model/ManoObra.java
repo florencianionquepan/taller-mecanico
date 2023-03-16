@@ -1,11 +1,18 @@
 package com.besysoft.taller.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.sql.Time;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class ManoObra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
