@@ -51,7 +51,6 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
     public OrdenTrabajo mapToEntity(OrdenTrabajoDTO dto) {
         OrdenTrabajo enti=new OrdenTrabajo();
         enti.setId(dto.getId());
-        enti.setEstado(dto.getEstado());
         enti.setNivelCombustible(dto.getNivelCombustible());
         enti.setKilometraje(dto.getKilometraje());
         enti.setDetalleFalla(dto.getFalla());
