@@ -1,6 +1,7 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
+import com.besysoft.taller.model.EstadoOrden;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
 import com.besysoft.taller.service.interfaces.IOrdenService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdenServiceImple implements IOrdenService {
@@ -30,7 +32,7 @@ public class OrdenServiceImple implements IOrdenService {
                     )
             );
         }
-        orden.setEstado("CREADA");
+        orden.setEstado(EstadoOrden.CREADA);
         Long datetime = System.currentTimeMillis();
         Timestamp fechaIn = new Timestamp(datetime);
         orden.setFechaIngreso(fechaIn);
@@ -47,5 +49,17 @@ public class OrdenServiceImple implements IOrdenService {
     @Override
     public List<OrdenTrabajo> verTodas() {
         return (List<OrdenTrabajo>) this.repo.findAll();
+    }
+
+    @Override
+    public OrdenTrabajo buscarById(Long id) {
+        Optional<OrdenTrabajo> oEstado=this.repo.findById(id);
+        if(oEstado.isEmpty()){
+            throw new NonExistingException(
+                    String.format("La orden de trabajo %d no existe ",
+                            id)
+            );
+        }
+        return oEstado.get();
     }
 }
