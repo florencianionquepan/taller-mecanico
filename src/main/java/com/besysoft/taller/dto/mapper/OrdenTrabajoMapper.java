@@ -24,6 +24,7 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
     public OrdenTrabajoDTO mapToDto(OrdenTrabajo entidad) {
         OrdenTrabajoDTO dto=new OrdenTrabajoDTO();
         dto.setId(entidad.getId());
+        dto.setEstado(entidad.getEstado());
         dto.setNivelCombustible(entidad.getNivelCombustible());
         dto.setKilometraje(entidad.getKilometraje());
         dto.setFalla(entidad.getDetalleFalla());
@@ -50,6 +51,7 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
     public OrdenTrabajo mapToEntity(OrdenTrabajoDTO dto) {
         OrdenTrabajo enti=new OrdenTrabajo();
         enti.setId(dto.getId());
+        enti.setEstado(dto.getEstado());
         enti.setNivelCombustible(dto.getNivelCombustible());
         enti.setKilometraje(dto.getKilometraje());
         enti.setDetalleFalla(dto.getFalla());
