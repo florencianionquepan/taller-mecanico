@@ -31,6 +31,8 @@ public class ManoObraService implements IManoObraService {
         this.mecaService.addManoObra(meca,manoObra);
         OrdenTrabajo orden=this.ordenService.buscarById(manoObra.getOrdenTrabajo().getId());
         //ordenTrabajo no posee mano_obra. relacion 1 a 1
+        manoObra.setMecanico(meca);
+        manoObra.setOrdenTrabajo(orden);
         ManoObra guardada=this.repo.save(manoObra);
         return guardada;
     }
