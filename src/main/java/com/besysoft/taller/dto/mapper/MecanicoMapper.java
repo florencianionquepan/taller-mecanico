@@ -21,6 +21,8 @@ public class MecanicoMapper implements IMecanicoMapper{
         MecanicoDTO dto=new MecanicoDTO();
         dto.setId(entidad.getId());
         dto.setPersonaDTO(this.persoMap.mapToDto(entidad.getPersona()));
+        dto.setActivo(entidad.getActivo());
+        dto.setEspecialidad(entidad.getEspecialidad());
         entidad.getListaManoObra();
         return dto;
     }
@@ -30,6 +32,8 @@ public class MecanicoMapper implements IMecanicoMapper{
         Mecanico ent=new Mecanico();
         ent.setId(dto.getId());
         ent.setPersona(this.persoMap.mapToEntity(dto.getPersonaDTO()));
+        ent.setActivo(dto.getActivo());
+        ent.setEspecialidad(dto.getEspecialidad());
         dto.getListaManoObra();
         return ent;
     }
