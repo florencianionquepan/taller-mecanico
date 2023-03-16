@@ -8,4 +8,5 @@ public interface IOrdenService {
     OrdenTrabajo altaOrden(OrdenTrabajo orden);
     OrdenTrabajo modiOrden(OrdenTrabajo orden);
     List<OrdenTrabajo> verTodas();
+    OrdenTrabajo buscarById(Long id);
 }
