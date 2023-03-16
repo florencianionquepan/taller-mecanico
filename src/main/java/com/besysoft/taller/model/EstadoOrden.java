@@ -5,5 +5,8 @@ public enum EstadoOrden {
     REPARACION,
     AFACTURAR,
     FACTURADA,
-    CERRADA
+    CERRADA;
+
+    EstadoOrden() {
+    }
 }
