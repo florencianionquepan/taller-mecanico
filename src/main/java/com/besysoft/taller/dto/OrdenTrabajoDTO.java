@@ -1,5 +1,6 @@
 package com.besysoft.taller.dto;
 
+import com.besysoft.taller.model.EstadoOrden;
 import com.besysoft.taller.model.Recepcionista;
 import lombok.*;
 
@@ -21,7 +22,7 @@ import java.util.Date;
 public class OrdenTrabajoDTO {
 
     private Long id;
-    private String estado;
+    private EstadoOrden estado;
     private String nivelCombustible;
     private Long kilometraje;
     private String falla;
