@@ -8,6 +8,7 @@ import com.besysoft.taller.service.interfaces.IRecepcionService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class OrdenServiceImple implements IOrdenService {
@@ -41,5 +42,10 @@ public class OrdenServiceImple implements IOrdenService {
     @Override
     public OrdenTrabajo modiOrden(OrdenTrabajo orden) {
         return null;
+    }
+
+    @Override
+    public List<OrdenTrabajo> verTodas() {
+        return (List<OrdenTrabajo>) this.repo.findAll();
     }
 }
