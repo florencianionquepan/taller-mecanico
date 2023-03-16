@@ -13,7 +13,6 @@ import java.sql.Time;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class ManoObra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +27,13 @@ public class ManoObra implements Serializable {
     @OneToOne(cascade = CascadeType.MERGE)
     private OrdenTrabajo ordenTrabajo;
 
+    @Override
+    public String toString() {
+        return "ManoObra{" +
+                "id=" + id +
+                ", detalle='" + detalle + '\'' +
+                ", duracionHs=" + duracionHs +
+                ", ordenTrabajo=" + ordenTrabajo +
+                '}';
+    }
 }
