@@ -1,6 +1,8 @@
 package com.besysoft.taller.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +29,6 @@ public class Mecanico implements Serializable {
     private String especialidad;
 
     @OneToMany(mappedBy = "mecanico", cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = "mecanico")
     private List<ManoObra> listaManoObra;
 }
