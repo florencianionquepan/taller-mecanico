@@ -4,6 +4,9 @@ import com.besysoft.taller.dto.OrdenTrabajoDTO;
 import com.besysoft.taller.model.OrdenTrabajo;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
 
@@ -67,5 +70,11 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
             enti.setVehiculo(this.vehiMap.mapToEntity(dto.getVehiculo()));
         }
         return enti;
+    }
+
+    @Override
+    public List<OrdenTrabajoDTO> mapListToDto(List<OrdenTrabajo> entidades) {
+        return entidades.stream()
+                .map(this::mapToDto).collect(Collectors.toList());
     }
 }
