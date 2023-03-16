@@ -1,6 +1,8 @@
 package com.besysoft.taller.dto.mapper;
 
 import com.besysoft.taller.dto.MecanicoDTO;
+import com.besysoft.taller.model.EstadoOrden;
+import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.Mecanico;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,14 @@ public class MecanicoMapper implements IMecanicoMapper{
         dto.setPersonaDTO(this.persoMap.mapToDto(entidad.getPersona()));
         dto.setActivo(entidad.getActivo());
         dto.setEspecialidad(entidad.getEspecialidad());
-        entidad.getListaManoObra();
+        dto.setListaManoObra(entidad.getListaManoObra());
+        Long manosObrasCreadas=entidad.getListaManoObra().stream()
+                .filter(obra->obra.getOrdenTrabajo().getEstado().equals(EstadoOrden.CREADA))
+                .collect(Collectors.toList()).stream().count();
+        Long manosObrasReparacion=entidad.getListaManoObra().stream()
+                .filter(obra->obra.getOrdenTrabajo().getEstado().equals(EstadoOrden.REPARACION))
+                .collect(Collectors.toList()).stream().count();
+        dto.setCantManoObraPosee((int) (manosObrasCreadas+manosObrasReparacion));
         return dto;
     }
 
