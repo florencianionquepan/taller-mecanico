@@ -21,7 +21,8 @@ public class OrdenTrabajo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoOrden estado;
     private String nivelCombustible;
     private Long kilometraje;
     private String detalleFalla;
