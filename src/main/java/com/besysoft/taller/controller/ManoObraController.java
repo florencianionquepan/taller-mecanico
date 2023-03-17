@@ -27,6 +27,7 @@ public class ManoObraController {
     public Map<String,Object> mensajeBody= new HashMap<>();
 
     @PostMapping
+    //El mecanico crea la mano de obra asignada a la orden de trabajo
     public ResponseEntity<?> creacionManoObra(@RequestBody @Valid ManoObraMecanicoDTO dto){
         ManoObra creada=this.service.altaManoObra(this.mapper.mapToEntity(dto));
         ManoObraMecanicoDTO creadaResp=this.mapper.mapToDto(creada);
