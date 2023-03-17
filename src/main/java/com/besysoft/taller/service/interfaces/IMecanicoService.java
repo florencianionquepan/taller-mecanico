@@ -12,5 +12,6 @@ public interface IMecanicoService {
     Mecanico altaMecanico(Mecanico mecanico);
     List<Mecanico> verTodos();
     Mecanico buscarById(Long id);
+    Mecanico mecanicoConMenosObras();
     void addManoObra(Mecanico mecanico, ManoObra manoObra);
 }
