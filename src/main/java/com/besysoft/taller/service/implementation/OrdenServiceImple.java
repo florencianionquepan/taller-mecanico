@@ -43,8 +43,10 @@ public class OrdenServiceImple implements IOrdenService {
     }
 
     @Override
-    public OrdenTrabajo modiOrden(OrdenTrabajo orden) {
-        return null;
+    public OrdenTrabajo iniciarReparacion(Long id) {
+        OrdenTrabajo orden=this.buscarById(id);
+        orden.setEstado(EstadoOrden.REPARACION);
+        return this.repo.save(orden);
     }
 
     @Override
