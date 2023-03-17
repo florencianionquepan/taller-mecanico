@@ -1,7 +1,5 @@
 package com.besysoft.taller.dto;
 
-import com.besysoft.taller.model.ManoObra;
-import com.besysoft.taller.model.Persona;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -29,5 +27,5 @@ public class MecanicoDTO {
     private String especialidad;
 
     @JsonIgnoreProperties(value = "mecanico")
-    private List<ManoObra> listaManoObra;
+    private List<ManoObraRespDTO> listaManoObra;
 }
