@@ -44,7 +44,9 @@ public class MecanicoController {
 
     @GetMapping("/menosObras")
     public ResponseEntity<?> mecanicoMenosObras(){
-        Mecanico mecaAsignar=this.service.mecanicoConMenosObras();
-        return null;
+        Mecanico mecaMenosObras=this.service.mecanicoConMenosObras();
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",this.mapper.mapToDto(mecaMenosObras));
+        return ResponseEntity.ok(mensajeBody);
     }
 }
