@@ -24,10 +24,12 @@ public class ManoObraService implements IManoObraService {
 
     @Override
     public ManoObra altaManoObra(ManoObra manoObra) {
-        //para traer el objeto entero busco por id a orden de trabajo y a mecanico
-        //esto para que response de mano obra me muestre los atributos de estos objetos
+        //para traer el objeto entero busco por id a orden de trabajo
+        //esto para que response de mano obra me muestre los atributos de la orden
         //guardarle al mecanico esta mano de obra
-        Mecanico meca=this.mecaService.buscarById(manoObra.getMecanico().getId());
+        //el mecanico se selecciona de forma automatica
+        //Mecanico meca=this.mecaService.buscarById(manoObra.getMecanico().getId());
+        Mecanico meca=this.mecaService.mecanicoConMenosObras();
         this.mecaService.addManoObra(meca,manoObra);
         OrdenTrabajo orden=this.ordenService.buscarById(manoObra.getOrdenTrabajo().getId());
         //ordenTrabajo no posee mano_obra. relacion 1 a 1
