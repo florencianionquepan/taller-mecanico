@@ -20,7 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 public class OrdenTrabajoDTO {
-
+    @NotNull
     private Long id;
     private EstadoOrden estado;
     private String nivelCombustible;
