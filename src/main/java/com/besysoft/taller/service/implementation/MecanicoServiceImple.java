@@ -32,8 +32,11 @@ public class MecanicoServiceImple implements IMecanicoService {
     }
 
     @Override
-    public List<Mecanico> verTodos() {
-        return (List<Mecanico>) this.repo.findAll();
+    public List<Mecanico> verActivos() {
+        List<Mecanico> activos=((List<Mecanico>) this.repo.findAll()).stream()
+                .filter(meca->meca.getActivo().toString().equals("T"))
+                .collect(Collectors.toList());
+        return activos;
     }
 
     @Override
@@ -59,9 +62,7 @@ public class MecanicoServiceImple implements IMecanicoService {
     //El metodo me retorna el mecanico activo con menor cantidad de mano de obra
     @Override
     public Mecanico mecanicoConMenosObras(){
-        List<Mecanico> activos=((List<Mecanico>) this.repo.findAll()).stream()
-                        .filter(meca->meca.getActivo().toString().equals("T"))
-                        .collect(Collectors.toList());
+        List <Mecanico> activos=this.verActivos();
         Mecanico mecaMenosObras=activos.stream()
                 .min(Comparator.comparingInt(mecanico ->
                         cantidadObrasVigentes(mecanico.getListaManoObra()))
