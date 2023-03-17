@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,7 +18,8 @@ public class ManoObra implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String detalle;
-    private Time duracionHs;
+    @Temporal(TemporalType.TIME)
+    private Date duracionHs;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnoreProperties(value="listaManoObra")
