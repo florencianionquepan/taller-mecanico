@@ -19,12 +19,10 @@ public class OrdenServiceImple implements IOrdenService {
 
     private final OrdenTrabajoRepository repo;
     private final IRecepcionService recepService;
-    private final IManoObraService manoObraService;
 
-    public OrdenServiceImple(OrdenTrabajoRepository repo, IRecepcionService recepService, IManoObraService manoObraService) {
+    public OrdenServiceImple(OrdenTrabajoRepository repo, IRecepcionService recepService) {
         this.repo = repo;
         this.recepService = recepService;
-        this.manoObraService = manoObraService;
     }
 
     @Override
@@ -41,11 +39,6 @@ public class OrdenServiceImple implements IOrdenService {
         Timestamp fechaIn = new Timestamp(datetime);
         orden.setFechaIngreso(fechaIn);
         OrdenTrabajo nueva=this.repo.save(orden);
-        //creacion de mano de obra de forma automatica para asignarle un mecanico
-        ManoObra manoObra=new ManoObra();
-        manoObra.setOrdenTrabajo(nueva);
-        ManoObra nuevaMO=this.manoObraService.altaManoObra(manoObra);
-        //manoObra.setOrdenTrabajo(orden);
         return nueva;
     }
 
@@ -69,5 +62,12 @@ public class OrdenServiceImple implements IOrdenService {
             );
         }
         return oEstado.get();
+    }
+
+    @Override
+    public void addManoObra(OrdenTrabajo orden, ManoObra obra) {
+        List<ManoObra> obras=orden.getListaManoObra();
+        obras.add(obra);
+        orden.setListaManoObra(obras);
     }
 }
