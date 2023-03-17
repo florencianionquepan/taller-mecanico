@@ -51,5 +51,8 @@ public class OrdenTrabajo implements Serializable{
     private Vehiculo vehiculo;
 
     @OneToMany(mappedBy = "ordenTrabajo",cascade = CascadeType.MERGE)
+    private List<ManoObra> listaManoObra;
+
+    @OneToMany(mappedBy = "ordenTrabajo",cascade = CascadeType.MERGE)
     private List<DetalleOrdenTrabajo> listaDetalleOrdenes;
 }
