@@ -3,9 +3,12 @@ package com.besysoft.taller.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -16,7 +19,8 @@ import java.sql.Time;
 public class ManoObraReqDTO {
     private Long id;
     private String detalle;
-    private Time duracionHs;
+    @Temporal(TemporalType.TIME)
+    private Date duracionHs;
 
     @NotNull
     @Valid
