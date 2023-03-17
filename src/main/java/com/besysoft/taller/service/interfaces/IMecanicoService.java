@@ -10,7 +10,7 @@ import java.util.List;
 public interface IMecanicoService {
 
     Mecanico altaMecanico(Mecanico mecanico);
-    List<Mecanico> verTodos();
+    List<Mecanico> verActivos();
     Mecanico buscarById(Long id);
     Mecanico mecanicoConMenosObras();
     void addManoObra(Mecanico mecanico, ManoObra manoObra);
