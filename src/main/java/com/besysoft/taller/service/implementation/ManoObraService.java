@@ -23,10 +23,10 @@ public class ManoObraService implements IManoObraService {
     }
 
     @Override
-    //El alta de mano de obra va a venir si o si con el objeto mecanico y el objeto orden
     public ManoObra altaManoObra(ManoObra manoObra) {
-        Mecanico meca=manoObra.getMecanico();
-        OrdenTrabajo orden=manoObra.getOrdenTrabajo();
+        //al buscarse se chequean que existan
+        Mecanico meca=this.mecaService.buscarById(manoObra.getMecanico().getId());
+        OrdenTrabajo orden=this.ordenService.buscarById(manoObra.getOrdenTrabajo().getId());
         //agregarle al mecanico y a orden esta mano de obra
         this.mecaService.addManoObra(meca,manoObra);
         this.ordenService.addManoObra(orden,manoObra);
