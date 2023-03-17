@@ -32,17 +32,17 @@ public class OrdenTrabajoController {
     public Map<String,Object> mensajeBody= new HashMap<>();
 
     @PostMapping
+    //Se genera la orden de trabajo
     public ResponseEntity<?> altaOrden(@RequestBody @Valid OrdenTrabajoDTO orden){
         OrdenTrabajo nueva=this.service.altaOrden(this.mapper.mapToEntity(orden));
         OrdenTrabajoDTO nuevaResp=this.mapper.mapToDto(nueva);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaResp);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> modiOrden(@RequestBody @Valid OrdenTrabajoDTO dto,
-                                       @PathVariable Long id){
-        OrdenTrabajo orden=this.mapper.mapToEntity(dto);
-        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.modiOrden(orden));
+    @PutMapping("/{id}/reparacion")
+    //inicia reparacion
+    public ResponseEntity<?> modiOrden(@PathVariable Long id){
+        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.iniciarReparacion(id));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
