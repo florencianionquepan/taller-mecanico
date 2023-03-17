@@ -26,13 +26,6 @@ public class MecanicoMapper implements IMecanicoMapper{
         dto.setActivo(entidad.getActivo());
         dto.setEspecialidad(entidad.getEspecialidad());
         dto.setListaManoObra(entidad.getListaManoObra());
-        Integer manosObrasCreadas=entidad.getListaManoObra().stream()
-                .filter(obra->obra.getOrdenTrabajo().getEstado().equals(EstadoOrden.CREADA))
-                .collect(Collectors.toList()).size();
-        Integer manosObrasReparacion=entidad.getListaManoObra().stream()
-                .filter(obra->obra.getOrdenTrabajo().getEstado().equals(EstadoOrden.REPARACION))
-                .collect(Collectors.toList()).size();
-        dto.setCantManoObraPosee(manosObrasCreadas+manosObrasReparacion);
         return dto;
     }
 
