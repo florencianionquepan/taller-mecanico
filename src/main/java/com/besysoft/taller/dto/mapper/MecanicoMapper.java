@@ -1,8 +1,6 @@
 package com.besysoft.taller.dto.mapper;
 
 import com.besysoft.taller.dto.MecanicoDTO;
-import com.besysoft.taller.model.EstadoOrden;
-import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.Mecanico;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +11,11 @@ import java.util.stream.Collectors;
 public class MecanicoMapper implements IMecanicoMapper{
 
     private final IPersonaMapper persoMap;
+    private final IManoObraRespMapper obraMap;
 
-    public MecanicoMapper(IPersonaMapper persoMap) {
+    public MecanicoMapper(IPersonaMapper persoMap, IManoObraRespMapper obraMap) {
         this.persoMap = persoMap;
+        this.obraMap = obraMap;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MecanicoMapper implements IMecanicoMapper{
         dto.setPersonaDTO(this.persoMap.mapToDto(entidad.getPersona()));
         dto.setActivo(entidad.getActivo());
         dto.setEspecialidad(entidad.getEspecialidad());
-        dto.setListaManoObra(entidad.getListaManoObra());
+        dto.setListaManoObra(this.obraMap.mapListToDto(entidad.getListaManoObra()));
         return dto;
     }
 
@@ -36,7 +36,8 @@ public class MecanicoMapper implements IMecanicoMapper{
         ent.setPersona(this.persoMap.mapToEntity(dto.getPersonaDTO()));
         ent.setActivo(dto.getActivo());
         ent.setEspecialidad(dto.getEspecialidad());
-        dto.getListaManoObra();
+        //Nunca voy a ingresar lista de mano de obra dentro de mecanicos
+        //No es necesario mapear a entidad la lista de obrasDTO aca
         return ent;
     }
 
