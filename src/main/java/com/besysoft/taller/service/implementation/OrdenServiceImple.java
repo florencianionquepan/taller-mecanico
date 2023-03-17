@@ -2,8 +2,10 @@ package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.EstadoOrden;
+import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
+import com.besysoft.taller.service.interfaces.IManoObraService;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,12 @@ public class OrdenServiceImple implements IOrdenService {
 
     private final OrdenTrabajoRepository repo;
     private final IRecepcionService recepService;
+    private final IManoObraService manoObraService;
 
-    public OrdenServiceImple(OrdenTrabajoRepository repo, IRecepcionService recepService) {
+    public OrdenServiceImple(OrdenTrabajoRepository repo, IRecepcionService recepService, IManoObraService manoObraService) {
         this.repo = repo;
         this.recepService = recepService;
+        this.manoObraService = manoObraService;
     }
 
     @Override
@@ -36,9 +40,13 @@ public class OrdenServiceImple implements IOrdenService {
         Long datetime = System.currentTimeMillis();
         Timestamp fechaIn = new Timestamp(datetime);
         orden.setFechaIngreso(fechaIn);
-        //la asignacion del mecanico se realiza seleccionando de un get y creando la mano de obra con ese mecanico
-        //y esta orden
-        return this.repo.save(orden);
+        OrdenTrabajo nueva=this.repo.save(orden);
+        //creacion de mano de obra de forma automatica para asignarle un mecanico
+        ManoObra manoObra=new ManoObra();
+        manoObra.setOrdenTrabajo(nueva);
+        ManoObra nuevaMO=this.manoObraService.altaManoObra(manoObra);
+        //manoObra.setOrdenTrabajo(orden);
+        return nueva;
     }
 
     @Override
