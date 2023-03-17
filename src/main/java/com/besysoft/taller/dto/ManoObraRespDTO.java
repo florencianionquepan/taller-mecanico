@@ -1,5 +1,6 @@
 package com.besysoft.taller.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.sql.Time;
@@ -15,5 +16,6 @@ public class ManoObraRespDTO {
     private String detalle;
     private Time duracionHs;
 
+    @JsonIgnoreProperties(value={"recepcionista","administrativo"})
     private OrdenTrabajoDTO ordenTrabajo;
 }
