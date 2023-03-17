@@ -30,6 +30,4 @@ public class MecanicoDTO {
 
     @JsonIgnoreProperties(value = "mecanico")
     private List<ManoObra> listaManoObra;
-
-    private Integer cantManoObraPosee;
 }
