@@ -29,5 +29,5 @@ public class Repuesto implements Serializable {
     private BigDecimal valor;
 
     @OneToMany(mappedBy = "repuesto",cascade = CascadeType.MERGE)
-    private List<DetalleOrdenTrabajo> listaOrdenesTrabajos;
+    private List<DetalleOrdenTrabajo> listadetalleOrdenes;
 }
