@@ -38,6 +38,16 @@ public class OrdenTrabajoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaResp);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> modiOrden(@RequestBody @Valid OrdenTrabajoDTO dto,
+                                       @PathVariable Long id){
+        OrdenTrabajo orden=this.mapper.mapToEntity(dto);
+        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.modiOrden(orden));
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",dtoResp);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
     @GetMapping
     public ResponseEntity<?> verTodas(){
         List<OrdenTrabajoDTO> ordenes=this.mapper.mapListToDto(this.service.verTodas());
