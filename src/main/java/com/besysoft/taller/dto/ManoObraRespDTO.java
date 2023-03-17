@@ -9,8 +9,8 @@ import java.sql.Time;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//DTO de mano de obra sin mecanico asignado.Su mapper sera inyectado por MecanicoDTO
-public class ManoObraDTO {
+//DTO de mano de obra sin mecanico asignado.Su mapper sera inyectado por MecanicoMapper
+public class ManoObraRespDTO {
     private Long id;
     private String detalle;
     private Time duracionHs;
