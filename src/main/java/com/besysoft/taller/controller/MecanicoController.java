@@ -33,11 +33,18 @@ public class MecanicoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToDto(nuevo));
     }
 
+    //Los siguientes endpoints se pueden utilizar para ser asignados en orden de trabajo
     @GetMapping
-    public ResponseEntity<?> verTodos(){
-        List<MecanicoDTO> mecanicos=this.mapper.mapListToDto(this.service.verTodos());
+    public ResponseEntity<?> verActivos(){
+        List<MecanicoDTO> mecanicos=this.mapper.mapListToDto(this.service.verActivos());
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",mecanicos);
         return ResponseEntity.ok(mensajeBody);
+    }
+
+    @GetMapping("/menosObras")
+    public ResponseEntity<?> mecanicoMenosObras(){
+        Mecanico mecaAsignar=this.service.mecanicoConMenosObras();
+        return null;
     }
 }
