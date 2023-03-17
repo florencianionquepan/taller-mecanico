@@ -1,22 +1,20 @@
 package com.besysoft.taller.dto.mapper;
 
-import com.besysoft.taller.dto.ManoObraReqDTO;
+import com.besysoft.taller.dto.ManoObraMecanicoDTO;
 import com.besysoft.taller.model.ManoObra;
 
-import java.sql.Time;
-
-public class ManoObraReqMapper implements IManoObraReqMapper{
+public class ManoObraMecanicoMapper implements IManoObraMecanicoMapper {
 
     private final IMecanicoMapper mecaMap;
     private final IOrdenTrabajoMapper ordenMap;
 
-    public ManoObraReqMapper(IMecanicoMapper mecaMap, IOrdenTrabajoMapper ordenMap) {
+    public ManoObraMecanicoMapper(IMecanicoMapper mecaMap, IOrdenTrabajoMapper ordenMap) {
         this.mecaMap = mecaMap;
         this.ordenMap = ordenMap;
     }
 
     @Override
-    public ManoObra mapToEntity(ManoObraReqDTO dto) {
+    public ManoObra mapToEntity(ManoObraMecanicoDTO dto) {
         ManoObra enti=new ManoObra();
         enti.setId(dto.getId());
         enti.setDetalle(dto.getDetalle());
@@ -27,8 +25,8 @@ public class ManoObraReqMapper implements IManoObraReqMapper{
     }
 
     @Override
-    public ManoObraReqDTO mapToDto(ManoObra entidad) {
-        ManoObraReqDTO dto=new ManoObraReqDTO();
+    public ManoObraMecanicoDTO mapToDto(ManoObra entidad) {
+        ManoObraMecanicoDTO dto=new ManoObraMecanicoDTO();
         dto.setId(entidad.getId());
         dto.setDetalle(entidad.getDetalle());
         dto.setDuracionHs(entidad.getDuracionHs());

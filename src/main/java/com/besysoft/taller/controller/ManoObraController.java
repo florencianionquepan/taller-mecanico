@@ -1,7 +1,7 @@
 package com.besysoft.taller.controller;
 
-import com.besysoft.taller.dto.ManoObraReqDTO;
-import com.besysoft.taller.dto.mapper.IManoObraReqMapper;
+import com.besysoft.taller.dto.ManoObraMecanicoDTO;
+import com.besysoft.taller.dto.mapper.IManoObraMecanicoMapper;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.service.interfaces.IManoObraService;
 import org.springframework.http.HttpStatus;
@@ -17,9 +17,9 @@ import java.util.Map;
 public class ManoObraController {
 
     private final IManoObraService service;
-    private final IManoObraReqMapper mapper;
+    private final IManoObraMecanicoMapper mapper;
 
-    public ManoObraController(IManoObraService service, IManoObraReqMapper mapper) {
+    public ManoObraController(IManoObraService service, IManoObraMecanicoMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
@@ -27,9 +27,9 @@ public class ManoObraController {
     public Map<String,Object> mensajeBody= new HashMap<>();
 
     @PostMapping
-    public ResponseEntity<?> creacionManoObra(@RequestBody @Valid ManoObraReqDTO dto){
+    public ResponseEntity<?> creacionManoObra(@RequestBody @Valid ManoObraMecanicoDTO dto){
         ManoObra creada=this.service.altaManoObra(this.mapper.mapToEntity(dto));
-        ManoObraReqDTO creadaResp=this.mapper.mapToDto(creada);
+        ManoObraMecanicoDTO creadaResp=this.mapper.mapToDto(creada);
         return ResponseEntity.status(HttpStatus.CREATED).body(creadaResp);
     }
 
@@ -37,7 +37,7 @@ public class ManoObraController {
     //Mecanico asignado completa detalle y tiempos en mano de obra asignada
     //Una vez finalizada la reparacion
     public ResponseEntity<?> modiManoObra(@PathVariable Long id,
-                                           @RequestBody ManoObraReqDTO dto){
+                                           @RequestBody ManoObraMecanicoDTO dto){
         ManoObra manoObra=this.mapper.mapToEntity(dto);
         ManoObra actual=this.service.modiManoObra(manoObra,id);
         mensajeBody.put("Success",Boolean.TRUE);
