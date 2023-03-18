@@ -1,22 +1,22 @@
 package com.besysoft.taller.dto.mapper;
 
-import com.besysoft.taller.dto.ManoObraMecanicoDTO;
+import com.besysoft.taller.dto.ManoObraMecanicoOrdenDTO;
 import com.besysoft.taller.model.ManoObra;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ManoObraMecanicoMapper implements IManoObraMecanicoMapper {
+public class ManoObraMecanicoOrdenMapper implements IManoObraMecanicoOrdenMapper {
 
     private final IMecanicoMapper mecaMap;
     private final IOrdenTrabajoMapper ordenMap;
 
-    public ManoObraMecanicoMapper(IMecanicoMapper mecaMap, IOrdenTrabajoMapper ordenMap) {
+    public ManoObraMecanicoOrdenMapper(IMecanicoMapper mecaMap, IOrdenTrabajoMapper ordenMap) {
         this.mecaMap = mecaMap;
         this.ordenMap = ordenMap;
     }
 
     @Override
-    public ManoObra mapToEntity(ManoObraMecanicoDTO dto) {
+    public ManoObra mapToEntity(ManoObraMecanicoOrdenDTO dto) {
         ManoObra enti=new ManoObra();
         enti.setId(dto.getId());
         enti.setDetalle(dto.getDetalle());
@@ -27,8 +27,8 @@ public class ManoObraMecanicoMapper implements IManoObraMecanicoMapper {
     }
 
     @Override
-    public ManoObraMecanicoDTO mapToDto(ManoObra entidad) {
-        ManoObraMecanicoDTO dto=new ManoObraMecanicoDTO();
+    public ManoObraMecanicoOrdenDTO mapToDto(ManoObra entidad) {
+        ManoObraMecanicoOrdenDTO dto=new ManoObraMecanicoOrdenDTO();
         dto.setId(entidad.getId());
         dto.setDetalle(entidad.getDetalle());
         dto.setDuracionHs(entidad.getDuracionHs());
