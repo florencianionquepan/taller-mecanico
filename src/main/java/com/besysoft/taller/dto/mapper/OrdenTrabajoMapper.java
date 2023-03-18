@@ -29,6 +29,7 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
         dto.setKilometraje(entidad.getKilometraje());
         dto.setFalla(entidad.getDetalleFalla());
         dto.setFechaIngreso(entidad.getFechaIngreso());
+
         dto.setFechaPago(entidad.getFechaPago());
         dto.setFormaPago(entidad.getFormaPago());
         dto.setCantidadCuotas(entidad.getCantidadCuotas());
@@ -55,6 +56,7 @@ public class OrdenTrabajoMapper implements IOrdenTrabajoMapper{
         enti.setKilometraje(dto.getKilometraje());
         enti.setDetalleFalla(dto.getFalla());
         enti.setFechaIngreso(dto.getFechaIngreso());
+
         enti.setFechaPago(dto.getFechaPago());
         enti.setFormaPago(dto.getFormaPago());
         enti.setCantidadCuotas(dto.getCantidadCuotas());
