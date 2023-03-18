@@ -58,8 +58,10 @@ public class OrdenTrabajoDTO {
     private VehiculoDTO vehiculo;
 
     @JsonIgnoreProperties("value=ordenTrabajo")
+    //pero aca ya inyecte mapperOrdenTrabajo
     private List<ManoObraRespDTO> listaManoObra;
 
+    @JsonIgnoreProperties("value=ordenTrabajo")
     private List<DetalleOrdenTrabajo> detalleOrdenes;
 
 }
