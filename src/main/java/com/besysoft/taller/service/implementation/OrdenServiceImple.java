@@ -62,8 +62,8 @@ public class OrdenServiceImple implements IOrdenService {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         List<ManoObra> obras=orden.getListaManoObra();
         //dto valida campos de mano obra
-        //corroborar que cada manoObra tenga como orden esta orden y no otra
         //hacer save de cada manoObra
+        this.verificarOrdenObras(obras,id);
         List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
         //ir al alta de cada detalle(los repuestos ya deben ser existentes)
         orden.setEstado(EstadoOrden.AFACTURAR);
@@ -101,6 +101,12 @@ public class OrdenServiceImple implements IOrdenService {
             if(obraBD.isEmpty()){
                 throw new NonExistingException(
                         String.format("La mano de obra %d no existe ",
+                                obra.getId())
+                );
+            }
+            if(!obraBD.get().getOrdenTrabajo().getId().equals(id)){
+                throw new NonExistingException(
+                        String.format("La mano de obra %d no corresponde a la orden ",
                                 obra.getId())
                 );
             }
