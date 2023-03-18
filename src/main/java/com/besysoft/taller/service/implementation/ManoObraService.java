@@ -1,5 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.exception.MissingDataException;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.Mecanico;
 import com.besysoft.taller.model.OrdenTrabajo;
@@ -37,6 +38,12 @@ public class ManoObraService implements IManoObraService {
     @Override
     public ManoObra modiManoObra(ManoObra manoObra, Long id) {
         manoObra.setId(id);
+        if(manoObra.getDetalle()==null || manoObra.getDuracionHs()==null
+            || manoObra.getDetalle().isEmpty()){
+            throw new MissingDataException(
+                    "Debe completar el detalle y la duracion de tiempo en Hs"
+            );
+        }
         return this.repo.save(manoObra);
     }
 }
