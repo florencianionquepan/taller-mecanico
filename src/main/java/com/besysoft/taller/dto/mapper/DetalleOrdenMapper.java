@@ -4,6 +4,9 @@ import com.besysoft.taller.dto.DetalleOrdenDTO;
 import com.besysoft.taller.model.DetalleOrdenTrabajo;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class DetalleOrdenMapper implements IDetalleOrdenMapper{
 
@@ -30,5 +33,17 @@ public class DetalleOrdenMapper implements IDetalleOrdenMapper{
         dto.setValorTotal(entidad.getValorTotal());
         dto.setRepuesto(this.repuMapper.mapToDto(entidad.getRepuesto()));
         return dto;
+    }
+
+    @Override
+    public List<DetalleOrdenTrabajo> mapListToEntities(List<DetalleOrdenDTO> dtos) {
+        return dtos.stream()
+                .map(this::mapToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DetalleOrdenDTO> MapListToDto(List<DetalleOrdenTrabajo> entidades) {
+        return entidades.stream()
+                .map(this::mapToDto).collect(Collectors.toList());
     }
 }
