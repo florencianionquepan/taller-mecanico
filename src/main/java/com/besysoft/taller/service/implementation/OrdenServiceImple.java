@@ -1,10 +1,7 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
-import com.besysoft.taller.model.EstadoOrden;
-import com.besysoft.taller.model.ManoObra;
-import com.besysoft.taller.model.OrdenTrabajo;
-import com.besysoft.taller.model.Vehiculo;
+import com.besysoft.taller.model.*;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
@@ -54,6 +51,19 @@ public class OrdenServiceImple implements IOrdenService {
         OrdenTrabajo orden=this.buscarById(id);
         orden.setEstado(EstadoOrden.REPARACION);
         return this.repo.save(orden);
+    }
+
+    @Override
+    public OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden) {
+        OrdenTrabajo ordenGuardada=this.buscarById(id);
+        List<ManoObra> obras=orden.getListaManoObra();
+        //deberia chequear que cada una traiga campos compltos en serviceManoObra o aca
+        //corroborar que cada manoObra tenga como orden esta orden y no otra
+        //hacer save de cada manoObra
+        List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
+        //ir al alta de cada detalle(los repuestos ya deben ser existentes)
+        orden.setEstado(EstadoOrden.AFACTURAR);
+        return orden;
     }
 
     @Override
