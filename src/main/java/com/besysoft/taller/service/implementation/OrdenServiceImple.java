@@ -62,8 +62,8 @@ public class OrdenServiceImple implements IOrdenService {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         List<ManoObra> obras=orden.getListaManoObra();
         //dto valida campos de mano obra
-        //hacer save de cada manoObra
         this.verificarOrdenObras(obras,id);
+        this.updateObras(obras);
         List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
         //ir al alta de cada detalle(los repuestos ya deben ser existentes)
         orden.setEstado(EstadoOrden.AFACTURAR);
@@ -113,5 +113,11 @@ public class OrdenServiceImple implements IOrdenService {
             ordenOk=obraBD.get().getOrdenTrabajo().getId().equals(id)?ordenOk+1:ordenOk;
         }
         return ordenOk==obras.size();
+    }
+
+    private void updateObras(List<ManoObra> obras){
+        for(ManoObra obra:obras){
+            this.manoObraRepo.save(obra);
+        }
     }
 }
