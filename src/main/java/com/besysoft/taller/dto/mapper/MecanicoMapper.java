@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 public class MecanicoMapper implements IMecanicoMapper{
 
     private final IPersonaMapper persoMap;
-    private final IManoObraRespMapper obraMap;
+    private final IManoObraOrdenMapper obraMap;
 
-    public MecanicoMapper(IPersonaMapper persoMap, IManoObraRespMapper obraMap) {
+    public MecanicoMapper(IPersonaMapper persoMap, IManoObraOrdenMapper obraMap) {
         this.persoMap = persoMap;
         this.obraMap = obraMap;
     }
