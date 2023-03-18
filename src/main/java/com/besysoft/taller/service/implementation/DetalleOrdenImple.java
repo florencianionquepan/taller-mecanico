@@ -1,26 +1,31 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.model.DetalleOrdenTrabajo;
+import com.besysoft.taller.model.Repuesto;
 import com.besysoft.taller.repository.DetalleOrdenRepository;
 import com.besysoft.taller.service.interfaces.IDetalleOrdenService;
+import com.besysoft.taller.service.interfaces.IRepuestoService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Service
 public class DetalleOrdenImple implements IDetalleOrdenService {
 
     private final DetalleOrdenRepository repo;
+    private final IRepuestoService repuService;
 
-    public DetalleOrdenImple(DetalleOrdenRepository repo) {
+    public DetalleOrdenImple(DetalleOrdenRepository repo, IRepuestoService repuService) {
         this.repo = repo;
+        this.repuService = repuService;
     }
 
     @Override
     public DetalleOrdenTrabajo altaDetalleOrden(DetalleOrdenTrabajo detalle) {
-        //chequear que el repuesto exista inyectando serviceRepuesto
+        Repuesto repuesto=this.repuService.buscarById(detalle.getRepuesto().getId());
         //chequear que cantidad>1 en DTO lo puedo hacer
-        //calcular valor total
+        detalle.setValorTotal(repuesto.getValor().multiply(
+                BigDecimal.valueOf(detalle.getCantidad())));
         return this.repo.save(detalle);
     }
 }
