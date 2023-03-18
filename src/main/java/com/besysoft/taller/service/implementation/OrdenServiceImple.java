@@ -4,10 +4,11 @@ import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.EstadoOrden;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
+import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
-import com.besysoft.taller.service.interfaces.IManoObraService;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
+import com.besysoft.taller.service.interfaces.IVehiculoService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,10 +20,14 @@ public class OrdenServiceImple implements IOrdenService {
 
     private final OrdenTrabajoRepository repo;
     private final IRecepcionService recepService;
+    private final IVehiculoService vehiService;
 
-    public OrdenServiceImple(OrdenTrabajoRepository repo, IRecepcionService recepService) {
+    public OrdenServiceImple(OrdenTrabajoRepository repo,
+                             IRecepcionService recepService,
+                             IVehiculoService vehiService) {
         this.repo = repo;
         this.recepService = recepService;
+        this.vehiService = vehiService;
     }
 
     @Override
@@ -34,6 +39,8 @@ public class OrdenServiceImple implements IOrdenService {
                     )
             );
         }
+        Vehiculo vehi=this.vehiService.buscarPorPatente(orden.getVehiculo().getPatente());
+        orden.setVehiculo(vehi);
         orden.setEstado(EstadoOrden.CREADA);
         Long datetime = System.currentTimeMillis();
         Timestamp fechaIn = new Timestamp(datetime);
