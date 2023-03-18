@@ -2,6 +2,7 @@ package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.*;
+import com.besysoft.taller.repository.ManoObraRepository;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
@@ -18,13 +19,16 @@ public class OrdenServiceImple implements IOrdenService {
     private final OrdenTrabajoRepository repo;
     private final IRecepcionService recepService;
     private final IVehiculoService vehiService;
+    private final ManoObraRepository manoObraRepo;
 
     public OrdenServiceImple(OrdenTrabajoRepository repo,
                              IRecepcionService recepService,
-                             IVehiculoService vehiService) {
+                             IVehiculoService vehiService,
+                             ManoObraRepository manoObraRepo) {
         this.repo = repo;
         this.recepService = recepService;
         this.vehiService = vehiService;
+        this.manoObraRepo = manoObraRepo;
     }
 
     @Override
@@ -57,7 +61,7 @@ public class OrdenServiceImple implements IOrdenService {
     public OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden) {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         List<ManoObra> obras=orden.getListaManoObra();
-        //deberia chequear que cada una traiga campos compltos en serviceManoObra o aca
+        //dto valida campos de mano obra
         //corroborar que cada manoObra tenga como orden esta orden y no otra
         //hacer save de cada manoObra
         List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
@@ -88,5 +92,20 @@ public class OrdenServiceImple implements IOrdenService {
         List<ManoObra> obras=orden.getListaManoObra();
         obras.add(obra);
         orden.setListaManoObra(obras);
+    }
+
+    private boolean verificarOrdenObras(List<ManoObra> obras,Long id){
+        int ordenOk=0;
+        for(ManoObra obra: obras){
+            Optional<ManoObra> obraBD=this.manoObraRepo.findById(obra.getId());
+            if(obraBD.isEmpty()){
+                throw new NonExistingException(
+                        String.format("La mano de obra %d no existe ",
+                                obra.getId())
+                );
+            }
+            ordenOk=obraBD.get().getOrdenTrabajo().getId().equals(id)?ordenOk+1:ordenOk;
+        }
+        return ordenOk==obras.size();
     }
 }
