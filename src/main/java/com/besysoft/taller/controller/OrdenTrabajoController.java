@@ -1,9 +1,10 @@
 package com.besysoft.taller.controller;
 
+import com.besysoft.taller.dto.OrdenAFacturarDTO;
 import com.besysoft.taller.dto.OrdenNuevaDTO;
 import com.besysoft.taller.dto.OrdenTrabajoDTO;
+import com.besysoft.taller.dto.mapper.IOrdenAFacturarMapper;
 import com.besysoft.taller.dto.mapper.IOrdenNuevaMapper;
-import com.besysoft.taller.dto.mapper.OrdenNuevaMapper;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import org.slf4j.Logger;
@@ -23,11 +24,13 @@ public class OrdenTrabajoController {
 
     private final IOrdenService service;
     private final IOrdenNuevaMapper nuevaMapper;
+    private final IOrdenAFacturarMapper aFacturarMapper;
     private Logger logger= LoggerFactory.getLogger(OrdenTrabajoController.class);
 
-    public OrdenTrabajoController(IOrdenService service, IOrdenNuevaMapper nuevaMapper) {
+    public OrdenTrabajoController(IOrdenService service, IOrdenNuevaMapper nuevaMapper, IOrdenAFacturarMapper aFacturarMapper) {
         this.service = service;
         this.nuevaMapper = nuevaMapper;
+        this.aFacturarMapper = aFacturarMapper;
     }
 
     public Map<String,Object> mensajeBody= new HashMap<>();
@@ -53,9 +56,9 @@ public class OrdenTrabajoController {
     //La orden va a venir con las mano de obras (existentes ya) con campos completos
     //y traera los detalles que necesite crear
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
-                                                @RequestBody OrdenTrabajoDTO dto){
-        OrdenTrabajo orden=this.mapper.mapToEntity(dto);
-        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.finalizarReparacion(id,orden));
+                                                @RequestBody OrdenAFacturarDTO dto){
+        OrdenTrabajo orden=this.aFacturarMapper.mapToEntity(dto);
+        OrdenAFacturarDTO dtoResp=this.aFacturarMapper.mapToDto(this.service.finalizarReparacion(id,orden));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
