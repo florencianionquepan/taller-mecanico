@@ -4,6 +4,7 @@ import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.*;
 import com.besysoft.taller.repository.ManoObraRepository;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
+import com.besysoft.taller.service.interfaces.IDetalleOrdenService;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
@@ -20,15 +21,18 @@ public class OrdenServiceImple implements IOrdenService {
     private final IRecepcionService recepService;
     private final IVehiculoService vehiService;
     private final ManoObraRepository manoObraRepo;
+    private final IDetalleOrdenService detalleOrdenService;
 
     public OrdenServiceImple(OrdenTrabajoRepository repo,
                              IRecepcionService recepService,
                              IVehiculoService vehiService,
-                             ManoObraRepository manoObraRepo) {
+                             ManoObraRepository manoObraRepo,
+                             IDetalleOrdenService detalleOrdenService) {
         this.repo = repo;
         this.recepService = recepService;
         this.vehiService = vehiService;
         this.manoObraRepo = manoObraRepo;
+        this.detalleOrdenService = detalleOrdenService;
     }
 
     @Override
@@ -59,13 +63,13 @@ public class OrdenServiceImple implements IOrdenService {
 
     @Override
     public OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden) {
+        //se chequea que el id corresponda a una orden existente
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         List<ManoObra> obras=orden.getListaManoObra();
-        //dto valida campos de mano obra
+        //el dto valida campos de mano obra
         this.verificarOrdenObras(obras,id);
         this.updateObras(obras);
-        List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
-        //ir al alta de cada detalle(los repuestos ya deben ser existentes)
+        this.crearDetalles(orden.getListaDetalleOrdenes());
         orden.setEstado(EstadoOrden.AFACTURAR);
         return orden;
     }
@@ -118,6 +122,12 @@ public class OrdenServiceImple implements IOrdenService {
     private void updateObras(List<ManoObra> obras){
         for(ManoObra obra:obras){
             this.manoObraRepo.save(obra);
+        }
+    }
+
+    private void crearDetalles(List<DetalleOrdenTrabajo> detalles){
+        for(DetalleOrdenTrabajo detalle:detalles){
+            this.detalleOrdenService.altaDetalleOrden(detalle);
         }
     }
 }
