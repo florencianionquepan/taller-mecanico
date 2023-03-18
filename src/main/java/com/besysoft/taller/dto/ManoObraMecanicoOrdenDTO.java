@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-//ESTE DTO si debera poseer mecanico y orden
+//ESTE DTO si debera poseer mecanico y orden, cuando se genera mano de obra
 public class ManoObraMecanicoOrdenDTO {
     private Long id;
     private String detalle;
