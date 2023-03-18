@@ -45,18 +45,11 @@ public class OrdenTrabajoDTO {
     @Valid
     private RecepcionistaDTO recepcionista;
 
-    //se solicitara cuando se haga la factura
+    //se solicitara en facturada
     private AdministrativoDTO administrativo;
 
     @NotNull
     @Valid
     private VehiculoDTO vehiculo;
-
-    @JsonIgnoreProperties("value=ordenTrabajo")
-    //pero aca ya inyecte mapperOrdenTrabajo
-    private List<ManoObraOrdenDTO> listaManoObra;
-
-    @JsonIgnoreProperties("value=ordenTrabajo")
-    private List<DetalleOrdenTrabajo> detalleOrdenes;
 
 }
