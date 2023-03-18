@@ -1,8 +1,5 @@
-package com.besysoft.taller.dto.response;
+package com.besysoft.taller.dto;
 
-import com.besysoft.taller.dto.DetalleOrdenDTO;
-import com.besysoft.taller.dto.ManoObraDTO;
-import com.besysoft.taller.dto.VehiculoDTO;
 import com.besysoft.taller.model.EstadoOrden;
 import lombok.*;
 
@@ -18,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class OrdenFacturarDTO {
+public class OrdenAFacturarDTO {
     @NotNull
     private Long id;
     private EstadoOrden estado;
