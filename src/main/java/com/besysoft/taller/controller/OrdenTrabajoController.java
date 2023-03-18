@@ -43,7 +43,7 @@ public class OrdenTrabajoController {
     @PutMapping("/{id}/reparacion")
     //inicia reparacion
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
-        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.iniciarReparacion(id));
+        OrdenNuevaDTO dtoResp=this.nuevaMapper.mapToDto(this.service.iniciarReparacion(id));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
