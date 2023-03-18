@@ -2,7 +2,9 @@ package com.besysoft.taller.dto.mapper;
 
 import com.besysoft.taller.dto.ManoObraMecanicoDTO;
 import com.besysoft.taller.model.ManoObra;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ManoObraMecanicoMapper implements IManoObraMecanicoMapper {
 
     private final IMecanicoMapper mecaMap;
