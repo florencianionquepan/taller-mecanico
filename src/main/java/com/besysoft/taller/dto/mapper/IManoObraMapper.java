@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface IManoObraMecanicoMapper {
+public interface IManoObraMapper {
     ManoObra mapToEntity(ManoObraDTO dto);
     ManoObraDTO mapToDto(ManoObra entidad);
     List<ManoObra> mapListToEntities(List<ManoObraDTO> dtos);
