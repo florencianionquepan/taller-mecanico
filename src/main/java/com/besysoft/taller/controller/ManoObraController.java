@@ -1,7 +1,7 @@
 package com.besysoft.taller.controller;
 
-import com.besysoft.taller.dto.ManoObraMecanicoDTO;
-import com.besysoft.taller.dto.mapper.IManoObraMecanicoMapper;
+import com.besysoft.taller.dto.ManoObraMecanicoOrdenDTO;
+import com.besysoft.taller.dto.mapper.IManoObraMecanicoOrdenMapper;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.service.interfaces.IManoObraService;
 import org.springframework.http.HttpStatus;
@@ -17,9 +17,9 @@ import java.util.Map;
 public class ManoObraController {
 
     private final IManoObraService service;
-    private final IManoObraMecanicoMapper mapper;
+    private final IManoObraMecanicoOrdenMapper mapper;
 
-    public ManoObraController(IManoObraService service, IManoObraMecanicoMapper mapper) {
+    public ManoObraController(IManoObraService service, IManoObraMecanicoOrdenMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
@@ -28,21 +28,9 @@ public class ManoObraController {
 
     @PostMapping
     //El mecanico crea la mano de obra asignada a la orden de trabajo
-    public ResponseEntity<?> creacionManoObra(@RequestBody @Valid ManoObraMecanicoDTO dto){
+    public ResponseEntity<?> creacionManoObra(@RequestBody @Valid ManoObraMecanicoOrdenDTO dto){
         ManoObra creada=this.service.altaManoObra(this.mapper.mapToEntity(dto));
-        ManoObraMecanicoDTO creadaResp=this.mapper.mapToDto(creada);
+        ManoObraMecanicoOrdenDTO creadaResp=this.mapper.mapToDto(creada);
         return ResponseEntity.status(HttpStatus.CREATED).body(creadaResp);
-    }
-
-    @PutMapping("/{id}")
-    //Mecanico asignado completa detalle y tiempos en mano de obra asignada
-    //Una vez finalizada la reparacion
-    public ResponseEntity<?> modiManoObra(@PathVariable Long id,
-                                           @RequestBody ManoObraMecanicoDTO dto){
-        ManoObra manoObra=this.mapper.mapToEntity(dto);
-        ManoObra actual=this.service.modiManoObra(manoObra,id);
-        mensajeBody.put("Success",Boolean.TRUE);
-        mensajeBody.put("data",this.mapper.mapToDto(actual));
-        return ResponseEntity.ok(mensajeBody);
     }
 }
