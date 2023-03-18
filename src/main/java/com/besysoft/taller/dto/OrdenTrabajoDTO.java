@@ -2,18 +2,13 @@ package com.besysoft.taller.dto;
 
 import com.besysoft.taller.model.DetalleOrdenTrabajo;
 import com.besysoft.taller.model.EstadoOrden;
-import com.besysoft.taller.model.ManoObra;
-import com.besysoft.taller.model.Recepcionista;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +54,7 @@ public class OrdenTrabajoDTO {
 
     @JsonIgnoreProperties("value=ordenTrabajo")
     //pero aca ya inyecte mapperOrdenTrabajo
-    private List<ManoObraRespDTO> listaManoObra;
+    private List<ManoObraOrdenDTO> listaManoObra;
 
     @JsonIgnoreProperties("value=ordenTrabajo")
     private List<DetalleOrdenTrabajo> detalleOrdenes;

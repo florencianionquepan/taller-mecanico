@@ -27,5 +27,5 @@ public class MecanicoDTO {
     private String especialidad;
 
     @JsonIgnoreProperties(value = "mecanico")
-    private List<ManoObraRespDTO> listaManoObra;
+    private List<ManoObraOrdenDTO> listaManoObra;
 }

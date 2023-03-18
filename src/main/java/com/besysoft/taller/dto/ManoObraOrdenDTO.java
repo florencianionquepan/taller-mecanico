@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @ToString
 //DTO de mano de obra sin mecanico asignado.Su mapper sera inyectado por MecanicoMapper
-public class ManoObraRespDTO {
+public class ManoObraOrdenDTO {
     private Long id;
     private String detalle;
     @Temporal(TemporalType.TIME)
