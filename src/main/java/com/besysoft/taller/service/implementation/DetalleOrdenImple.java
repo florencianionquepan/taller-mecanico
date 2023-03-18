@@ -22,8 +22,9 @@ public class DetalleOrdenImple implements IDetalleOrdenService {
 
     @Override
     public DetalleOrdenTrabajo altaDetalleOrden(DetalleOrdenTrabajo detalle) {
+        //chequea que los repuestos existan
         Repuesto repuesto=this.repuService.buscarById(detalle.getRepuesto().getId());
-        //cantidad>1 en DTO
+        //cantidad>1 lo corrobora en DTO
         detalle.setValorTotal(repuesto.getValor().multiply(
                 BigDecimal.valueOf(detalle.getCantidad())));
         return this.repo.save(detalle);
