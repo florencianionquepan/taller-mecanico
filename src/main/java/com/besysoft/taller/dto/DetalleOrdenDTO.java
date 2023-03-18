@@ -2,6 +2,7 @@ package com.besysoft.taller.dto;
 
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.model.Repuesto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.validation.Valid;
@@ -25,5 +26,6 @@ public class DetalleOrdenDTO {
     private BigDecimal valorTotal;
     @NotNull
     @Valid
+    @JsonIgnoreProperties(value="listadetalleOrdenes")
     private RepuestoDTO repuesto;
 }
