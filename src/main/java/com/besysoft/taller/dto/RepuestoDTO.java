@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class RepuestoDTO {
+    @NotNull
     private Long id;
     private String marca;
     private String modelo;
