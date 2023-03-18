@@ -1,10 +1,13 @@
 package com.besysoft.taller.controller;
 
+import com.besysoft.taller.dto.ManoObraMecanicoDTO;
 import com.besysoft.taller.dto.OrdenTrabajoDTO;
+import com.besysoft.taller.dto.mapper.IManoObraMecanicoMapper;
 import com.besysoft.taller.dto.mapper.IOrdenTrabajoMapper;
+import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
+import com.besysoft.taller.service.interfaces.IManoObraService;
 import com.besysoft.taller.service.interfaces.IOrdenService;
-import com.besysoft.taller.service.interfaces.IRecepcionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -43,6 +46,18 @@ public class OrdenTrabajoController {
     //inicia reparacion
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
         OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.iniciarReparacion(id));
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",dtoResp);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
+    @PutMapping("/{id}/aFacturar")
+    //La orden va a venir con las mano de obras (existentes ya) con campos completos
+    //y traera los detalles que necesite crear
+    public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
+                                                @RequestBody OrdenTrabajoDTO dto){
+        OrdenTrabajo orden=this.mapper.mapToEntity(dto);
+        OrdenTrabajoDTO dtoResp=this.mapper.mapToDto(this.service.finalizarReparacion(id,orden));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
