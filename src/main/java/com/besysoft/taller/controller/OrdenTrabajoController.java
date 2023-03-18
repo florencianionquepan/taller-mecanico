@@ -1,12 +1,8 @@
 package com.besysoft.taller.controller;
 
-import com.besysoft.taller.dto.ManoObraMecanicoDTO;
 import com.besysoft.taller.dto.OrdenTrabajoDTO;
-import com.besysoft.taller.dto.mapper.IManoObraMecanicoMapper;
 import com.besysoft.taller.dto.mapper.IOrdenTrabajoMapper;
-import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
-import com.besysoft.taller.service.interfaces.IManoObraService;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
