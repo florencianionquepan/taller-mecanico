@@ -67,6 +67,16 @@ public class OrdenTrabajoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
+    @PutMapping("/{id}/facturacion")
+    public ResponseEntity<?> facturarOrden(@PathVariable Long id,
+                                           @RequestBody @Valid OrdenFacturadaDTO dto){
+        OrdenTrabajo orden=this.factuMapper.mapToEntity(dto);
+        OrdenFacturadaDTO ordenFactu=this.factuMapper.mapToDto(this.service.facturarOrden(id,orden));
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",ordenFactu);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
     @GetMapping
     public ResponseEntity<?> verTodas(){
         List<OrdenNuevaDTO> ordenes=this.nuevaMapper.mapListToDto(this.service.verTodas());
