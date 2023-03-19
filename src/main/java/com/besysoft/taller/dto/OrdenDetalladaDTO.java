@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class OrdenAFacturarDTO {
+public class OrdenDetalladaDTO {
     @NotNull
     private Long id;
     private EstadoOrden estado;
