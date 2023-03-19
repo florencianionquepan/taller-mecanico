@@ -11,7 +11,6 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Persona {
 
     @Column(length = 100, nullable = false)
