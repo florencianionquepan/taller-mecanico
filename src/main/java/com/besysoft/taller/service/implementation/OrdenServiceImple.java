@@ -45,8 +45,8 @@ public class OrdenServiceImple implements IOrdenService {
     public OrdenTrabajo altaOrden(OrdenTrabajo orden) {
         if(!this.recepService.existeRecepcionista(orden.getRecepcionista())){
             throw new NonExistingException(
-                    String.format("La recepcionista %s no existe",
-                            orden.getRecepcionista().getPersona().getNombres()
+                    String.format("La recepcionista con id %d no existe",
+                            orden.getRecepcionista().getId()
                     )
             );
         }
