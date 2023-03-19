@@ -1,6 +1,6 @@
 package com.besysoft.taller.dto.mapper;
 
-import com.besysoft.taller.dto.OrdenAFacturarDTO;
+import com.besysoft.taller.dto.OrdenDetalladaDTO;
 import com.besysoft.taller.model.OrdenTrabajo;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class OrdenAFacturarMapper implements IOrdenAFacturarMapper{
+public class OrdenDetalladaMapper implements IOrdenDetalladaMapper {
 
     private final IVehiculoMapper vehiMap;
     private final IManoObraMapper obraMap;
     private final IDetalleOrdenMapper detalleOrdenMap;
 
-    public OrdenAFacturarMapper(IVehiculoMapper vehiMap, IManoObraMapper obraMap, IDetalleOrdenMapper detalleOrdenMap) {
+    public OrdenDetalladaMapper(IVehiculoMapper vehiMap, IManoObraMapper obraMap, IDetalleOrdenMapper detalleOrdenMap) {
         this.vehiMap = vehiMap;
         this.obraMap = obraMap;
         this.detalleOrdenMap = detalleOrdenMap;
@@ -22,8 +22,8 @@ public class OrdenAFacturarMapper implements IOrdenAFacturarMapper{
 
 
     @Override
-    public OrdenAFacturarDTO mapToDto(OrdenTrabajo entidad) {
-        OrdenAFacturarDTO dto=new OrdenAFacturarDTO();
+    public OrdenDetalladaDTO mapToDto(OrdenTrabajo entidad) {
+        OrdenDetalladaDTO dto=new OrdenDetalladaDTO();
         dto.setId(entidad.getId());
         dto.setEstado(entidad.getEstado());
         dto.setFechaFinReparacion(entidad.getFechaFinReparacion());
@@ -34,7 +34,7 @@ public class OrdenAFacturarMapper implements IOrdenAFacturarMapper{
     }
 
     @Override
-    public OrdenTrabajo mapToEntity(OrdenAFacturarDTO dto) {
+    public OrdenTrabajo mapToEntity(OrdenDetalladaDTO dto) {
         OrdenTrabajo enti=new OrdenTrabajo();
         enti.setId(dto.getId());
         enti.setEstado(dto.getEstado());
@@ -46,7 +46,7 @@ public class OrdenAFacturarMapper implements IOrdenAFacturarMapper{
     }
 
     @Override
-    public List<OrdenAFacturarDTO> mapListToDto(List<OrdenTrabajo> entidades) {
+    public List<OrdenDetalladaDTO> mapListToDto(List<OrdenTrabajo> entidades) {
         return entidades.stream()
                 .map(this::mapToDto).collect(Collectors.toList());
     }
