@@ -24,10 +24,10 @@ public class DetalleOrdenTrabajo implements Serializable {
     @Digits(integer = 17, fraction = 2)
     private BigDecimal valorTotal;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JsonIgnoreProperties(value="listaDetalleOrdenes")
     private OrdenTrabajo ordenTrabajo;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JsonIgnoreProperties(value="listaDetalleOrdenes")
     private Repuesto repuesto;
 }
