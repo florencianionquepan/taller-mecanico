@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,7 +25,10 @@ public class OrdenFacturadaDTO {
     private EstadoOrden estado;
 
     private LocalDateTime fechaPago;
+    @NotNull
+    @NotEmpty
     private String formaPago;
+    @Min(1)
     private Integer cantidadCuotas;
     private String tipoTarjeta;
 
