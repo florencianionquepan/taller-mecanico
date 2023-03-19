@@ -56,7 +56,7 @@ public class OrdenTrabajoController {
     //La orden va a venir con las mano de obras (existentes ya) con campos completos
     //y traera los detalles que necesite crear
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
-                                                @RequestBody OrdenAFacturarDTO dto){
+                                                @RequestBody @Valid OrdenAFacturarDTO dto){
         OrdenTrabajo orden=this.aFacturarMapper.mapToEntity(dto);
         OrdenAFacturarDTO dtoResp=this.aFacturarMapper.mapToDto(this.service.finalizarReparacion(id,orden));
         mensajeBody.put("Success",Boolean.TRUE);
