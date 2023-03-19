@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,11 +28,9 @@ public class OrdenTrabajo implements Serializable{
     private Long kilometraje;
     private String detalleFalla;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaIngreso;
+    private LocalDateTime fechaIngreso;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaPago;
+    private LocalDateTime fechaPago;
     private String formaPago;
     private Integer cantidadCuotas;
     private String tipoTarjeta;
@@ -40,8 +38,7 @@ public class OrdenTrabajo implements Serializable{
     @Digits(integer=17,fraction = 2)
     private BigDecimal importeTotal;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFinReparacion;
+    private LocalDateTime fechaFinReparacion;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Recepcionista recepcionista;
