@@ -40,16 +40,11 @@ public class OrdenTrabajoDTO {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinReparacion;
 
-    //esto cuando lo creo lo necesito
-    @NotNull
-    @Valid
     private RecepcionistaDTO recepcionista;
 
     //se solicitara en facturada
     private AdministrativoDTO administrativo;
 
-    @NotNull
-    @Valid
     private VehiculoDTO vehiculo;
 
 }
