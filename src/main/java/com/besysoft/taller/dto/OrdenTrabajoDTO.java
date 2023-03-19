@@ -1,17 +1,11 @@
 package com.besysoft.taller.dto;
 
-import com.besysoft.taller.model.DetalleOrdenTrabajo;
 import com.besysoft.taller.model.EstadoOrden;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,20 +19,18 @@ public class OrdenTrabajoDTO {
     private String nivelCombustible;
     private Long kilometraje;
     private String falla;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaIngreso;
+
+    private LocalDateTime fechaIngreso;
 
     //estaran nulos al momento de crearse
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaPago;
+    private LocalDateTime fechaPago;
     private String formaPago;
     private Integer cantidadCuotas;
     private String tipoTarjeta;
 
     private BigDecimal importeTotal;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFinReparacion;
+    private LocalDateTime fechaFinReparacion;
 
     private RecepcionistaDTO recepcionista;
 
