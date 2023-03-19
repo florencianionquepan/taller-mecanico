@@ -9,8 +9,12 @@ import com.besysoft.taller.service.interfaces.IOrdenService;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,16 +66,24 @@ public class OrdenServiceImple implements IOrdenService {
     }
 
     @Override
+    @Transactional
     public OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden) {
         //se chequea que el id corresponda a una orden existente
         OrdenTrabajo ordenGuardada=this.buscarById(id);
+        /*MANO OBRAS //el dto valida campos de mano obra */
         List<ManoObra> obras=orden.getListaManoObra();
-        //el dto valida campos de mano obra
-        this.verificarOrdenObras(obras,id);
-        this.updateObras(obras);
-        this.crearDetalles(orden.getListaDetalleOrdenes());
-        orden.setEstado(EstadoOrden.AFACTURAR);
-        return orden;
+        List<ManoObra> obrasActuales=this.completarObras(obras,id);
+        this.updateObras(obrasActuales);
+        ordenGuardada.setListaManoObra(obrasActuales);
+        /*DETALLES ORDEN TRABAJO*/
+        this.crearDetalles(orden,orden.getListaDetalleOrdenes());
+        ordenGuardada.setListaDetalleOrdenes(orden.getListaDetalleOrdenes());
+        //ORDEN TRABAJO ATRIBUTOS
+        Long datetime = System.currentTimeMillis();
+        Timestamp fechaIn = new Timestamp(datetime);
+        ordenGuardada.setFechaFinReparacion(fechaIn);
+        ordenGuardada.setEstado(EstadoOrden.AFACTURAR);
+        return this.repo.save(ordenGuardada);
     }
 
     @Override
@@ -98,8 +110,9 @@ public class OrdenServiceImple implements IOrdenService {
         orden.setListaManoObra(obras);
     }
 
-    private boolean verificarOrdenObras(List<ManoObra> obras,Long id){
-        int ordenOk=0;
+    //devuelve el listado de obras completo y chequea que los datos que trae sean correctos
+    private List<ManoObra> completarObras(List<ManoObra> obras,Long id){
+        List<ManoObra> manoObras=new ArrayList<ManoObra>();
         for(ManoObra obra: obras){
             Optional<ManoObra> obraBD=this.manoObraRepo.findById(obra.getId());
             if(obraBD.isEmpty()){
@@ -114,19 +127,23 @@ public class OrdenServiceImple implements IOrdenService {
                                 obra.getId())
                 );
             }
-            ordenOk=obraBD.get().getOrdenTrabajo().getId().equals(id)?ordenOk+1:ordenOk;
+            obra.setOrdenTrabajo(obraBD.get().getOrdenTrabajo());
+            obra.setMecanico(obraBD.get().getMecanico());
+            manoObras.add(obra);
         }
-        return ordenOk==obras.size();
+        return manoObras;
     }
 
     private void updateObras(List<ManoObra> obras){
+        //hacerle el save con el mecanico y la orden!!
         for(ManoObra obra:obras){
             this.manoObraRepo.save(obra);
         }
     }
 
-    private void crearDetalles(List<DetalleOrdenTrabajo> detalles){
+    private void crearDetalles(OrdenTrabajo orden,List<DetalleOrdenTrabajo> detalles){
         for(DetalleOrdenTrabajo detalle:detalles){
+            detalle.setOrdenTrabajo(orden);
             this.detalleOrdenService.altaDetalleOrden(detalle);
         }
     }
