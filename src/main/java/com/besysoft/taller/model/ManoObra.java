@@ -26,6 +26,7 @@ public class ManoObra implements Serializable {
     private Mecanico mecanico;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value="listaManoObra")
     private OrdenTrabajo ordenTrabajo;
 
     @Override
@@ -34,7 +35,6 @@ public class ManoObra implements Serializable {
                 "id=" + id +
                 ", detalle='" + detalle + '\'' +
                 ", duracionHs=" + duracionHs +
-                ", ordenTrabajo=" + ordenTrabajo +
                 '}';
     }
 }
