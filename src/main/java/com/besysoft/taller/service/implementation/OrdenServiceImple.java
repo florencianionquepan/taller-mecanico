@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,9 +53,8 @@ public class OrdenServiceImple implements IOrdenService {
         Vehiculo vehi=this.vehiService.buscarPorPatente(orden.getVehiculo().getPatente());
         orden.setVehiculo(vehi);
         orden.setEstado(EstadoOrden.CREADA);
-        Long datetime = System.currentTimeMillis();
-        Timestamp fechaIn = new Timestamp(datetime);
-        orden.setFechaIngreso(fechaIn);
+        LocalDateTime fecha=LocalDateTime.now();
+        orden.setFechaIngreso(fecha);
         OrdenTrabajo nueva=this.repo.save(orden);
         return nueva;
     }
@@ -79,9 +80,8 @@ public class OrdenServiceImple implements IOrdenService {
         this.crearDetalles(orden,orden.getListaDetalleOrdenes());
         ordenGuardada.setListaDetalleOrdenes(orden.getListaDetalleOrdenes());
         //ORDEN TRABAJO ATRIBUTOS
-        Long datetime = System.currentTimeMillis();
-        Timestamp fechaIn = new Timestamp(datetime);
-        ordenGuardada.setFechaFinReparacion(fechaIn);
+        LocalDateTime fechaHoy=LocalDateTime.now();
+        ordenGuardada.setFechaFinReparacion(fechaHoy);
         ordenGuardada.setEstado(EstadoOrden.AFACTURAR);
         return this.repo.save(ordenGuardada);
     }
