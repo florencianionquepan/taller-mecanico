@@ -34,7 +34,7 @@ public class RepuestoServiceImple implements IRepuestoService {
         Optional<Repuesto> oVe=this.repo.findById(id);
         if(oVe.isEmpty()){
             throw new NonExistingException(
-                   String.format("El vehiculo con id %d no existe", id)
+                   String.format("El repuesto con id %d no existe", id)
             );
         }
         return oVe.get();
