@@ -3,12 +3,10 @@ package com.besysoft.taller.dto;
 import com.besysoft.taller.model.EstadoOrden;
 import lombok.*;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,8 +24,8 @@ public class OrdenNuevaDTO {
     @NotNull
     @NotEmpty
     private String falla;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaIngreso;
+
+    private LocalDateTime fechaIngreso;
 
     @NotNull
     @Valid
