@@ -3,6 +3,7 @@ package com.besysoft.taller.model;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class OrdenTrabajo implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +52,10 @@ public class OrdenTrabajo implements Serializable{
     private Vehiculo vehiculo;
 
     @OneToMany(mappedBy = "ordenTrabajo",cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value="ordenTrabajo")
     private List<ManoObra> listaManoObra;
 
     @OneToMany(mappedBy = "ordenTrabajo",cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value="ordenTrabajo")
     private List<DetalleOrdenTrabajo> listaDetalleOrdenes;
 }
