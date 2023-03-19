@@ -32,6 +32,6 @@ public class OrdenFacturadaDTO {
 
     @NotNull
     @Valid
-    private Administrativo administrativo;
-    private Vehiculo vehiculo;
+    private AdministrativoDTO administrativo;
+    private VehiculoDTO vehiculo;
 }
