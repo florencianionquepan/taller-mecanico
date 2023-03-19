@@ -94,7 +94,11 @@ public class OrdenServiceImple implements IOrdenService {
         BigDecimal valorTotal=this.importeTotal(ordenGuardada);
         ordenGuardada.setImporteTotal(valorTotal);
         ordenGuardada.setEstado(EstadoOrden.FACTURADA);
-        return ordenGuardada;
+        ordenGuardada.setFechaPago(LocalDateTime.now());
+        ordenGuardada.setFormaPago(orden.getFormaPago());
+        ordenGuardada.setTipoTarjeta(orden.getTipoTarjeta());
+        ordenGuardada.setCantidadCuotas(orden.getCantidadCuotas());
+        return this.repo.save(ordenGuardada);
     }
 
     @Override
