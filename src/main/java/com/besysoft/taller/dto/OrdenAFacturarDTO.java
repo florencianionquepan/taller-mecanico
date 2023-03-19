@@ -3,11 +3,9 @@ package com.besysoft.taller.dto;
 import com.besysoft.taller.model.EstadoOrden;
 import lombok.*;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -19,8 +17,8 @@ public class OrdenAFacturarDTO {
     @NotNull
     private Long id;
     private EstadoOrden estado;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFinReparacion;
+
+    private LocalDateTime fechaFinReparacion;
     private VehiculoDTO vehiculo;
     @NotNull
     @Valid
