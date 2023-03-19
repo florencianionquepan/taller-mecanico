@@ -1,6 +1,7 @@
 package com.besysoft.taller.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Embedded;
+import javax.validation.constraints.NotNull;
 
 import lombok.*;
 
@@ -10,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class AdministrativoDTO {
+    @NotNull
     private Long id;
 
     @Embedded
