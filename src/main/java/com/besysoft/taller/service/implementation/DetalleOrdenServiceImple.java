@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class DetalleOrdenImple implements IDetalleOrdenService {
+public class DetalleOrdenServiceImple implements IDetalleOrdenService {
 
     private final DetalleOrdenRepository repo;
     private final IRepuestoService repuService;
 
-    public DetalleOrdenImple(DetalleOrdenRepository repo, IRepuestoService repuService) {
+    public DetalleOrdenServiceImple(DetalleOrdenRepository repo, IRepuestoService repuService) {
         this.repo = repo;
         this.repuService = repuService;
     }
@@ -24,6 +24,7 @@ public class DetalleOrdenImple implements IDetalleOrdenService {
     public DetalleOrdenTrabajo altaDetalleOrden(DetalleOrdenTrabajo detalle) {
         //chequea que los repuestos existan
         Repuesto repuesto=this.repuService.buscarById(detalle.getRepuesto().getId());
+        detalle.setRepuesto(repuesto);
         //cantidad>1 lo corrobora en DTO
         detalle.setValorTotal(repuesto.getValor().multiply(
                 BigDecimal.valueOf(detalle.getCantidad())));
