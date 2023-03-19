@@ -1,12 +1,13 @@
 package com.besysoft.taller.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -18,8 +19,9 @@ public class ManoObra implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String detalle;
-    @Temporal(TemporalType.TIME)
-    private Date duracionHs;
+
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime duracionHs;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnoreProperties(value="listaManoObra")
