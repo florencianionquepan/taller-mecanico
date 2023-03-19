@@ -4,14 +4,13 @@ import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.*;
 import com.besysoft.taller.repository.ManoObraRepository;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
-import com.besysoft.taller.service.interfaces.IDetalleOrdenService;
-import com.besysoft.taller.service.interfaces.IOrdenService;
-import com.besysoft.taller.service.interfaces.IRecepcionService;
-import com.besysoft.taller.service.interfaces.IVehiculoService;
+import com.besysoft.taller.service.interfaces.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +24,21 @@ public class OrdenServiceImple implements IOrdenService {
     private final IVehiculoService vehiService;
     private final ManoObraRepository manoObraRepo;
     private final IDetalleOrdenService detalleOrdenService;
+    private final IAdminService adminService;
+    private Logger logger= LoggerFactory.getLogger(OrdenServiceImple.class);
 
     public OrdenServiceImple(OrdenTrabajoRepository repo,
                              IRecepcionService recepService,
                              IVehiculoService vehiService,
                              ManoObraRepository manoObraRepo,
-                             IDetalleOrdenService detalleOrdenService) {
+                             IDetalleOrdenService detalleOrdenService,
+                             IAdminService adminService) {
         this.repo = repo;
         this.recepService = recepService;
         this.vehiService = vehiService;
         this.manoObraRepo = manoObraRepo;
         this.detalleOrdenService = detalleOrdenService;
+        this.adminService = adminService;
     }
 
     @Override
@@ -81,6 +84,17 @@ public class OrdenServiceImple implements IOrdenService {
         ordenGuardada.setFechaFinReparacion(fechaHoy);
         ordenGuardada.setEstado(EstadoOrden.AFACTURAR);
         return this.repo.save(ordenGuardada);
+    }
+
+    @Override
+    public OrdenTrabajo facturarOrden(Long id, OrdenTrabajo orden) {
+        OrdenTrabajo ordenGuardada=this.buscarById(id);
+        Administrativo admin=this.adminService.buscarById(orden.getAdministrativo().getId());
+        ordenGuardada.setAdministrativo(admin);
+        BigDecimal valorTotal=this.importeTotal(ordenGuardada);
+        ordenGuardada.setImporteTotal(valorTotal);
+        ordenGuardada.setEstado(EstadoOrden.FACTURADA);
+        return ordenGuardada;
     }
 
     @Override
@@ -143,5 +157,15 @@ public class OrdenServiceImple implements IOrdenService {
             detalle.setOrdenTrabajo(orden);
             this.detalleOrdenService.altaDetalleOrden(detalle);
         }
+    }
+
+    private BigDecimal importeTotal(OrdenTrabajo orden){
+        List<DetalleOrdenTrabajo> detalles=orden.getListaDetalleOrdenes();
+        BigDecimal total= BigDecimal.valueOf(0);
+        total=detalles.stream()
+                .map(DetalleOrdenTrabajo::getValorTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        logger.info("TOTAL",total);
+        return total;
     }
 }
