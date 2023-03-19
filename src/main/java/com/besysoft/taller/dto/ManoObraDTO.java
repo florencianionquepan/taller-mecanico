@@ -19,7 +19,6 @@ import java.util.Date;
 //este DTO lo utiliza OrdenTrabajoDTO
 public class ManoObraDTO {
     @NotNull
-    @Size(min=1)
     private Long id;
     @NotNull
     @NotEmpty
