@@ -3,6 +3,7 @@ package com.besysoft.taller.model;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.io.Serializable;
@@ -24,7 +25,9 @@ public class DetalleOrdenTrabajo implements Serializable {
     private BigDecimal valorTotal;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value="listaDetalleOrdenes")
     private OrdenTrabajo ordenTrabajo;
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value="listaDetalleOrdenes")
     private Repuesto repuesto;
 }
