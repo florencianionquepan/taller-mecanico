@@ -1,9 +1,10 @@
 package com.besysoft.taller.controller;
 
-import com.besysoft.taller.dto.OrdenAFacturarDTO;
+import com.besysoft.taller.dto.ManoObraMecanicoOrdenDTO;
+import com.besysoft.taller.dto.OrdenDetalladaDTO;
 import com.besysoft.taller.dto.OrdenNuevaDTO;
 import com.besysoft.taller.dto.OrdenTrabajoDTO;
-import com.besysoft.taller.dto.mapper.IOrdenAFacturarMapper;
+import com.besysoft.taller.dto.mapper.IOrdenDetalladaMapper;
 import com.besysoft.taller.dto.mapper.IOrdenNuevaMapper;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
@@ -24,13 +25,15 @@ public class OrdenTrabajoController {
 
     private final IOrdenService service;
     private final IOrdenNuevaMapper nuevaMapper;
-    private final IOrdenAFacturarMapper aFacturarMapper;
+    private final IOrdenDetalladaMapper detalladaMapper;
     private Logger logger= LoggerFactory.getLogger(OrdenTrabajoController.class);
 
-    public OrdenTrabajoController(IOrdenService service, IOrdenNuevaMapper nuevaMapper, IOrdenAFacturarMapper aFacturarMapper) {
+    public OrdenTrabajoController(IOrdenService service,
+                                  IOrdenNuevaMapper nuevaMapper,
+                                  IOrdenDetalladaMapper detalladaMapper) {
         this.service = service;
         this.nuevaMapper = nuevaMapper;
-        this.aFacturarMapper = aFacturarMapper;
+        this.detalladaMapper = detalladaMapper;
     }
 
     public Map<String,Object> mensajeBody= new HashMap<>();
@@ -56,9 +59,9 @@ public class OrdenTrabajoController {
     //La orden va a venir con las mano de obras (existentes ya) con campos completos
     //y traera los detalles que necesite crear
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
-                                                @RequestBody @Valid OrdenAFacturarDTO dto){
-        OrdenTrabajo orden=this.aFacturarMapper.mapToEntity(dto);
-        OrdenAFacturarDTO dtoResp=this.aFacturarMapper.mapToDto(this.service.finalizarReparacion(id,orden));
+                                                @RequestBody @Valid OrdenDetalladaDTO dto){
+        OrdenTrabajo orden=this.detalladaMapper.mapToEntity(dto);
+        OrdenDetalladaDTO dtoResp=this.detalladaMapper.mapToDto(this.service.finalizarReparacion(id,orden));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
