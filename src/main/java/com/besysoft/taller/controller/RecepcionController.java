@@ -37,7 +37,7 @@ public class RecepcionController {
     }
 
     @GetMapping
-    public ResponseEntity<?> verAdmin(){
+    public ResponseEntity<?> verRecep(){
         List<RecepcionistaDTO> recep=this.mapper.mapListToDto(this.service.verTodas());
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",recep);
