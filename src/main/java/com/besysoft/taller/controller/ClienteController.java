@@ -2,6 +2,7 @@ package com.besysoft.taller.controller;
 
 import com.besysoft.taller.dto.ClienteDTO;
 import com.besysoft.taller.dto.mapper.IClienteMapper;
+import com.besysoft.taller.dto.mapper.IVehiculoClienteMapper;
 import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.service.interfaces.IClienteService;
 import javax.validation.Valid;
@@ -19,23 +20,25 @@ public class ClienteController {
     private final IClienteService service;
     private final IClienteMapper mapper;
 
-    public ClienteController(IClienteService service, IClienteMapper mapper) {
+    public ClienteController(IClienteService service, IClienteMapper mapper,
+                             IVehiculoClienteMapper vehiClienteMapper) {
         this.service = service;
         this.mapper = mapper;
     }
 
     public Map<String,Object> mensajeBody= new HashMap<>();
 
-    private ResponseEntity<?> successResponse(Cliente cliente){
+    private ResponseEntity<?> successResponse(ClienteDTO dto){
         mensajeBody.put("Success",Boolean.TRUE);
-        mensajeBody.put("data",cliente);
+        mensajeBody.put("data",dto);
         return ResponseEntity.ok(mensajeBody);
     }
 
     @GetMapping("/vehiculo")
     public ResponseEntity<?> recibirVehiculoCliente(@RequestParam String email, String patente){
         Cliente ent=this.service.recibeCliente(email, patente);
-        return this.successResponse(ent);
+        ClienteDTO dto=this.mapper.mapToDto(ent);
+        return this.successResponse(dto);
     }
 
     @PostMapping
