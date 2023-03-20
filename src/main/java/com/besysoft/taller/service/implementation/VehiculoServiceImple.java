@@ -59,5 +59,6 @@ public class VehiculoServiceImple implements IVehiculoService {
         List<Cliente> clientes=vehiculo.getListaClientes();
         clientes.add(cliente);
         vehiculo.setListaClientes(clientes);
+        this.repo.save(vehiculo);
     }
 }
