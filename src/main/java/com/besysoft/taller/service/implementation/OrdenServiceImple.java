@@ -1,5 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.exception.MissingStateException;
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.*;
 import com.besysoft.taller.repository.ManoObraRepository;
@@ -98,6 +99,21 @@ public class OrdenServiceImple implements IOrdenService {
         ordenGuardada.setFormaPago(orden.getFormaPago());
         ordenGuardada.setTipoTarjeta(orden.getTipoTarjeta());
         ordenGuardada.setCantidadCuotas(orden.getCantidadCuotas());
+        return this.repo.save(ordenGuardada);
+    }
+
+    @Override
+    public OrdenTrabajo cerrarOrden(Long id) {
+        OrdenTrabajo ordenGuardada=this.buscarById(id);
+        if(!ordenGuardada.getEstado().equals(EstadoOrden.FACTURADA)){
+            throw new MissingStateException(
+                    String.format("La orden esta en estado %s," +
+                                    " debe ser facturada antes de cerrarse"
+                    ,ordenGuardada.getEstado()
+                    )
+            );
+        }
+        ordenGuardada.setEstado(EstadoOrden.CERRADA);
         return this.repo.save(ordenGuardada);
     }
 
