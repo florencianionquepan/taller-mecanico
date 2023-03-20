@@ -21,7 +21,9 @@ public class VehiculoController {
     private final IVehiculoMapper mapper;
     private final IVehiculoClienteMapper vehCliMap;
 
-    public VehiculoController(IVehiculoService service, IVehiculoMapper mapper, IVehiculoClienteMapper vehCliMap) {
+    public VehiculoController(IVehiculoService service,
+                              IVehiculoMapper mapper,
+                              IVehiculoClienteMapper vehCliMap) {
         this.service = service;
         this.mapper = mapper;
         this.vehCliMap = vehCliMap;
