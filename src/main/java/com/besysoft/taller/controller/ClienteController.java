@@ -34,12 +34,14 @@ public class ClienteController {
         return ResponseEntity.ok(mensajeBody);
     }
 
-    @GetMapping("/vehiculo")
-    public ResponseEntity<?> recibirVehiculoCliente(@RequestParam String email, String patente){
+    @PutMapping("/{email}/vehiculos/{patente}")
+    public ResponseEntity<?> asociarVehiculoCliente(@PathVariable String email,
+                                                    @PathVariable String patente){
         Cliente ent=this.service.recibeCliente(email, patente);
         ClienteDTO dto=this.mapper.mapToDto(ent);
         return this.successResponse(dto);
     }
+
 
     @PostMapping
     public ResponseEntity<?> altaCliente(@RequestBody @Valid ClienteDTO dto){
