@@ -2,6 +2,7 @@ package com.besysoft.taller.controller.handlerException;
 
 import com.besysoft.taller.dto.response.ExceptionDTO;
 import com.besysoft.taller.exception.MissingDataException;
+import com.besysoft.taller.exception.MissingStateException;
 import com.besysoft.taller.exception.NonExistingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -36,6 +37,13 @@ public class ApiControllerAdvice {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDTO noData(MissingDataException ex){
+        return new ExceptionDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage(),null);
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionDTO wrongState(MissingStateException ex){
         return new ExceptionDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage(),null);
     }
 
