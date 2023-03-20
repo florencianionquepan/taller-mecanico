@@ -10,6 +10,7 @@ public interface IOrdenService {
     OrdenTrabajo iniciarReparacion(Long id);
     OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden);
     OrdenTrabajo facturarOrden(Long id, OrdenTrabajo orden);
+    OrdenTrabajo cerrarOrden(Long id);
     List<OrdenTrabajo> verTodas();
     OrdenTrabajo buscarById(Long id);
     void addManoObra(OrdenTrabajo orden, ManoObra obra);
