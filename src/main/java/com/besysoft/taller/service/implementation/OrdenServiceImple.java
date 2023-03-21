@@ -44,14 +44,9 @@ public class OrdenServiceImple implements IOrdenService {
 
     @Override
     public OrdenTrabajo altaOrden(OrdenTrabajo orden) {
-        if(!this.recepService.existeRecepcionista(orden.getRecepcionista())){
-            throw new NonExistingException(
-                    String.format("La recepcionista con id %d no existe",
-                            orden.getRecepcionista().getId()
-                    )
-            );
-        }
+        Recepcionista recep=this.recepService.buscarById(orden.getRecepcionista().getId());
         Vehiculo vehi=this.vehiService.buscarPorPatente(orden.getVehiculo().getPatente());
+        orden.setRecepcionista(recep);
         orden.setVehiculo(vehi);
         orden.setEstado(EstadoOrden.CREADA);
         LocalDateTime fecha=LocalDateTime.now();
