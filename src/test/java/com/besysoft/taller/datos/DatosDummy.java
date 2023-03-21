@@ -2,6 +2,7 @@ package com.besysoft.taller.datos;
 
 import com.besysoft.taller.model.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class DatosDummy {
@@ -37,6 +38,16 @@ public class DatosDummy {
 
     public static Recepcionista getRecep(){
         return new Recepcionista();
+    }
+
+    public static Repuesto getRepuestoUno(){
+        return new Repuesto(null,"Bosch","Ford Orion",
+                "Cilindro principal de freno",new BigDecimal(16532.80),new ArrayList<DetalleOrdenTrabajo>())
+    }
+
+    public static Repuesto getRepuestoUno(){
+        return new Repuesto(null,"Renault","Megane",
+                "Bomba de freno",new BigDecimal(16850.20),new ArrayList<DetalleOrdenTrabajo>())
     }
 
 
