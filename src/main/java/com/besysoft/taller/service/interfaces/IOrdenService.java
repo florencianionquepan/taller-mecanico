@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IOrdenService {
     OrdenTrabajo altaOrden(OrdenTrabajo orden);
-    OrdenTrabajo altaManoObra(Long id, Mecanico asignado);
+    OrdenTrabajo altaManoObra(Long id, ManoObra obra);
     OrdenTrabajo iniciarReparacion(Long id);
     OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden);
     OrdenTrabajo facturarOrden(Long id, OrdenTrabajo orden);
