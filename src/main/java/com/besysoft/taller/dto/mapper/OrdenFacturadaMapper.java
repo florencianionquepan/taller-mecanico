@@ -22,6 +22,7 @@ public class OrdenFacturadaMapper implements IOrdenFacturadaMapper{
         dto.setEstado(enti.getEstado());
         dto.setFechaPago(enti.getFechaPago());
         dto.setFormaPago(enti.getFormaPago());
+        dto.setCantidadCuotas(enti.getCantidadCuotas());
         dto.setTipoTarjeta(enti.getTipoTarjeta());
         dto.setImporteTotal(enti.getImporteTotal());
         dto.setAdministrativo(this.adminMap.mapToDto(enti.getAdministrativo()));
