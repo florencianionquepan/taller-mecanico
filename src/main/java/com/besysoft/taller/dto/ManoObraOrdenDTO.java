@@ -4,12 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -25,6 +21,6 @@ public class ManoObraOrdenDTO {
     private LocalTime duracionHs;
 
     @NotNull
-    @JsonIgnoreProperties(value={"listaManoObras"})
-    private OrdenTrabajoDTO ordenTrabajo;
+    @JsonIgnoreProperties(value={"listaManoObra","listaDetalleOrdenes"})
+    private OrdenTrabajoRespDTO ordenTrabajo;
 }
