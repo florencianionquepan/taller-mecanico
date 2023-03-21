@@ -11,10 +11,14 @@ import java.util.stream.Collectors;
 public class OrdenNuevaMapper implements IOrdenNuevaMapper{
 
     private final IRecepMapper recepMapper;
-    private final IVehiculoMapper vehiMap;
+    private final IVehiculoMapper veMap;
+    private final IVehiculoClienteMapper vehiMap;
 
-    public OrdenNuevaMapper(IRecepMapper recepMapper, IVehiculoMapper vehiMap) {
+    public OrdenNuevaMapper(IRecepMapper recepMapper,
+                            IVehiculoMapper veMap,
+                            IVehiculoClienteMapper vehiMap) {
         this.recepMapper = recepMapper;
+        this.veMap = veMap;
         this.vehiMap = vehiMap;
     }
 
@@ -42,7 +46,7 @@ public class OrdenNuevaMapper implements IOrdenNuevaMapper{
         enti.setDetalleFalla(dto.getFalla());
         enti.setFechaIngreso(dto.getFechaIngreso());
         enti.setRecepcionista(this.recepMapper.mapToEntity(dto.getRecepcionista()));
-        enti.setVehiculo(this.vehiMap.mapToEntity(dto.getVehiculo()));
+        enti.setVehiculo(this.veMap.mapToEntity(dto.getVehiculo()));
         return enti;
     }
 
