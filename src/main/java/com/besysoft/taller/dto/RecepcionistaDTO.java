@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @ToString
 public class RecepcionistaDTO {
-    @NotNull
+
     private Long id;
 
     @Embedded
