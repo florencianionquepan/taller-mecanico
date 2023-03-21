@@ -26,6 +26,8 @@ public class OrdenServiceImple implements IOrdenService {
     private final ManoObraRepository manoObraRepo;
     private final IDetalleOrdenService detalleOrdenService;
     private final IAdminService adminService;
+    private final IMecanicoService mecaService;
+    private final IManoObraService obraService;
     private Logger logger= LoggerFactory.getLogger(OrdenServiceImple.class);
 
     public OrdenServiceImple(OrdenTrabajoRepository repo,
@@ -33,13 +35,17 @@ public class OrdenServiceImple implements IOrdenService {
                              IVehiculoService vehiService,
                              ManoObraRepository manoObraRepo,
                              IDetalleOrdenService detalleOrdenService,
-                             IAdminService adminService) {
+                             IAdminService adminService,
+                             IMecanicoService mecaService,
+                             IManoObraService obraService) {
         this.repo = repo;
         this.recepService = recepService;
         this.vehiService = vehiService;
         this.manoObraRepo = manoObraRepo;
         this.detalleOrdenService = detalleOrdenService;
         this.adminService = adminService;
+        this.mecaService = mecaService;
+        this.obraService = obraService;
     }
 
     @Override
@@ -53,6 +59,19 @@ public class OrdenServiceImple implements IOrdenService {
         orden.setFechaIngreso(fecha);
         OrdenTrabajo nueva=this.repo.save(orden);
         return nueva;
+    }
+
+    @Override
+    public OrdenTrabajo altaManoObra(Long id, Mecanico asignado) {
+        OrdenTrabajo ordenGuardada=this.buscarById(id);
+        Mecanico mecaGuar=this.mecaService.buscarById(asignado.getId());
+        ManoObra nuevaMO=new ManoObra();
+        nuevaMO.setMecanico(mecaGuar);
+        nuevaMO.setOrdenTrabajo(ordenGuardada);
+        ManoObra altaMO=this.obraService.altaManoObra(nuevaMO);
+        this.mecaService.addManoObra(mecaGuar,altaMO);
+        this.addManoObra(ordenGuardada,altaMO);
+        return ordenGuardada;
     }
 
     @Override
