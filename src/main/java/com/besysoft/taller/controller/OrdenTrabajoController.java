@@ -73,7 +73,7 @@ public class OrdenTrabajoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
-    @PutMapping("/{id}/afacturar")
+    @PutMapping("/{id}/finalizacion")
     //La orden va a venir con las mano de obras (existentes ya) con campos completos
     //y traera los detalles que necesite crear
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
@@ -95,7 +95,7 @@ public class OrdenTrabajoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/cierre")
     //Recepcionista cierra la orden. Se supone que es la misma que la generó.
     public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
         OrdenTrabajo orden=this.service.cerrarOrden(id);
