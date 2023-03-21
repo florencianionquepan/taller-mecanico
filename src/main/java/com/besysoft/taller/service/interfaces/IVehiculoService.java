@@ -7,6 +7,6 @@ public interface IVehiculoService {
 
     Vehiculo altaVehiculo(Vehiculo vehiculo);
     boolean existeVehiculo(Vehiculo vehiculo);
-    public Vehiculo buscarPorPatente(String patente);
+    Vehiculo buscarPorPatente(String patente);
     void addClienteVehiculo(Vehiculo vehiculo, Cliente cliente);
 }
