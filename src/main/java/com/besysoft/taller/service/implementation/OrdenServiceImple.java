@@ -105,7 +105,7 @@ public class OrdenServiceImple implements IOrdenService {
             throw new MissingStateException(
                     String.format("La orden esta en estado %s" +
                                     ".No puede finalizar la reparacion de esta orden"
-                            ,orden.getEstado()
+                            ,ordenGuardada.getEstado()
                     )
             );
         }
@@ -131,6 +131,7 @@ public class OrdenServiceImple implements IOrdenService {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         Administrativo admin=this.adminService.buscarById(orden.getAdministrativo().getId());
         ordenGuardada.setAdministrativo(admin);
+        /* Calculo importe total al finalizar reparacion */
         //BigDecimal valorTotal=this.importeTotal(ordenGuardada);
         //ordenGuardada.setImporteTotal(valorTotal);
         ordenGuardada.setEstado(EstadoOrden.FACTURADA);
