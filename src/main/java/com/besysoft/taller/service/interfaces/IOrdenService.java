@@ -15,5 +15,4 @@ public interface IOrdenService {
     OrdenTrabajo cerrarOrden(Long id);
     List<OrdenTrabajo> verTodas();
     OrdenTrabajo buscarById(Long id);
-    void addManoObra(OrdenTrabajo orden, ManoObra obra);
 }
