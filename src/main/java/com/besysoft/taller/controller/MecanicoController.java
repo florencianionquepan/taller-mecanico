@@ -42,7 +42,7 @@ public class MecanicoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
-    @GetMapping("/menosObras")
+    @GetMapping("/menosobras")
     public ResponseEntity<?> mecanicoMenosObras(){
         Mecanico mecaMenosObras=this.service.mecanicoConMenosObras();
         mensajeBody.put("Success",Boolean.TRUE);
