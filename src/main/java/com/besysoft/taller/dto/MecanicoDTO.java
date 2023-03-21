@@ -2,6 +2,7 @@ package com.besysoft.taller.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
 import javax.persistence.Embedded;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonPropertyOrder({"id", "personaDTO", "activo","especialidad","listaManoObra"})
 public class MecanicoDTO {
     @NotNull
     private Long id;
