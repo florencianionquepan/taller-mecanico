@@ -15,4 +15,5 @@ public interface IOrdenService {
     OrdenTrabajo cerrarOrden(Long id);
     List<OrdenTrabajo> verTodas();
     OrdenTrabajo buscarById(Long id);
+    List<OrdenTrabajo> verByVehiculo(String patente);
 }
