@@ -1,5 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.exception.MissingDataException;
 import com.besysoft.taller.exception.MissingStateException;
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.*;
@@ -70,13 +71,27 @@ public class OrdenServiceImple implements IOrdenService {
         nuevaMO.setOrdenTrabajo(ordenGuardada);
         ManoObra altaMO=this.obraService.altaManoObra(nuevaMO);
         this.mecaService.addManoObra(mecaGuar,altaMO);
-        this.addManoObra(ordenGuardada,altaMO);
         return ordenGuardada;
     }
 
     @Override
     public OrdenTrabajo iniciarReparacion(Long id) {
         OrdenTrabajo orden=this.buscarById(id);
+        if(!orden.getEstado().equals(EstadoOrden.CREADA)){
+            throw new MissingStateException(
+                    String.format("La orden esta en estado %s" +
+                                    ".No puede iniciar la reparacion de esta orden"
+                            ,orden.getEstado()
+                    )
+            );
+        }
+        if(orden.getListaManoObra().size()==0){
+            throw new MissingDataException(
+                    String.format("La orden no posee mano de obra" +
+                                    ".Debe generarla para luego iniciar la reparacion"
+                    )
+            );
+        }
         orden.setEstado(EstadoOrden.REPARACION);
         return this.repo.save(orden);
     }
@@ -146,13 +161,6 @@ public class OrdenServiceImple implements IOrdenService {
             );
         }
         return oEstado.get();
-    }
-
-    @Override
-    public void addManoObra(OrdenTrabajo orden, ManoObra obra) {
-        List<ManoObra> obras=orden.getListaManoObra();
-        obras.add(obra);
-        orden.setListaManoObra(obras);
     }
 
     //devuelve el listado de obras completo y chequea que los datos que trae sean correctos
