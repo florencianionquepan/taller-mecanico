@@ -1,6 +1,7 @@
 package com.besysoft.taller.dto;
 
 import com.besysoft.taller.model.EstadoOrden;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.validation.Valid;
@@ -14,11 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class OrdenDetalladaDTO {
-    @NotNull
+
     private Long id;
     private EstadoOrden estado;
 
     private LocalDateTime fechaFinReparacion;
+    @JsonIgnoreProperties(value="clientes")
     private VehiculoDTO vehiculo;
     @NotNull
     @Valid
