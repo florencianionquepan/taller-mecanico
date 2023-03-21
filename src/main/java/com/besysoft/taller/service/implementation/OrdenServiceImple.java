@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrdenServiceImple implements IOrdenService {
@@ -178,6 +179,13 @@ public class OrdenServiceImple implements IOrdenService {
             );
         }
         return oEstado.get();
+    }
+
+    @Override
+    public List<OrdenTrabajo> verByVehiculo(String patente) {
+        return this.verTodas().stream()
+                .filter(orden->orden.getVehiculo().getPatente().equals(patente))
+                .collect(Collectors.toList());
     }
 
     //devuelve el listado de obras completo y chequea que los datos que trae sean correctos
