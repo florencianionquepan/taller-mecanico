@@ -129,11 +129,17 @@ public class OrdenServiceImple implements IOrdenService {
     @Override
     public OrdenTrabajo facturarOrden(Long id, OrdenTrabajo orden) {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
+        if(!ordenGuardada.getEstado().equals(EstadoOrden.AFACTURAR)){
+            throw new MissingStateException(
+                    String.format("La orden esta en estado %s" +
+                                    ".No puede facturar ni cobrar esta orden"
+                            ,ordenGuardada.getEstado()
+                    )
+            );
+        }
         Administrativo admin=this.adminService.buscarById(orden.getAdministrativo().getId());
         ordenGuardada.setAdministrativo(admin);
-        /* Calculo importe total al finalizar reparacion */
-        //BigDecimal valorTotal=this.importeTotal(ordenGuardada);
-        //ordenGuardada.setImporteTotal(valorTotal);
+        /* Calcule importe total al finalizar reparacion */
         ordenGuardada.setEstado(EstadoOrden.FACTURADA);
         ordenGuardada.setFechaPago(LocalDateTime.now());
         ordenGuardada.setFormaPago(orden.getFormaPago());
