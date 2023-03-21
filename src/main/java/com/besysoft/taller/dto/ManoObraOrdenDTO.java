@@ -25,7 +25,6 @@ public class ManoObraOrdenDTO {
     private LocalTime duracionHs;
 
     @NotNull
-    @Valid
-    @JsonIgnoreProperties(value={"recepcionista","administrativo"})
+    @JsonIgnoreProperties(value={"listaManoObras"})
     private OrdenTrabajoDTO ordenTrabajo;
 }
