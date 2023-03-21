@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @ToString
 //DTO de mano de obra sin mecanico asignado.Su mapper sera inyectado por MecanicoMapper
 public class ManoObraOrdenDTO {
-    @NonNull
+    @NotNull
     private Long id;
     private String detalle;
     @JsonFormat(pattern = "HH:mm:ss")
