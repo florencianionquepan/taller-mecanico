@@ -1,8 +1,6 @@
 package com.besysoft.taller.datos;
 
-import com.besysoft.taller.model.Cliente;
-import com.besysoft.taller.model.Persona;
-import com.besysoft.taller.model.Vehiculo;
+import com.besysoft.taller.model.*;
 
 import java.util.ArrayList;
 
@@ -28,5 +26,14 @@ public class DatosDummy {
         return new Vehiculo(null,"FG789HI",2015,"blanco",
                 "Fiat","Panda",new ArrayList<Cliente>());
     }
+
+    public static Administrativo getAdmin(){
+        return new Administrativo();
+    }
+
+    public static Persona getPersonaUno(){
+        return new Persona("Sara","Garcia","+1234","Bahia","8000",null,null,null,null);
+    }
+
 
 }
