@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class AdministrativoDTO {
-
+    @NotNull
     private Long id;
 
     @Embedded
