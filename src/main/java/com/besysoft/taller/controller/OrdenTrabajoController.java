@@ -67,7 +67,7 @@ public class OrdenTrabajoController {
     @PutMapping("/{id}/reparacion")
     //inicia reparacion
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
-        OrdenNuevaDTO dtoResp=this.nuevaMapper.mapToDto(this.service.iniciarReparacion(id));
+        OrdenTrabajoRespDTO dtoResp=this.ordenRespMapper.mapToDto(this.service.iniciarReparacion(id));
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",dtoResp);
         return ResponseEntity.ok(mensajeBody);
@@ -95,9 +95,20 @@ public class OrdenTrabajoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
+    @PutMapping("/{id}")
+    //Recepcionista cierra la orden. Se supone que es la misma que la generó.
+    public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
+        OrdenTrabajo orden=this.service.cerrarOrden(id);
+        OrdenTrabajoRespDTO dto=this.ordenRespMapper.mapToDto(orden);
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",dto);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
+
     @GetMapping
     public ResponseEntity<?> verTodas(){
-        List<OrdenNuevaDTO> ordenes=this.nuevaMapper.mapListToDto(this.service.verTodas());
+        List<OrdenTrabajoRespDTO> ordenes=this.ordenRespMapper.mapListToDto(this.service.verTodas());
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",ordenes);
         return ResponseEntity.ok(mensajeBody);
