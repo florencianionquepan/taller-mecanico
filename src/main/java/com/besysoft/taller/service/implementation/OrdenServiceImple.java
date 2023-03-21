@@ -99,14 +99,21 @@ public class OrdenServiceImple implements IOrdenService {
     @Override
     @Transactional
     public OrdenTrabajo finalizarReparacion(Long id, OrdenTrabajo orden) {
-        //se chequea que el id corresponda a una orden existente
         OrdenTrabajo ordenGuardada=this.buscarById(id);
-        /*MANO OBRAS //el dto valida campos de mano obra */
+        if(!ordenGuardada.getEstado().equals(EstadoOrden.REPARACION)){
+            throw new MissingStateException(
+                    String.format("La orden esta en estado %s" +
+                                    ".No puede finalizar la reparacion de esta orden"
+                            ,orden.getEstado()
+                    )
+            );
+        }
+        /* MANO OBRAS el dto valida campos de mano obra */
         List<ManoObra> obras=orden.getListaManoObra();
         List<ManoObra> obrasActuales=this.completarObras(obras,id);
         this.updateObras(obrasActuales);
         ordenGuardada.setListaManoObra(obrasActuales);
-        /*DETALLES ORDEN TRABAJO*/
+        /* DETALLES ORDEN TRABAJO */
         this.crearDetalles(orden,orden.getListaDetalleOrdenes());
         ordenGuardada.setListaDetalleOrdenes(orden.getListaDetalleOrdenes());
         //ORDEN TRABAJO ATRIBUTOS
