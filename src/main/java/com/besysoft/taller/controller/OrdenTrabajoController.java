@@ -1,11 +1,8 @@
 package com.besysoft.taller.controller;
 
-import com.besysoft.taller.dto.ManoObraMecanicoOrdenDTO;
-import com.besysoft.taller.dto.OrdenDetalladaDTO;
-import com.besysoft.taller.dto.OrdenNuevaDTO;
-import com.besysoft.taller.dto.OrdenTrabajoDTO;
-import com.besysoft.taller.dto.mapper.IOrdenDetalladaMapper;
-import com.besysoft.taller.dto.mapper.IOrdenNuevaMapper;
+import com.besysoft.taller.dto.*;
+import com.besysoft.taller.dto.mapper.*;
+import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import org.slf4j.Logger;
@@ -26,14 +23,23 @@ public class OrdenTrabajoController {
     private final IOrdenService service;
     private final IOrdenNuevaMapper nuevaMapper;
     private final IOrdenDetalladaMapper detalladaMapper;
+    private final IOrdenFacturadaMapper factuMapper;
+    private final IOrdenTrabajoRespMapper ordenRespMapper;
+    private final IManoObraMecanicoMapper manoObraMapper;
     private Logger logger= LoggerFactory.getLogger(OrdenTrabajoController.class);
 
     public OrdenTrabajoController(IOrdenService service,
                                   IOrdenNuevaMapper nuevaMapper,
-                                  IOrdenDetalladaMapper detalladaMapper) {
+                                  IOrdenDetalladaMapper detalladaMapper,
+                                  IOrdenFacturadaMapper factuMapper,
+                                  IOrdenTrabajoRespMapper ordenRespMapper,
+                                  IManoObraMecanicoMapper manoObraMapper) {
         this.service = service;
         this.nuevaMapper = nuevaMapper;
         this.detalladaMapper = detalladaMapper;
+        this.factuMapper = factuMapper;
+        this.ordenRespMapper = ordenRespMapper;
+        this.manoObraMapper = manoObraMapper;
     }
 
     public Map<String,Object> mensajeBody= new HashMap<>();
@@ -46,6 +52,18 @@ public class OrdenTrabajoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaResp);
     }
 
+    @PutMapping("/{id}/manoobra")
+    //Necesita el id de mecanico solamente
+    public ResponseEntity<?> altaManoObra(@PathVariable Long id,
+                                          @RequestBody @Valid ManoObraMecanicoDTO dto){
+        ManoObra obra=this.manoObraMapper.mapToEntity(dto);
+        OrdenTrabajo orden=this.service.altaManoObra(id, obra);
+        OrdenTrabajoRespDTO ordenResp=this.ordenRespMapper.mapToDto(orden);
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",ordenResp);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
     @PutMapping("/{id}/reparacion")
     //inicia reparacion
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
@@ -55,7 +73,7 @@ public class OrdenTrabajoController {
         return ResponseEntity.ok(mensajeBody);
     }
 
-    @PutMapping("/{id}/aFacturar")
+    @PutMapping("/{id}/afacturar")
     //La orden va a venir con las mano de obras (existentes ya) con campos completos
     //y traera los detalles que necesite crear
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
@@ -83,5 +101,12 @@ public class OrdenTrabajoController {
         mensajeBody.put("Success",Boolean.TRUE);
         mensajeBody.put("data",ordenes);
         return ResponseEntity.ok(mensajeBody);
+    }
+
+    @GetMapping("/vehiculos/{patente}")
+    //si estan en estado aFacturar me dan importeTotal
+    //para esto voy a usar el OrdenDTO sin usar. ver que DTOs lo usan
+    public ResponseEntity<?> verOrdenesByPatentes(@PathVariable String patente){
+        return null;
     }
 }
