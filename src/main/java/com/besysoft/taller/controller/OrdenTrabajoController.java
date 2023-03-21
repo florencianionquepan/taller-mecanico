@@ -115,8 +115,6 @@ public class OrdenTrabajoController {
     }
 
     @GetMapping("/vehiculos/{patente}")
-    //si estan en estado aFacturar me dan importeTotal
-    //para esto voy a usar el OrdenDTO sin usar. ver que DTOs lo usan
     public ResponseEntity<?> verOrdenesByPatentes(@PathVariable String patente){
         return null;
     }
