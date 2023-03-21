@@ -116,6 +116,9 @@ public class OrdenTrabajoController {
 
     @GetMapping("/vehiculos/{patente}")
     public ResponseEntity<?> verOrdenesByPatentes(@PathVariable String patente){
-        return null;
+        List<OrdenTrabajoRespDTO> ordenes=this.ordenRespMapper.mapListToDto(this.service.verByVehiculo(patente));
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",ordenes);
+        return ResponseEntity.ok(mensajeBody);
     }
 }
