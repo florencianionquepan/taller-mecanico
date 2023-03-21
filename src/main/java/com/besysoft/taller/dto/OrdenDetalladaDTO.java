@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class OrdenDetalladaDTO {
-
     private Long id;
     private EstadoOrden estado;
 
