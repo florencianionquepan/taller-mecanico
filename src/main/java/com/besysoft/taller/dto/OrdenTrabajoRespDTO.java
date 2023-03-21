@@ -37,7 +37,7 @@ public class OrdenTrabajoRespDTO {
     @JsonIgnoreProperties(value="ordenTrabajo")
     private List<ManoObraDTO> listaManoObra;
 
-    @JsonIgnoreProperties(value="ordenTrabajo")
+    @JsonIgnoreProperties(value={"ordenTrabajo","repuesto"})
     private List<DetalleOrdenTrabajo> listaDetalleOrdenes;
 
 }
