@@ -115,12 +115,14 @@ public class OrdenServiceImple implements IOrdenService {
         this.updateObras(obrasActuales);
         ordenGuardada.setListaManoObra(obrasActuales);
         /* DETALLES ORDEN TRABAJO */
-        this.crearDetalles(orden,orden.getListaDetalleOrdenes());
+        this.crearDetalles(ordenGuardada,orden.getListaDetalleOrdenes());
         ordenGuardada.setListaDetalleOrdenes(orden.getListaDetalleOrdenes());
         //ORDEN TRABAJO ATRIBUTOS
         LocalDateTime fechaHoy=LocalDateTime.now();
         ordenGuardada.setFechaFinReparacion(fechaHoy);
         ordenGuardada.setEstado(EstadoOrden.AFACTURAR);
+        BigDecimal valorTotal=this.importeTotal(ordenGuardada);
+        ordenGuardada.setImporteTotal(valorTotal);
         return this.repo.save(ordenGuardada);
     }
 
@@ -129,8 +131,8 @@ public class OrdenServiceImple implements IOrdenService {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         Administrativo admin=this.adminService.buscarById(orden.getAdministrativo().getId());
         ordenGuardada.setAdministrativo(admin);
-        BigDecimal valorTotal=this.importeTotal(ordenGuardada);
-        ordenGuardada.setImporteTotal(valorTotal);
+        //BigDecimal valorTotal=this.importeTotal(ordenGuardada);
+        //ordenGuardada.setImporteTotal(valorTotal);
         ordenGuardada.setEstado(EstadoOrden.FACTURADA);
         ordenGuardada.setFechaPago(LocalDateTime.now());
         ordenGuardada.setFormaPago(orden.getFormaPago());
