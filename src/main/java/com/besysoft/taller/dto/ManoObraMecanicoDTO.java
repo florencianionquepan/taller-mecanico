@@ -1,7 +1,13 @@
 package com.besysoft.taller.dto;
 
-import javax.validation.constraints.NotNull;
+import lombok.*;
 
+import javax.validation.constraints.NotNull;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class ManoObraMecanicoDTO {
     private Long id;
     @NotNull
