@@ -28,7 +28,6 @@ public class OrdenNuevaDTO {
     private LocalDateTime fechaIngreso;
 
     @NotNull
-    @Valid
     private RecepcionistaDTO recepcionista;
 
     @NotNull
