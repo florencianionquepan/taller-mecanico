@@ -19,4 +19,14 @@ public class DatosDummy {
                 "462014","emma@yahoo.com",new ArrayList<Vehiculo>());
     }
 
+    public static Vehiculo getVehiculoRenault(){
+        return new Vehiculo(null,"AB123CD",2020,"negro",
+                "Renault","Twingo",new ArrayList<Cliente>());
+    }
+
+    public static Vehiculo getVehiculoFiat(){
+        return new Vehiculo(null,"FG789HI",2015,"blanco",
+                "Fiat","Panda",new ArrayList<Cliente>());
+    }
+
 }
