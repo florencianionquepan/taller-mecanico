@@ -4,6 +4,7 @@ import javax.persistence.Embedded;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
 @Getter
@@ -11,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@JsonPropertyOrder({"id", "personaDTO"})
 public class AdministrativoDTO {
     @NotNull
     private Long id;
