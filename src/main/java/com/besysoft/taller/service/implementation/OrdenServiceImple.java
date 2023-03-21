@@ -62,9 +62,9 @@ public class OrdenServiceImple implements IOrdenService {
     }
 
     @Override
-    public OrdenTrabajo altaManoObra(Long id, Mecanico asignado) {
+    public OrdenTrabajo altaManoObra(Long id, ManoObra obra) {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
-        Mecanico mecaGuar=this.mecaService.buscarById(asignado.getId());
+        Mecanico mecaGuar=this.mecaService.buscarById(obra.getMecanico().getId());
         ManoObra nuevaMO=new ManoObra();
         nuevaMO.setMecanico(mecaGuar);
         nuevaMO.setOrdenTrabajo(ordenGuardada);
