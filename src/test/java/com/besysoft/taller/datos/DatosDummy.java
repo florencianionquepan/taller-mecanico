@@ -35,5 +35,9 @@ public class DatosDummy {
         return new Persona("Sara","Garcia","+1234","Bahia","8000",null,null,null,null);
     }
 
+    public static Recepcionista getRecep(){
+        return new Recepcionista();
+    }
+
 
 }
