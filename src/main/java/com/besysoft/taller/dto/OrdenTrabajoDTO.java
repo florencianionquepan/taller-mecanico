@@ -6,6 +6,7 @@ import lombok.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class OrdenTrabajoDTO {
-    @NotNull
     private Long id;
     private EstadoOrden estado;
     private String nivelCombustible;
@@ -22,7 +22,6 @@ public class OrdenTrabajoDTO {
 
     private LocalDateTime fechaIngreso;
 
-    //estaran nulos al momento de crearse
     private LocalDateTime fechaPago;
     private String formaPago;
     private Integer cantidadCuotas;
@@ -31,11 +30,6 @@ public class OrdenTrabajoDTO {
     private BigDecimal importeTotal;
 
     private LocalDateTime fechaFinReparacion;
-
-    private RecepcionistaDTO recepcionista;
-
-    //se solicitara en facturada
-    private AdministrativoDTO administrativo;
 
     private VehiculoDTO vehiculo;
 
