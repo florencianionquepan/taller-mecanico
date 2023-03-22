@@ -87,7 +87,9 @@ public class DatosDummy {
                 getMeca(),getOrdenCerrada());
     }
 
-
-
-
+    public static DetalleOrdenTrabajo getDetalle(){
+        return new DetalleOrdenTrabajo(null,2,
+                new BigDecimal(111),getOrdenCreada(),getRepuestoUno());
+    }
+    
 }
