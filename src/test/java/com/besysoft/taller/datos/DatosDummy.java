@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatosDummy {
     public static Cliente getClienteIgor(){
@@ -66,7 +67,16 @@ public class DatosDummy {
         return new OrdenTrabajo(null,EstadoOrden.CREADA,"20%",20000L,
                 "bomba aceite no arranca",LocalDateTime.now(),null,
                 null,null,null,null,null,getRecep(),getAdmin()
-                ,getVehiculoFiat(),new ArrayList<ManoObra>(),new ArrayList<DetalleOrdenTrabajo>());
+                ,getVehiculoFiat(),new ArrayList<ManoObra>(),null);
+    }
+
+    //Cuando pasa a orden en reparacion:
+
+    public static OrdenTrabajo getOrdenReparada(){
+        return new OrdenTrabajo(null,EstadoOrden.REPARACION,"20%",20000L,
+                "bomba aceite no arranca",LocalDateTime.now(),null,
+                null,null,null,null,null,getRecep(),getAdmin()
+                ,getVehiculoFiat(),new ArrayList<ManoObra>(List.of(getMOActiva())),null);
     }
 
     public static ManoObra getMOActiva(){
