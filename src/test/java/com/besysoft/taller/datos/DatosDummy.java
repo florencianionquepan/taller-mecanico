@@ -91,5 +91,9 @@ public class DatosDummy {
         return new DetalleOrdenTrabajo(null,2,
                 new BigDecimal(111),getOrdenCreada(),getRepuestoUno());
     }
-    
+
+    public static ManoObra getMOMecanico(){
+        return new ManoObra(null,null,null,getMeca(),null);
+    }
+
 }
