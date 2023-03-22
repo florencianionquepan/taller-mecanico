@@ -2,7 +2,6 @@ package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.Repuesto;
-import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.RepuestoRepository;
 import com.besysoft.taller.service.interfaces.IRepuestoService;
 import org.springframework.stereotype.Service;
