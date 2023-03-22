@@ -46,12 +46,8 @@ public class ClienteServiceImple implements IClienteService {
 
     @Override
     public Cliente recibeCliente(String email, String patente) {
-        Cliente cliente=new Cliente();
-        cliente.setCorreoElectronico(email);
-        Vehiculo veNuevo=new Vehiculo();
-        veNuevo.setPatente(patente);
-        if(!this.vehiService.existeVehiculo(veNuevo)){
-            if(!this.existeCliente(cliente.getCorreoElectronico())){
+        if(!this.vehiService.existeVehiculo(patente)){
+            if(!this.existeCliente(email)){
                 throw new NonExistingException(
                         String.format("El vehiculo con patente %s no existe." +
                                         "El cliente con email %s no se encuentra registrado.",
@@ -64,7 +60,7 @@ public class ClienteServiceImple implements IClienteService {
                 );
             }
         }
-        if(!this.existeCliente(cliente.getCorreoElectronico())){
+        if(!this.existeCliente(email)){
             throw new NonExistingException(
                     String.format("El cliente con email %s no se encuentra registrado ",
                             email)
