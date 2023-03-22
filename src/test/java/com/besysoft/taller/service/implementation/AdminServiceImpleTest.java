@@ -78,14 +78,16 @@ class AdminServiceImpleTest {
     @Test
     void buscarByIdException() {
         //GIVEN
-        when(repo.findById(anyLong()))
+        Administrativo admin= DatosDummy.getAdmin();
+        admin.setPersona(DatosDummy.getPersonaUno());
+        when(repo.findById(admin.getId()))
                 .thenReturn(Optional.empty());
 
         //WHEN
         //THEN
-        assertThatThrownBy(()->service.buscarById(anyLong()))
+        assertThatThrownBy(()->service.buscarById(admin.getId()))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining(String.format("El administrativo con id %d no existe",
-                        anyLong()));
+                        admin.getId()));
     }
 }
