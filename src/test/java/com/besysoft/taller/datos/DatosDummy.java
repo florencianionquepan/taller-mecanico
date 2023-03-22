@@ -72,16 +72,22 @@ public class DatosDummy {
 
     //Cuando pasa a orden en reparacion:
 
-    public static OrdenTrabajo getOrdenReparada(){
+    public static OrdenTrabajo getOrdenReparacion(){
         return new OrdenTrabajo(null,EstadoOrden.REPARACION,"20%",20000L,
                 "bomba aceite no arranca",LocalDateTime.now(),null,
                 null,null,null,null,null,getRecep(),getAdmin()
-                ,getVehiculoFiat(),new ArrayList<ManoObra>(List.of(getMOActiva())),null);
+                ,getVehiculoFiat(),new ArrayList<ManoObra>(List.of(getMOCompleta())),
+                new ArrayList<>(List.of(getDetalle())));
     }
 
     public static ManoObra getMOActiva(){
         return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
                 getMecaActivo(),getOrdenCreada());
+    }
+
+    public static ManoObra getMOCompleta(){
+        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
+                getMecaActivo(),new OrdenTrabajo());
     }
 
     public static OrdenTrabajo getOrdenCerrada(){
