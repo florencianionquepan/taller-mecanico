@@ -33,7 +33,8 @@ public class DatosDummy {
     }
 
     public static Persona getPersonaUno(){
-        return new Persona("Sara","Garcia","+1234","Bahia","8000",null,null,null,null);
+        return new Persona("Sara","Garcia","+1234",
+                "Bahia","8000",null,null,null,null);
     }
 
     public static Recepcionista getRecep(){
@@ -42,12 +43,12 @@ public class DatosDummy {
 
     public static Repuesto getRepuestoUno(){
         return new Repuesto(null,"Bosch","Ford Orion",
-                "Cilindro principal de freno",new BigDecimal(16532.80),new ArrayList<DetalleOrdenTrabajo>())
+                "Cilindro principal de freno",new BigDecimal(16532.80),new ArrayList<DetalleOrdenTrabajo>());
     }
 
-    public static Repuesto getRepuestoUno(){
+    public static Repuesto getRepuestoDos(){
         return new Repuesto(null,"Renault","Megane",
-                "Bomba de freno",new BigDecimal(16850.20),new ArrayList<DetalleOrdenTrabajo>())
+                "Bomba de freno",new BigDecimal(16850.20),new ArrayList<DetalleOrdenTrabajo>());
     }
 
 
