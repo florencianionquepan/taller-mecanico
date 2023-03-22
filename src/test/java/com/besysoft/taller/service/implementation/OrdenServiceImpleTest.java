@@ -216,19 +216,40 @@ class OrdenServiceImpleTest {
 
     @Test
     void facturarOrden() {
-        OrdenTrabajo cerrada=DatosDummy.getOrdenCerrada();
-        when(repo.findById(cerrada.getId()))
-                .thenReturn(Optional.of(cerrada));
-        //WHEN,THEN
-        assertThatThrownBy(()->service.facturarOrden(cerrada.getId(),cerrada))
-                .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining(String.format("La orden esta en estado %s" +
-                                ".No puede facturar ni cobrar esta orden"
-                        ,cerrada.getEstado()));
+        OrdenTrabajo reparada=DatosDummy.getOrdenReparada();
+        Administrativo admin=new Administrativo();
+        admin.setId(1L);
+        admin.setPersona(DatosDummy.getPersonaUno());
+        reparada.setAdministrativo(admin);
+        when(repo.findById(reparada.getId()))
+                .thenReturn(Optional.of(reparada));
+        when(adminService.buscarById(admin.getId()))
+                .thenReturn(admin);
+        when(repo.save(reparada))
+                .thenReturn(reparada);
+        //WHEN
+        OrdenTrabajo orden=service.facturarOrden(reparada.getId(),reparada);
+        // THEN
+        assertThat(orden.getEstado()
+                .equals(EstadoOrden.FACTURADA)).isTrue();
     }
 
     @Test
-    void cerrarOrden() {
+    void cerrarOrdenMalEstado() {
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(creada));
+        //WHEN,THEN
+        assertThatThrownBy(()->service.cerrarOrden(creada.getId()))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden esta en estado %s," +
+                                " debe ser facturada antes de cerrarse"
+                        ,creada.getEstado()));
+    }
+
+    @Test
+    void cerrarOrden(){
+        
     }
 
     @Test
