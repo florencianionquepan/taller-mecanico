@@ -58,7 +58,7 @@ public class DatosDummy {
                 "motor",new ArrayList<>());
     }
 
-    public static Mecanico getMecaDos(){
+    public static Mecanico getMecaFrenos(){
         return new Mecanico(null,getPersonaUno(),'t',
                 "frenos",new ArrayList<>());
     }
