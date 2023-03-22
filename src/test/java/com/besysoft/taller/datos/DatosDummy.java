@@ -58,21 +58,36 @@ public class DatosDummy {
                 "motor",new ArrayList<>());
     }
 
-    public static Mecanico getMecaFrenos(){
+    public static Mecanico getMecaActivo(){
         return new Mecanico(null,getPersonaUno(),'t',
                 "frenos",new ArrayList<>());
     }
-
-    public static ManoObra getMO(){
-        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),null,null);
-    }
-
     public static OrdenTrabajo getOrdenCreada(){
         return new OrdenTrabajo(null,EstadoOrden.CREADA,"20%",20000L,
                 "bomba aceite no arranca",LocalDateTime.now(),null,
                 null,null,null,null,null,getRecep(),getAdmin()
                 ,getVehiculoFiat(),new ArrayList<ManoObra>(),new ArrayList<DetalleOrdenTrabajo>());
     }
+
+    public static ManoObra getMOActiva(){
+        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
+                getMecaActivo(),getOrdenCreada());
+    }
+
+    public static OrdenTrabajo getOrdenCerrada(){
+        return new OrdenTrabajo(null,EstadoOrden.CERRADA,"30%",50000L,
+                "MOTOR no arranca",LocalDateTime.now(),LocalDateTime.now(),
+                "efectivo",null,null,new BigDecimal(30000),
+                LocalDateTime.now(),getRecep(),getAdmin(),getVehiculoRenault(),
+                new ArrayList<ManoObra>(),new ArrayList<DetalleOrdenTrabajo>());
+    }
+
+    public static ManoObra getMOcerrada(){
+        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
+                getMeca(),getOrdenCerrada());
+    }
+
+
 
 
 }
