@@ -68,10 +68,9 @@ public class OrdenServiceImple implements IOrdenService {
     public OrdenTrabajo altaManoObra(Long id, ManoObra obra) {
         OrdenTrabajo ordenGuardada=this.buscarById(id);
         Mecanico mecaGuar=this.mecaService.buscarById(obra.getMecanico().getId());
-        ManoObra nuevaMO=new ManoObra();
-        nuevaMO.setMecanico(mecaGuar);
-        nuevaMO.setOrdenTrabajo(ordenGuardada);
-        ManoObra altaMO=this.obraService.altaManoObra(nuevaMO);
+        obra.setMecanico(mecaGuar);
+        obra.setOrdenTrabajo(ordenGuardada);
+        ManoObra altaMO=this.obraService.altaManoObra(obra);
         this.mecaService.addManoObra(mecaGuar,altaMO);
         OrdenTrabajo ordenActu=this.buscarById(id);
         return ordenActu;
