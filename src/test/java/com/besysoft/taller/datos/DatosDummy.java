@@ -80,6 +80,15 @@ public class DatosDummy {
                 new ArrayList<>(List.of(getDetalle())));
     }
 
+    public static OrdenTrabajo getOrdenReparada(){
+        return new OrdenTrabajo(null,EstadoOrden.AFACTURAR,"20%",20000L,
+                "bomba aceite no arranca",LocalDateTime.now(),null,
+                null,null,null,new BigDecimal(33065.6),
+                LocalDateTime.now(),getRecep(),null
+                ,getVehiculoFiat(),new ArrayList<ManoObra>(List.of(getMOCompleta())),
+                new ArrayList<>(List.of(getDetalle())));
+    }
+
     public static ManoObra getMOActiva(){
         return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
                 getMecaActivo(),getOrdenCreada());
