@@ -73,7 +73,8 @@ public class OrdenServiceImple implements IOrdenService {
         nuevaMO.setOrdenTrabajo(ordenGuardada);
         ManoObra altaMO=this.obraService.altaManoObra(nuevaMO);
         this.mecaService.addManoObra(mecaGuar,altaMO);
-        return ordenGuardada;
+        OrdenTrabajo ordenActu=this.buscarById(id);
+        return ordenActu;
     }
 
     @Override
