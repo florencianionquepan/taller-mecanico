@@ -83,7 +83,7 @@ public class DatosDummy {
     }
 
     public static ManoObra getMOcerrada(){
-        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),
+        return new ManoObra(null,"limpieza motor", LocalTime.of(1,0),
                 getMeca(),getOrdenCerrada());
     }
 
