@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.Embedded;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Getter
@@ -25,6 +26,8 @@ public class MecanicoDTO {
     @Valid
     private PersonaDTO personaDTO;
 
+    //^[tfTF]$
+    @Pattern(regexp = "^[tfTF]$" , message = "Solo se permite un caracter T o F")
     private Character activo;
     private String especialidad;
 
