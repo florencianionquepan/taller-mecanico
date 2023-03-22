@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Character.toUpperCase;
+
 @Component
 public class MecanicoMapper implements IMecanicoMapper{
 
@@ -34,7 +36,7 @@ public class MecanicoMapper implements IMecanicoMapper{
         Mecanico ent=new Mecanico();
         ent.setId(dto.getId());
         ent.setPersona(this.persoMap.mapToEntity(dto.getPersonaDTO()));
-        ent.setActivo(dto.getActivo());
+        ent.setActivo(toUpperCase(dto.getActivo()));
         ent.setEspecialidad(dto.getEspecialidad());
         //Nunca voy a ingresar lista de mano de obra dentro de mecanicos
         //No es necesario mapear a entidad la lista de obrasDTO aca
