@@ -3,6 +3,8 @@ package com.besysoft.taller.datos;
 import com.besysoft.taller.model.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class DatosDummy {
@@ -49,6 +51,27 @@ public class DatosDummy {
     public static Repuesto getRepuestoDos(){
         return new Repuesto(null,"Renault","Megane",
                 "Bomba de freno",new BigDecimal(16850.20),new ArrayList<DetalleOrdenTrabajo>());
+    }
+
+    public static Mecanico getMeca(){
+        return new Mecanico(null, getPersonaUno() ,'T',
+                "motor",new ArrayList<>());
+    }
+
+    public static Mecanico getMecaDos(){
+        return new Mecanico(null,getPersonaUno(),'t',
+                "frenos",new ArrayList<>());
+    }
+
+    public static ManoObra getMO(){
+        return new ManoObra(null,"cambio aceite", LocalTime.of(1,0),null,null);
+    }
+
+    public static OrdenTrabajo getOrdenCreada(){
+        return new OrdenTrabajo(null,EstadoOrden.CREADA,"20%",20000L,
+                "bomba aceite no arranca",LocalDateTime.now(),null,
+                null,null,null,null,null,getRecep(),getAdmin()
+                ,getVehiculoFiat(),new ArrayList<ManoObra>(),new ArrayList<DetalleOrdenTrabajo>());
     }
 
 
