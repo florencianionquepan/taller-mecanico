@@ -52,7 +52,7 @@ class RecepcionServiceImpleTest {
         Recepcionista recep= DatosDummy.getRecep();
         recep.setPersona(DatosDummy.getPersonaUno());
         when(repo.findAll())
-                .thenReturn(new ArrayList<>(
+                .thenReturn(new ArrayList<Recepcionista>(
                         List.of(recep)
                         ));
         List<Recepcionista> lista=service.verTodas();
