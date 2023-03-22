@@ -82,14 +82,16 @@ class RecepcionServiceImpleTest {
     @Test
     void buscarByIdException() {
         //GIVEN
-        when(repo.findById(anyLong()))
+        Recepcionista recep= DatosDummy.getRecep();
+        recep.setPersona(DatosDummy.getPersonaUno());
+        when(repo.findById(recep.getId()))
                 .thenReturn(Optional.empty());
 
         //WHEN
         //THEN
-        assertThatThrownBy(()->service.buscarById(anyLong()))
+        assertThatThrownBy(()->service.buscarById(recep.getId()))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining(String.format("La recepcionista con id %d no existe",
-                        anyLong()));
+                        recep.getId()));
     }
 }
