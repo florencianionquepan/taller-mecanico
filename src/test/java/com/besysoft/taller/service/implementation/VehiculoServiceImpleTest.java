@@ -59,7 +59,7 @@ class VehiculoServiceImpleTest {
         Vehiculo vehi= DatosDummy.getVehiculoRenault();
         when(repo.save(vehi))
                 .thenReturn(vehi);
-        when(repo.buscarPorPatente(any()))
+        when(repo.buscarPorPatente(vehi.getPatente()))
                 .thenReturn(Optional.of(vehi));
         //WHEN
         //THEN
@@ -69,13 +69,14 @@ class VehiculoServiceImpleTest {
 
     @Test
     void buscarPorPatenteException() {
-        when(repo.buscarPorPatente(any()))
+        Vehiculo vehi= DatosDummy.getVehiculoRenault();
+        when(repo.buscarPorPatente(vehi.getPatente()))
                 .thenReturn(Optional.empty());
 
-        assertThatThrownBy(()->service.buscarPorPatente(any()))
+        assertThatThrownBy(()->service.buscarPorPatente(vehi.getPatente()))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining(String.format("El vehiculo con patente %s no existe ",
-                        any()));
+                        vehi.getPatente()));
     }
 
     @Test
