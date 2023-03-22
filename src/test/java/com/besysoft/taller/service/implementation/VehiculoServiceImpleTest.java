@@ -59,11 +59,11 @@ class VehiculoServiceImpleTest {
         Vehiculo vehi= DatosDummy.getVehiculoRenault();
         when(repo.save(vehi))
                 .thenReturn(vehi);
-        when(repo.buscarPorPatente(vehi.getPatente()))
+        when(repo.buscarPorPatente(any()))
                 .thenReturn(Optional.of(vehi));
         //WHEN
         //THEN
-        assertThat(service.existeVehiculo(vehi)).isTrue();
+        assertThat(service.existeVehiculo(vehi.getPatente())).isTrue();
         verify(repo).buscarPorPatente(any());
     }
 
