@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -129,11 +130,101 @@ class OrdenServiceImpleTest {
 
     @Test
     void finalizarReparacion() {
+        //GIVEN
+        OrdenTrabajo repa=DatosDummy.getOrdenReparacion();
+        repa.setId(1L);
+        ManoObra completa=repa.getListaManoObra().get(0);
+        when(repo.findById(repa.getId()))
+                .thenReturn(Optional.of(repa));
+        when(manoObraRepo.findById(completa.getId()))
+                .thenReturn(Optional.of(completa));
+        completa.setOrdenTrabajo(repa);
+        when(repo.save(repa))
+                .thenReturn(repa);
+        //WHEN
+        OrdenTrabajo modi=service.finalizarReparacion(repa.getId(),repa);
+        //THEN
+        assertThat(modi.getEstado()).isEqualTo(EstadoOrden.AFACTURAR);
+    }
 
+    @Test
+    void finalizarReparacionObrasInexistentes() {
+        //GIVEN
+        OrdenTrabajo repa=DatosDummy.getOrdenReparacion();
+        ManoObra completa=new ManoObra(null,"falla aire", LocalTime.of(1,0),
+                DatosDummy.getMeca(),null);
+        when(repo.findById(repa.getId()))
+                .thenReturn(Optional.of(repa));
+        when(manoObraRepo.findById(completa.getId()))
+                .thenReturn(Optional.empty());
+        //WHEN
+        //THEN
+        assertThatThrownBy(()->service.finalizarReparacion(repa.getId(),repa))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La mano de obra %d no existe ",
+                        completa.getId()));
+    }
+
+    @Test
+    void finalizarReparacionObrasIncorrectas() {
+        //GIVEN
+        OrdenTrabajo repa=DatosDummy.getOrdenReparacion();
+        repa.setId(2L);
+        OrdenTrabajo cerrada=DatosDummy.getOrdenCerrada();
+        cerrada.setId(1L);
+        ManoObra completa=new ManoObra(null,"falla aire", LocalTime.of(1,0),
+                DatosDummy.getMeca(),cerrada);
+        when(repo.findById(repa.getId()))
+                .thenReturn(Optional.of(repa));
+        when(manoObraRepo.findById(completa.getId()))
+                .thenReturn(Optional.of(completa));
+        //WHEN
+        //THEN
+        assertThatThrownBy(()->service.finalizarReparacion(repa.getId(),repa))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La mano de obra %d no corresponde a la orden ",
+                        null));
+    }
+
+    @Test
+    void finalizarReparacionException() {
+        //GIVEN
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(creada));
+        //WHEN
+        //THEN
+        assertThatThrownBy(()->service.finalizarReparacion(creada.getId(),creada))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden esta en estado %s" +
+                                ".No puede finalizar la reparacion de esta orden"
+                        ,creada.getEstado()));
+    }
+
+    @Test
+    void facturarOrdenMalEstado() {
+        OrdenTrabajo cerrada=DatosDummy.getOrdenCerrada();
+        when(repo.findById(cerrada.getId()))
+                .thenReturn(Optional.of(cerrada));
+        //WHEN,THEN
+        assertThatThrownBy(()->service.facturarOrden(cerrada.getId(),cerrada))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden esta en estado %s" +
+                                ".No puede facturar ni cobrar esta orden"
+                        ,cerrada.getEstado()));
     }
 
     @Test
     void facturarOrden() {
+        OrdenTrabajo cerrada=DatosDummy.getOrdenCerrada();
+        when(repo.findById(cerrada.getId()))
+                .thenReturn(Optional.of(cerrada));
+        //WHEN,THEN
+        assertThatThrownBy(()->service.facturarOrden(cerrada.getId(),cerrada))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden esta en estado %s" +
+                                ".No puede facturar ni cobrar esta orden"
+                        ,cerrada.getEstado()));
     }
 
     @Test
