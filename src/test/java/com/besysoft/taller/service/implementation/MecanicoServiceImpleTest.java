@@ -4,14 +4,13 @@ import com.besysoft.taller.datos.DatosDummy;
 import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.Mecanico;
-import com.besysoft.taller.model.OrdenTrabajo;
-import com.besysoft.taller.repository.AdminRepository;
 import com.besysoft.taller.repository.MecanicoRepository;
 import com.besysoft.taller.service.interfaces.IMecanicoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -116,5 +115,19 @@ class MecanicoServiceImpleTest {
         //WHEN
         //THEN
         assertThat(service.mecanicoConMenosObras()).isEqualTo(menosActivo);
+    }
+
+    @Test
+    void cantidadObrasVigentes() throws Exception {
+        List<ManoObra> manoObras = new ArrayList<ManoObra>(
+                List.of(DatosDummy.getMOcerrada(), DatosDummy.getMOActiva())
+        );
+
+        Method method = MecanicoServiceImple.class
+                .getDeclaredMethod("cantidadObrasVigentes", List.class);
+        method.setAccessible(true);
+        int cantidadObrasVigentes = (int) method.invoke(service, manoObras);
+
+        assertThat(cantidadObrasVigentes).isEqualTo(1);
     }
 }
