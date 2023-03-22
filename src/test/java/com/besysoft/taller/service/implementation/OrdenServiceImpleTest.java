@@ -1,12 +1,17 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.datos.DatosDummy;
+import com.besysoft.taller.model.*;
 import com.besysoft.taller.repository.ManoObraRepository;
 import com.besysoft.taller.repository.OrdenTrabajoRepository;
 import com.besysoft.taller.service.interfaces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class OrdenServiceImpleTest {
@@ -37,10 +42,45 @@ class OrdenServiceImpleTest {
 
     @Test
     void altaOrden() {
+        OrdenTrabajo creada= DatosDummy.getOrdenCreada();
+        Recepcionista recep= creada.getRecepcionista();
+        Vehiculo ve=creada.getVehiculo();
+        when(repo.save(creada))
+                .thenReturn(creada);
+        when(recepService.buscarById(creada.getRecepcionista().getId()))
+                .thenReturn(recep);
+        when(vehiService.buscarPorPatente(creada.getVehiculo().getPatente()))
+                .thenReturn(ve);
+
+        service.altaOrden(creada);
+
+        ArgumentCaptor<OrdenTrabajo> ordenArgumentCaptor=ArgumentCaptor
+                .forClass(OrdenTrabajo.class);
+        verify(repo).save(ordenArgumentCaptor.capture());
+
+        OrdenTrabajo ordenCaptor=ordenArgumentCaptor.getValue();
+        assertThat(ordenCaptor).isEqualTo(creada);
     }
 
     @Test
     void altaManoObra() {
+        ManoObra prueba=DatosDummy.getMOMecanico();
+        Mecanico meca=prueba.getMecanico();
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(creada));
+        when(mecaService.buscarById(prueba.getMecanico().getId()))
+                .thenReturn(meca);
+        when(obraService.altaManoObra(prueba))
+                .thenReturn(new ManoObra(1L,null,null,meca,creada));
+        OrdenTrabajo act=creada;
+        act.getListaManoObra().add(new ManoObra(1L,null,null,meca,creada));
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(act));
+
+        OrdenTrabajo expected=service.altaManoObra(creada.getId(), prueba);
+
+        assertThat(expected.getListaManoObra().size()).isEqualTo(1);
     }
 
     @Test
