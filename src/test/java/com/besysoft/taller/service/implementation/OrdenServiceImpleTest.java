@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
@@ -77,18 +79,57 @@ class OrdenServiceImpleTest {
         act.getListaManoObra().add(new ManoObra(1L,null,null,meca,creada));
         when(repo.findById(creada.getId()))
                 .thenReturn(Optional.of(act));
-
+        //WHEN
         OrdenTrabajo expected=service.altaManoObra(creada.getId(), prueba);
-
+        //THEN
         assertThat(expected.getListaManoObra().size()).isEqualTo(1);
     }
 
     @Test
     void iniciarReparacion() {
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        creada.setListaManoObra(new ArrayList<ManoObra>(
+                List.of(DatosDummy.getMOActiva())
+        ));
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(creada));
+        //WHEN
+        service.iniciarReparacion(creada.getId());
+        //THEN
+        assertThat(creada.getEstado()).isEqualTo(EstadoOrden.REPARACION);
+    }
+
+    @Test
+    void iniciarReparacionSinObras() {
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        creada.setListaManoObra(new ArrayList<ManoObra>());
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.of(creada));
+        //WHEN
+        //THEN
+        assertThatThrownBy(()->service.iniciarReparacion(creada.getId()))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden no posee mano de obra" +
+                        ".Debe generarla para luego iniciar la reparacion"));
+    }
+
+    @Test
+    void iniciarReparacionMalEstado() {
+        OrdenTrabajo cerrada=DatosDummy.getOrdenCerrada();
+        when(repo.findById(cerrada.getId()))
+                .thenReturn(Optional.of(cerrada));
+        //WHEN
+        //THEN
+        assertThatThrownBy(()->service.iniciarReparacion(cerrada.getId()))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden esta en estado %s" +
+                                ".No puede iniciar la reparacion de esta orden"
+                        ,cerrada.getEstado()));
     }
 
     @Test
     void finalizarReparacion() {
+
     }
 
     @Test
