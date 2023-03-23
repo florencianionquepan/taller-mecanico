@@ -27,6 +27,7 @@ public class OrdenDetalladaMapper implements IOrdenDetalladaMapper {
         dto.setId(entidad.getId());
         dto.setEstado(entidad.getEstado());
         dto.setFechaFinReparacion(entidad.getFechaFinReparacion());
+        dto.setImporteTotal(entidad.getImporteTotal());
         dto.setVehiculo(this.vehiMap.mapToDto(entidad.getVehiculo()));
         dto.setListaManoObra(this.obraMap.mapListToDto(entidad.getListaManoObra()));
         dto.setDetalleOrdenes(this.detalleOrdenMap.MapListToDto(entidad.getListaDetalleOrdenes()));
@@ -37,8 +38,6 @@ public class OrdenDetalladaMapper implements IOrdenDetalladaMapper {
     public OrdenTrabajo mapToEntity(OrdenDetalladaDTO dto) {
         OrdenTrabajo enti=new OrdenTrabajo();
         enti.setId(dto.getId());
-        enti.setEstado(dto.getEstado());
-        enti.setFechaFinReparacion(dto.getFechaFinReparacion());
         enti.setVehiculo(this.vehiMap.mapToEntity(dto.getVehiculo()));
         enti.setListaManoObra(this.obraMap.mapListToEntities(dto.getListaManoObra()));
         enti.setListaDetalleOrdenes(this.detalleOrdenMap.mapListToEntities(dto.getDetalleOrdenes()));
