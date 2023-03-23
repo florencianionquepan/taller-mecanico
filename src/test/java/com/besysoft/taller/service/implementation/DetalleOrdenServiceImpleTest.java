@@ -1,7 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.datos.DatosDummy;
-import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.DetalleOrdenTrabajo;
 import com.besysoft.taller.model.Repuesto;
 import com.besysoft.taller.repository.DetalleOrdenRepository;
