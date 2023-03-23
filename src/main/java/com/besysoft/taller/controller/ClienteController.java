@@ -8,6 +8,7 @@ import com.besysoft.taller.service.interfaces.IClienteService;
 import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{email}/vehiculos/{patente}")
+    @ApiOperation(value="Permite asociar un vehiculo con un cliente")
     public ResponseEntity<?> asociarVehiculoCliente(@PathVariable String email,
                                                     @PathVariable String patente){
         Cliente ent=this.service.recibeCliente(email, patente);
@@ -47,6 +49,7 @@ public class ClienteController {
 
 
     @PostMapping
+    @ApiOperation(value="Permite crear un nuevo cliente")
     public ResponseEntity<?> altaCliente(@RequestBody @Valid ClienteDTO dto){
         Cliente entity=this.mapper.mapToEntity(dto);
         Cliente nuevo=this.service.altaCliente(entity);
