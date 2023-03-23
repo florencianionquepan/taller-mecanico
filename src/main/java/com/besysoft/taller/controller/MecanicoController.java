@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/mecanicos")
-@Api(value="Mecanico Controller", tags="Acciones permitidas para Mecanico")
+@Api(value="Mecanico Controller", tags="Mecanico Controller")
 public class MecanicoController {
 
     private final IMecanicoService service;

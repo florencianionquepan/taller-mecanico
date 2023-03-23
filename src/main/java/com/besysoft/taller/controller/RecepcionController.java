@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/recepcionistas")
-@Api(value="Recepcionista Controller", tags="Acciones permitidas para Recepcionista")
+@Api(value="Recepcionista Controller", tags="Recepcionista Controller")
 public class RecepcionController {
 
     private final IRecepcionService service;
