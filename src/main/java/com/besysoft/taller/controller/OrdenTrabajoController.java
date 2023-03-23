@@ -49,7 +49,7 @@ public class OrdenTrabajoController {
 
     @PostMapping
     @ApiOperation(value="Permite generar una nueva orden de trabajo. Se debe registrar" +
-            "la recepcionista a cargo de esta operación")
+            " la recepcionista a cargo de esta operación")
     public ResponseEntity<?> altaOrden(@RequestBody @Valid OrdenNuevaDTO orden){
         OrdenTrabajo nueva=this.service.altaOrden(this.nuevaMapper.mapToEntity(orden));
         OrdenNuevaDTO nuevaResp=this.nuevaMapper.mapToDto(nueva);
@@ -59,7 +59,7 @@ public class OrdenTrabajoController {
     @PutMapping("/{id}/manoobra")
     @ApiOperation(value="Permite generar una mano de obra asociada a una orden de trabajo." +
             "Se debe registrar el mecánico asignado a dicha mano de obra, quien será el responsable" +
-            "de esta operación")
+            " de esta operación")
     public ResponseEntity<?> altaManoObra(@PathVariable Long id,
                                           @RequestBody @Valid ManoObraMecanicoDTO dto){
         ManoObra obra=this.manoObraMapper.mapToEntity(dto);
@@ -93,7 +93,7 @@ public class OrdenTrabajoController {
 
     @PutMapping("/{id}/facturacion")
     @ApiOperation(value="Permite facturar una orden de trabajo. Se debe registrar el administrativo" +
-            "a cargo de esta operación y el tipo de pago.")
+            " a cargo de esta operación y el tipo de pago.")
     public ResponseEntity<?> facturarOrden(@PathVariable Long id,
                                            @RequestBody @Valid OrdenFacturadaDTO dto){
         OrdenTrabajo orden=this.factuMapper.mapToEntity(dto);
@@ -104,7 +104,7 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/cierre")
-    @ApiOperation(value="Permite cerrar una orden de trabajo. La recepcionista será la misma" +
+    @ApiOperation(value="Permite cerrar una orden de trabajo. La recepcionista será la misma " +
             "que generó dicha orden de trabajo")
     public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
         OrdenTrabajo orden=this.service.cerrarOrden(id);
