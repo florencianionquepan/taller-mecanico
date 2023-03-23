@@ -64,8 +64,7 @@ public class OrdenTrabajoController {
 
     @PutMapping("/{id}/manoobra")
     @ApiOperation(value="Permite generar una mano de obra asociada a una orden de trabajo." +
-            "Se debe registrar el mecánico asignado a dicha mano de obra, quien será el responsable" +
-            " de esta operación")
+            "Se debe registrar el mecánico asignado a dicha mano de obra.")
     public ResponseEntity<?> altaManoObra(@PathVariable Long id,
                                           @RequestBody @Valid ManoObraMecanicoDTO dto){
         ManoObra obra=this.manoObraMapper.mapToEntity(dto);
@@ -82,8 +81,8 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/finalizacion")
-    @ApiOperation(value="Permite finalizar una orden de trabajo con sus manos de obras completas " +
-            "y todos los detalles de ordenes de trabajo")
+    @ApiOperation(value="Finaliza la reparación de una orden de trabajo con sus manos de obras completas " +
+            "y todos los detalles asociados.")
     //Se deben si o si agregar todos los detalles de ordenes de trabajo en este punto.
     //Luego no es posible agregar otros.
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
@@ -108,8 +107,8 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/cierre")
-    @ApiOperation(value="Permite cerrar una orden de trabajo. La recepcionista será la misma " +
-            "que generó dicha orden de trabajo")
+    @ApiOperation(value="Se cierra una orden de trabajo. La recepcionista será la misma " +
+            "que generó dicha orden de trabajo.")
     public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
         OrdenTrabajo orden=this.service.cerrarOrden(id);
         OrdenTrabajoRespDTO dto=this.ordenRespMapper.mapToDto(orden);
