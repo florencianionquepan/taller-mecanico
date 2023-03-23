@@ -4,6 +4,7 @@ import com.besysoft.taller.dto.RepuestoDTO;
 import com.besysoft.taller.dto.mapper.IRepuestoMapper;
 import com.besysoft.taller.model.Repuesto;
 import com.besysoft.taller.service.interfaces.IRepuestoService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/repuestos")
+@Api(value="Repuesto Controller", tags="Acciones permitidas para Repuesto")
 public class RepuestoController {
 
     private final IRepuestoService service;
