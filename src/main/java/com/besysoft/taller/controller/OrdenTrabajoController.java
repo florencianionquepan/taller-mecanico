@@ -6,6 +6,7 @@ import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,8 @@ public class OrdenTrabajoController {
     public Map<String,Object> mensajeBody= new HashMap<>();
 
     @PostMapping
-    //Se genera la orden de trabajo
+    @ApiOperation(value="Permite generar una nueva orden de trabajo. Se debe registrar" +
+            "la recepcionista a cargo de esta operación")
     public ResponseEntity<?> altaOrden(@RequestBody @Valid OrdenNuevaDTO orden){
         OrdenTrabajo nueva=this.service.altaOrden(this.nuevaMapper.mapToEntity(orden));
         OrdenNuevaDTO nuevaResp=this.nuevaMapper.mapToDto(nueva);
@@ -55,7 +57,9 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/manoobra")
-    //Necesita el id de mecanico solamente
+    @ApiOperation(value="Permite generar una mano de obra asociada a una orden de trabajo." +
+            "Se debe registrar el mecánico asignado a dicha mano de obra, quien será el responsable" +
+            "de esta operación")
     public ResponseEntity<?> altaManoObra(@PathVariable Long id,
                                           @RequestBody @Valid ManoObraMecanicoDTO dto){
         ManoObra obra=this.manoObraMapper.mapToEntity(dto);
@@ -67,7 +71,7 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/reparacion")
-    //inicia reparacion
+    @ApiOperation(value="Permite iniciar la reparación de una orden de trabajo")
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
         OrdenTrabajoRespDTO dtoResp=this.ordenRespMapper.mapToDto(this.service.iniciarReparacion(id));
         mensajeBody.put("Success",Boolean.TRUE);
@@ -76,8 +80,8 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/finalizacion")
-    //La orden va a venir con las mano de obras (existentes ya) con campos completos
-    //y traera los detalles que necesite crear
+    @ApiOperation(value="Permite finalizar una orden de trabajo con sus manos de obras completas " +
+            "y todos los detalles de ordenes de trabajo")
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
                                                 @RequestBody @Valid OrdenDetalladaDTO dto){
         OrdenTrabajo orden=this.detalladaMapper.mapToEntity(dto);
@@ -88,6 +92,8 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/facturacion")
+    @ApiOperation(value="Permite facturar una orden de trabajo. Se debe registrar el administrativo" +
+            "a cargo de esta operación y el tipo de pago.")
     public ResponseEntity<?> facturarOrden(@PathVariable Long id,
                                            @RequestBody @Valid OrdenFacturadaDTO dto){
         OrdenTrabajo orden=this.factuMapper.mapToEntity(dto);
@@ -98,7 +104,8 @@ public class OrdenTrabajoController {
     }
 
     @PutMapping("/{id}/cierre")
-    //Recepcionista cierra la orden. Se supone que es la misma que la generó.
+    @ApiOperation(value="Permite cerrar una orden de trabajo. La recepcionista será la misma" +
+            "que generó dicha orden de trabajo")
     public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
         OrdenTrabajo orden=this.service.cerrarOrden(id);
         OrdenTrabajoRespDTO dto=this.ordenRespMapper.mapToDto(orden);
@@ -109,6 +116,7 @@ public class OrdenTrabajoController {
 
 
     @GetMapping
+    @ApiOperation(value="Permite listar todas las ordenes de trabajo existentes.")
     public ResponseEntity<?> verTodas(){
         List<OrdenTrabajoRespDTO> ordenes=this.ordenRespMapper.mapListToDto(this.service.verTodas());
         mensajeBody.put("Success",Boolean.TRUE);
@@ -117,6 +125,7 @@ public class OrdenTrabajoController {
     }
 
     @GetMapping("/vehiculos/{patente}")
+    @ApiOperation(value="Permite listar las ordenes de trabajo de un vehiculo determinado.")
     public ResponseEntity<?> verOrdenesByPatentes(@PathVariable String patente){
         List<OrdenTrabajoRespDTO> ordenes=this.ordenRespMapper.mapListToDto(this.service.verByVehiculo(patente));
         mensajeBody.put("Success",Boolean.TRUE);
