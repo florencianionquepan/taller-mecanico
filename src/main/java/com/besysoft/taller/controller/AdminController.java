@@ -5,6 +5,7 @@ import com.besysoft.taller.dto.mapper.IAdminMapper;
 import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.service.interfaces.IAdminService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,14 @@ public class AdminController {
     }
 
     @PostMapping
+    @ApiOperation(value="Permite crear un nuevo administrador")
     public ResponseEntity<?> altaAdmin(@RequestBody @Valid AdministrativoDTO dto){
         Administrativo nuevo=this.service.altaAdmin(this.mapper.mapToEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToDto(nuevo));
     }
 
     @GetMapping
+    @ApiOperation(value="Permite listar los administradores existentes")
     public ResponseEntity<?> verAdmin(){
         List<AdministrativoDTO> adminis=this.mapper.mapToListDto(this.service.verAdmin());
         mensajeBody.put("Success",Boolean.TRUE);
