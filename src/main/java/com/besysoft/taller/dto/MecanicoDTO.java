@@ -28,7 +28,7 @@ public class MecanicoDTO {
 
     //^[tfTF]$
     @Pattern(regexp = "^[tfTF]$" , message = "Solo se permite un caracter T o F")
-    private Character activo;
+    private String activo;
     private String especialidad;
 
     @JsonIgnoreProperties(value = "mecanico")
