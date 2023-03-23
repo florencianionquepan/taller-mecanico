@@ -1,11 +1,14 @@
 package com.besysoft.taller.service.implementation;
 
+import com.besysoft.taller.controller.OrdenTrabajoController;
 import com.besysoft.taller.exception.NonExistingException;
 import com.besysoft.taller.model.Cliente;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.repository.ClienteRepository;
 import com.besysoft.taller.service.interfaces.IClienteService;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class ClienteServiceImple implements IClienteService {
 
     private final ClienteRepository repo;
     private final IVehiculoService vehiService;
+    private Logger logger= LoggerFactory.getLogger(ClienteServiceImple.class);
 
     public ClienteServiceImple(ClienteRepository repo, IVehiculoService vehiService) {
         this.repo = repo;
@@ -46,21 +50,20 @@ public class ClienteServiceImple implements IClienteService {
 
     @Override
     public Cliente recibeCliente(String email, String patente) {
-        if(!this.vehiService.existeVehiculo(patente)){
-            if(!this.existeCliente(email)){
-                throw new NonExistingException(
-                        String.format("El vehiculo con patente %s no existe." +
-                                        "El cliente con email %s no se encuentra registrado.",
-                                patente , email)
-                );
-            }else{
-                throw new NonExistingException(
-                        String.format("El vehiculo con patente %s no existe ",
-                                patente)
-                );
-            }
-        }
-        if(!this.existeCliente(email)){
+        boolean existeCliente=this.existeCliente(email);
+        boolean existeVehiculo=this.vehiService.existeVehiculo(patente);
+        if(!existeVehiculo && !existeCliente) {
+            throw new NonExistingException(
+                    String.format("El vehiculo con patente %s no existe." +
+                                    "El cliente con email %s no se encuentra registrado.",
+                            patente, email)
+            );
+        } else if (!existeVehiculo && existeCliente) {
+            throw new NonExistingException(
+                    String.format("El vehiculo con patente %s no existe ",
+                            patente)
+            );
+        } else if (!existeCliente && existeVehiculo) {
             throw new NonExistingException(
                     String.format("El cliente con email %s no se encuentra registrado ",
                             email)
