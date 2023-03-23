@@ -5,6 +5,7 @@ import com.besysoft.taller.dto.RecepcionistaDTO;
 import com.besysoft.taller.dto.mapper.IRecepMapper;
 import com.besysoft.taller.model.Recepcionista;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/recepcionistas")
+@Api(value="Recepcionista Controller", tags="Acciones permitidas para Recepcionista")
 public class RecepcionController {
 
     private final IRecepcionService service;
