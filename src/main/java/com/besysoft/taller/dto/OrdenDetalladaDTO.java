@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class OrdenDetalladaDTO {
     private EstadoOrden estado;
 
     private LocalDateTime fechaFinReparacion;
+    private BigDecimal importeTotal;
     @JsonIgnoreProperties(value="clientes")
     private VehiculoDTO vehiculo;
     @NotNull
