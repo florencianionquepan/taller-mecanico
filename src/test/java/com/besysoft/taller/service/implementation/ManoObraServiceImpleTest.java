@@ -1,7 +1,6 @@
 package com.besysoft.taller.service.implementation;
 
 import com.besysoft.taller.datos.DatosDummy;
-import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.repository.ManoObraRepository;
 import com.besysoft.taller.service.interfaces.IManoObraService;
