@@ -4,6 +4,7 @@ import com.besysoft.taller.datos.DatosDummy;
 import com.besysoft.taller.model.DetalleOrdenTrabajo;
 import com.besysoft.taller.model.Repuesto;
 import com.besysoft.taller.repository.DetalleOrdenRepository;
+import com.besysoft.taller.service.interfaces.IDetalleOrdenService;
 import com.besysoft.taller.service.interfaces.IRepuestoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class DetalleOrdenServiceImpleTest {
 
     private DetalleOrdenRepository repo;
     private IRepuestoService repuService;
-    private DetalleOrdenServiceImple service;
+    private IDetalleOrdenService service;
 
     @BeforeEach
     void setUp() {
