@@ -4,6 +4,7 @@ import com.besysoft.taller.dto.AdministrativoDTO;
 import com.besysoft.taller.dto.mapper.IAdminMapper;
 import com.besysoft.taller.model.Administrativo;
 import com.besysoft.taller.service.interfaces.IAdminService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/administrativos")
+@Api(value="Administrador Controller", tags="Acciones permitidas para Administrador")
 public class AdminController {
 
     private final IAdminService service;
