@@ -32,7 +32,7 @@ public class SpringFoxSwaggerConfig {
                 "API para el uso de un sistema de gestión de un taller mecanico",
                 "V1",
                 "URL de termino y servicios",
-                new Contact("Flower", "www.florencianionquepan.com", "florencianionquepan@mail.com"),
+                new Contact("Flower", "", "florencianionquepan@gmail.com"),
                 "Licencia API",
                 "URL LICENCIA API",
                 Collections.emptyList()
