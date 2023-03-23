@@ -5,6 +5,7 @@ import com.besysoft.taller.dto.mapper.*;
 import com.besysoft.taller.model.ManoObra;
 import com.besysoft.taller.model.OrdenTrabajo;
 import com.besysoft.taller.service.interfaces.IOrdenService;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ordenes")
+@Api(value="Orden de Trabajo Controller", tags="Acciones permitidas para Orden de Trabajo")
 public class OrdenTrabajoController {
 
     private final IOrdenService service;
