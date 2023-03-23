@@ -37,8 +37,12 @@ public class VehiculoServiceImple implements IVehiculoService {
 
     @Override
     public boolean existeVehiculo(String patente) {
-        Vehiculo ve=this.buscarPorPatente(patente);
-        return true;
+        boolean existe=false;
+        Optional<Vehiculo> oVehi=this.repo.buscarPorPatente(patente);
+        if(oVehi.isPresent()){
+            existe=true;
+        }
+        return existe;
     }
 
     @Override
