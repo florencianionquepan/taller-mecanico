@@ -6,6 +6,7 @@ import com.besysoft.taller.dto.mapper.IRecepMapper;
 import com.besysoft.taller.model.Recepcionista;
 import com.besysoft.taller.service.interfaces.IRecepcionService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -33,12 +34,14 @@ public class RecepcionController {
     }
 
     @PostMapping
+    @ApiOperation(value="Permite crear una recepcionista nueva.")
     public ResponseEntity<?> altaRecep(@RequestBody @Valid RecepcionistaDTO dto){
         Recepcionista nueva=this.service.altaRecepcion(this.mapper.mapToEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(this.mapper.mapToDto(nueva));
     }
 
     @GetMapping
+    @ApiOperation(value="Permite listar todas las recepcionistas existentes.")
     public ResponseEntity<?> verRecep(){
         List<RecepcionistaDTO> recep=this.mapper.mapListToDto(this.service.verTodas());
         mensajeBody.put("Success",Boolean.TRUE);
