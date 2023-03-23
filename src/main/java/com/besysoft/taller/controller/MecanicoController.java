@@ -4,6 +4,7 @@ import com.besysoft.taller.dto.MecanicoDTO;
 import com.besysoft.taller.dto.mapper.IMecanicoMapper;
 import com.besysoft.taller.model.Mecanico;
 import com.besysoft.taller.service.interfaces.IMecanicoService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/mecanicos")
+@Api(value="Mecanico Controller", tags="Acciones permitidas para Mecanico")
 public class MecanicoController {
 
     private final IMecanicoService service;
