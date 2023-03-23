@@ -11,8 +11,10 @@ import org.mockito.ArgumentCaptor;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -249,18 +251,57 @@ class OrdenServiceImpleTest {
 
     @Test
     void cerrarOrden(){
-        
+        OrdenTrabajo factu=DatosDummy.getOrdenReparada();
+        factu.setEstado(EstadoOrden.FACTURADA);
+        when(repo.findById(factu.getId()))
+                .thenReturn(Optional.of(factu));
+        when(repo.save(factu))
+                .thenReturn(factu);
+        OrdenTrabajo cerrada=service.cerrarOrden(factu.getId());
+        assertThat(cerrada.getEstado().equals(EstadoOrden.CERRADA)).isTrue();
+        verify(repo).save(factu);
     }
 
     @Test
     void verTodas() {
+        List<OrdenTrabajo> listas=new ArrayList<>(
+                Arrays.asList(DatosDummy.getOrdenCreada(),
+                        DatosDummy.getOrdenReparacion())
+        );
+        when(repo.findAll())
+                .thenReturn(listas);
+        List<OrdenTrabajo> ordenes=service.verTodas();
+
+        assertThat(ordenes.size()).isEqualTo(2);
+        verify(repo).findAll();
     }
 
     @Test
-    void buscarById() {
+    void buscarByIdException() {
+        OrdenTrabajo creada=DatosDummy.getOrdenCreada();
+        when(repo.findById(creada.getId()))
+                .thenReturn(Optional.empty());
+
+        assertThatThrownBy(()->service.buscarById(creada.getId()))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining(String.format("La orden de trabajo %d no existe ",
+                        creada.getId()));
     }
 
     @Test
     void verByVehiculo() {
+        String patente=DatosDummy.getVehiculoFiat().getPatente();
+        OrdenTrabajo deFiat=DatosDummy.getOrdenCreada();
+        OrdenTrabajo otraFiat=DatosDummy.getOrdenReparacion();
+        List<OrdenTrabajo> listas=new ArrayList<>(
+                Arrays.asList(deFiat,otraFiat)
+        );
+        when(repo.findAll())
+                .thenReturn(listas);
+        List<OrdenTrabajo> ordenes=service.verByVehiculo(patente);
+
+        assertThat(ordenes.size()).isEqualTo(2);
+        verify(repo).findAll();
+        assertThat(ordenes.get(0).getVehiculo().getPatente()).isEqualTo(patente);
     }
 }
