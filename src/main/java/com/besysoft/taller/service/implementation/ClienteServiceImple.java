@@ -58,12 +58,12 @@ public class ClienteServiceImple implements IClienteService {
                                     "El cliente con email %s no se encuentra registrado.",
                             patente, email)
             );
-        } else if (!existeVehiculo && existeCliente) {
+        } else if (!existeVehiculo) {
             throw new NonExistingException(
                     String.format("El vehiculo con patente %s no existe ",
                             patente)
             );
-        } else if (!existeCliente && existeVehiculo) {
+        } else if (!existeCliente) {
             throw new NonExistingException(
                     String.format("El cliente con email %s no se encuentra registrado ",
                             email)
