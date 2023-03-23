@@ -25,7 +25,7 @@ public class MecanicoMapper implements IMecanicoMapper{
         MecanicoDTO dto=new MecanicoDTO();
         dto.setId(entidad.getId());
         dto.setPersonaDTO(this.persoMap.mapToDto(entidad.getPersona()));
-        dto.setActivo(entidad.getActivo());
+        dto.setActivo(entidad.getActivo().toString());
         dto.setEspecialidad(entidad.getEspecialidad());
         dto.setListaManoObra(this.obraMap.mapListToDto(entidad.getListaManoObra()));
         return dto;
@@ -36,7 +36,7 @@ public class MecanicoMapper implements IMecanicoMapper{
         Mecanico ent=new Mecanico();
         ent.setId(dto.getId());
         ent.setPersona(this.persoMap.mapToEntity(dto.getPersonaDTO()));
-        ent.setActivo(toUpperCase(dto.getActivo()));
+        ent.setActivo(toUpperCase(dto.getActivo().charAt(0)));
         ent.setEspecialidad(dto.getEspecialidad());
         //Nunca voy a ingresar lista de mano de obra dentro de mecanicos
         //No es necesario mapear a entidad la lista de obrasDTO aca
