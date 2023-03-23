@@ -82,6 +82,8 @@ public class OrdenTrabajoController {
     @PutMapping("/{id}/finalizacion")
     @ApiOperation(value="Permite finalizar una orden de trabajo con sus manos de obras completas " +
             "y todos los detalles de ordenes de trabajo")
+    //Se deben si o si agregar todos los detalles de ordenes de trabajo en este punto.
+    //Luego no es posible agregar otros.
     public ResponseEntity<?> finalizaReparacion(@PathVariable Long id,
                                                 @RequestBody @Valid OrdenDetalladaDTO dto){
         OrdenTrabajo orden=this.detalladaMapper.mapToEntity(dto);
