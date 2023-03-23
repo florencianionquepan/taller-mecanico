@@ -6,6 +6,8 @@ import com.besysoft.taller.dto.mapper.IVehiculoMapper;
 import com.besysoft.taller.model.Vehiculo;
 import com.besysoft.taller.service.interfaces.IVehiculoService;
 import javax.validation.Valid;
+
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/vehiculos")
+@Api(value="Vehiculo Controller", tags="Acciones permitidas para Vehiculo")
 public class VehiculoController {
 
     private final IVehiculoService service;
