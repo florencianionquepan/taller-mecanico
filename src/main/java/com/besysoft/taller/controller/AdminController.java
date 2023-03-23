@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/administrativos")
-@Api(value="Administrador Controller", tags="Acciones permitidas para Administrador")
+@Api(value="Administrador Controller", tags="Administrador Controller")
 public class AdminController {
 
     private final IAdminService service;

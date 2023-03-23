@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ordenes")
-@Api(value="Orden de Trabajo Controller", tags="Acciones permitidas para Orden de Trabajo")
+@Api(value="Orden de Trabajo Controller", tags="Orden de Trabajo Controller")
 public class OrdenTrabajoController {
 
     private final IOrdenService service;

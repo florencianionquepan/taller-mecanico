@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/clientes")
-@Api(value="Cliente Controller", tags="Acciones permitidas para Cliente")
+@Api(value="Cliente Controller", tags="Cliente Controller")
 public class ClienteController {
 
     private final IClienteService service;
