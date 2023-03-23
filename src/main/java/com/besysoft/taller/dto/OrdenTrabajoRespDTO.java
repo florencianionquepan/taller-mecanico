@@ -32,6 +32,9 @@ public class OrdenTrabajoRespDTO {
 
     private LocalDateTime fechaFinReparacion;
 
+    private RecepcionistaDTO recepcionista;
+    private AdministrativoDTO administrativo;
+
     private VehiculoDTO vehiculo;
 
     @JsonIgnoreProperties(value="ordenTrabajo")
