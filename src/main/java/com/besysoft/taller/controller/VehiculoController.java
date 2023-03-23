@@ -8,6 +8,7 @@ import com.besysoft.taller.service.interfaces.IVehiculoService;
 import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class VehiculoController {
     public Map<String,Object> mensajeBody= new HashMap<>();
 
     @PostMapping
+    @ApiOperation(value="Permite crear un nuevo vehiculo.")
     public ResponseEntity<?> altaVehiculo(@RequestBody @Valid VehiculoDTO dto){
         Vehiculo veNuevo=this.mapper.mapToEntity(dto);
         Vehiculo veGu=this.service.altaVehiculo(veNuevo);
@@ -43,6 +45,7 @@ public class VehiculoController {
     }
 
     @GetMapping("/{patente}")
+    @ApiOperation(value="Permite obtener el vehiculo a partir de su patente.")
     public ResponseEntity<?> buscarVehiculoPorPatente(@PathVariable String patente){
         Vehiculo vehPatente=this.service.buscarPorPatente(patente);
         VehiculoDTO resp=this.vehCliMap.mapToDto(vehPatente);
