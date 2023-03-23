@@ -47,6 +47,12 @@ public class OrdenTrabajoController {
 
     public Map<String,Object> mensajeBody= new HashMap<>();
 
+    private ResponseEntity<?> successResponse(OrdenTrabajoRespDTO dto){
+        mensajeBody.put("Success",Boolean.TRUE);
+        mensajeBody.put("data",dto);
+        return ResponseEntity.ok(mensajeBody);
+    }
+
     @PostMapping
     @ApiOperation(value="Permite generar una nueva orden de trabajo. Se debe registrar" +
             " la recepcionista a cargo de esta operación")
@@ -65,18 +71,14 @@ public class OrdenTrabajoController {
         ManoObra obra=this.manoObraMapper.mapToEntity(dto);
         OrdenTrabajo orden=this.service.altaManoObra(id, obra);
         OrdenTrabajoRespDTO ordenResp=this.ordenRespMapper.mapToDto(orden);
-        mensajeBody.put("Success",Boolean.TRUE);
-        mensajeBody.put("data",ordenResp);
-        return ResponseEntity.ok(mensajeBody);
+        return this.successResponse(ordenResp);
     }
 
     @PutMapping("/{id}/reparacion")
     @ApiOperation(value="Permite iniciar la reparación de una orden de trabajo")
     public ResponseEntity<?> modiOrden(@PathVariable Long id){
         OrdenTrabajoRespDTO dtoResp=this.ordenRespMapper.mapToDto(this.service.iniciarReparacion(id));
-        mensajeBody.put("Success",Boolean.TRUE);
-        mensajeBody.put("data",dtoResp);
-        return ResponseEntity.ok(mensajeBody);
+        return this.successResponse(dtoResp);
     }
 
     @PutMapping("/{id}/finalizacion")
@@ -111,9 +113,7 @@ public class OrdenTrabajoController {
     public ResponseEntity<?> cerrarOrden(@PathVariable Long id){
         OrdenTrabajo orden=this.service.cerrarOrden(id);
         OrdenTrabajoRespDTO dto=this.ordenRespMapper.mapToDto(orden);
-        mensajeBody.put("Success",Boolean.TRUE);
-        mensajeBody.put("data",dto);
-        return ResponseEntity.ok(mensajeBody);
+        return this.successResponse(dto);
     }
 
 
