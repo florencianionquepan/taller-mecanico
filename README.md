@@ -2,7 +2,7 @@
 Trabajo integrador del bootcamp dictado por Besysoft
 
 ## Caso Practico
-https://user-images.githubusercontent.com/85314154/232899980-08bfb808-8462-41e6-8207-55e3a975902e.png
+![Captura desde 2023-03-23 20-03-22](https://user-images.githubusercontent.com/85314154/232901022-535e8854-865b-49da-b728-3ba5bea21122.png)
 
 ### Actividades del caso
 1. Recibe cliente y vehículo:
@@ -37,4 +37,5 @@ aplicar.
 • Se cierra la Orden de Trabajó pasando del estado Facturada a Cerrada
 
 ### DER
-https://user-images.githubusercontent.com/85314154/232900495-c0383b1e-6c87-4f24-9a95-fef88a7d9176.png
+![Captura desde 2023-03-23 20-06-13](https://user-images.githubusercontent.com/85314154/232901059-715fd363-a9d1-45e8-9d85-b5e4b50a4004.png)
+
