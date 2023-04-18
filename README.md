@@ -2,7 +2,7 @@
 Trabajo integrador del bootcamp dictado por Besysoft
 
 ## Caso Practico
-![Captura desde 2023-03-23 20-03-22](https://user-images.githubusercontent.com/85314154/232901022-535e8854-865b-49da-b728-3ba5bea21122.png)
+![Captura desde 2023-03-23 20-03-22(1)](https://user-images.githubusercontent.com/85314154/232901929-053f23f0-3a6a-43a0-8fe5-3ef9018f837a.jpg)
 
 ### Actividades del caso
 1. Recibe cliente y vehículo:
