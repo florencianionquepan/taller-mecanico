@@ -1,10 +1,10 @@
 # taller-mecanico
 Trabajo integrador del bootcamp dictado por Besysoft
 
-##Caso Practico
-file:///home/florencia/Im%C3%A1genes/Capturas%20de%20pantalla/Captura%20desde%202023-03-23%2020-03-22.png![imagen](https://user-images.githubusercontent.com/85314154/232899980-08bfb808-8462-41e6-8207-55e3a975902e.png)
+## Caso Practico
+(https://user-images.githubusercontent.com/85314154/232899980-08bfb808-8462-41e6-8207-55e3a975902e.png)
 
-###Actividades del caso
+### Actividades del caso
 1. Recibe cliente y vehículo:
 • Valida existencia de Vehículo por patente.
 • Si existe Vehículo se validan los datos del Cliente.
@@ -36,5 +36,5 @@ aplicar.
 6. Entrega de Vehículo:
 • Se cierra la Orden de Trabajó pasando del estado Facturada a Cerrada
 
-###DER
-file:///home/florencia/Im%C3%A1genes/Capturas%20de%20pantalla/Captura%20desde%202023-03-23%2020-06-13.png![imagen](https://user-images.githubusercontent.com/85314154/232900495-c0383b1e-6c87-4f24-9a95-fef88a7d9176.png)
+### DER
+(https://user-images.githubusercontent.com/85314154/232900495-c0383b1e-6c87-4f24-9a95-fef88a7d9176.png)
